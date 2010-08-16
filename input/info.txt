@@ -1,5 +1,16 @@
-Kontakt
+Informacje o autorze i stronie
 
 index: false
 
+* Kontakt
+Szymon Witamborski\\
 mail: santamon ø gmail · com
+
+* Licencja treści
+Treść dostępna jest na licencji [CC by] http://creativecommons.org/licenses/by/3.0/deed.pl . W skrócie oznacza to, że można ją cytować we fragmentach lub w całości
+pod warunkiem umieszczenia łącza do strony z oryginałem.
+
+* Strona
+Strona używa systemu Makeblog http://launchpad.net/makeblog do generowania treści.
+Źródła treści strony dostępne są pod adresem: ! http://github.com/santamon/santamon.github.com/tree/master/input/ .
+

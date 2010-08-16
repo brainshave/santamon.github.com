@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="media/makeblog.css" />
     <link rel="stylesheet" href="media/common.css" />
     <link rel="stylesheet" href="media/index.css" />
-    <title>Szymon Witamborski: Long Standing Bug</title>
+    <title>Long Standing Bug - Szymon Witamborski</title>
     <!-- work around IE not handling properly unknown tags -->
     <!-- suggested here: http://diveintohtml5.org/semantics.html -->
     <script>
@@ -34,8 +34,8 @@
       <aside id="menus">
 	<nav id="misc" class="menu">
 	  <ul>
-	    <li><a href="archive.html">Archiwum</a></li>
-	    <li><a href="kontakt.html">Kontakt</a></li>
+	    <li><a href="archive.html">Archiwa</a></li>
+	    <li><a href="info.html">Info</a></li>
 	  </ul>
 	</nav>
 	<nav id="projects" class="menu">
@@ -52,11 +52,54 @@
 	</nav>
       </aside>
       <div id="latest">
-	<div id="latest_text">Najnowszy wpis: <date>piątek, 13 sierpień 2010</date></div>
+	<div id="latest_text">Najnowszy wpis: <date>poniedziałek, 16 sierpień 2010</date></div>
 	<article>
 	  <h1>Intro</h1>
 	  
-<p></p>
+<p>Witam serdecznie. O blogu, który by się tak nazywał, działał i wyglądał myślałem
+od jakiegoś czasu. Będę pisał o własnych zainteresowaniach,
+skupiając się zapewne w głównej mierze na języku <a href="http://clojure.org">Clojure</a> .
+Mam dwa pomysły na pracę mgr, których, dopóki nie dorosną, nie zdradzę.</p>
+
+<p>Wygląd strony jest minimalistyczny; mam nadzieję, że jeśli nie przypadnie 
+komuś do gustu to przynajmniej nie będzie przeszkadzał w dostępie do treści.</p>
+
+<h2>Makeblog</h2>
+
+<p>Na potrzeby bloga napisałem kilka skryptów do generowania stron off-line.
+Kilka zalet takiego rozwiązania (porównując np. z Wordpressem):</p>
+<ul>
+<li>strony ładują się szybciej, nie ma odwołań do bazy danych,</li>
+<li>mogę użyć dowolnego edytora do edycji stron/wpisów,</li>
+<li>całą treść trzymam u siebie na dysku, zmiana hostingu jest dzięki temu uproszczona.</li>
+</ul>
+<p>W tym momencie strona hostowana jest na <a href="http://github.com/santamon/santamon.github.com,">GitHubie</a>
+co mi bardzo odpowiada: synchronizacja treści przez gita, cud-miód <code>:)</code> .</p>
+
+<p>Makeblog używa składni podobnej do <a href="http://orgmode.org"><code>org-mode</code>-a</a> .
+Dzięki temu mogę pisać wpisy w czystym tekście, polecam zobaczyć
+<a href="http://github.com/santamon/santamon.github.com/blob/master/input/intro.txt">plik źródłowy tego wpisu</a> 
+oraz plik <a href="Syntax.html">Syntax.html</a> , który używałem do testowania parsera.
+<a href="http://github.com/santamon/santamon.github.com/blob/master/templates/article.html">Schematy stron</a> używają bardzo prostej składni.</p>
+
+<h3>Skąd taka nazwa?</h3>
+
+<p>Proste: Makeblog używa programu <strong>make</strong> do śledzenia, które pliki mają być
+zaktualizowane. Skrypty do parsowania tekstu i indeksowania są napisane
+w Pythonie. Dlaczego nie w Clojure? Może więcej o Makeblogu w następnym
+wpisie.</p>
+
+<p>Projekt jest hostowany na Launchpadzie: <a href="http://launchpad.net/makeblog">http://launchpad.net/makeblog</a> .
+Ludzie przywykli do githuba wolą od razu zobaczyć kod: <a href="http://bazaar.launchpad.net/~santamon/makeblog/trunk/files">http://bazaar.launchpad.net/~santamon/makeblog/trunk/files</a> .</p>
+
+<h2>Braki i niedoróbki</h2>
+
+<p>Póki co zauważyłem problemy z renderowaniem czcionek pod Windowsem (gdy używa się
+ClearType). Dlatego na Viście i 7 zostaną użyte kroje systemowe. Na XP jeszcze
+nie wiem co zrobić.</p>
+
+<p>Brakuje kilku istotnych łebdwazerowych funkcji, czyli tagów i RSS-a lub Atoma.
+Jest w moim TODO.</p>
 
 	</article>
       </div>
