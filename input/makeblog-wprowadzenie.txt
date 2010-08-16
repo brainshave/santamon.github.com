@@ -1,0 +1,6 @@
+Makeblog
+
+date: 2010-08-13
+index: false
+
+

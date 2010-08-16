@@ -1,0 +1,105 @@
+/* Main font and page settings */
+
+body {
+    font-family: 'Segoe UI',  Pfennig, Verdana, sans-serif;
+    color: #AAA;
+    background: #fff url('bug-light.png') no-repeat right bottom;
+}
+
+a {
+    background-color: #f3f3f3;
+    color: #555;} 
+
+#main_wrapper {
+    max-width: 45em;
+    margin: auto;
+}
+
+
+#latest, #misc, #menus {
+    clear: both;
+}
+
+/* Latest article part */
+
+#latest {
+    clear: both;
+    border-top: 2px solid #DDD;
+}
+
+#latest_text {
+    margin: 0 0 10px 0;
+}
+
+article {
+    color: #222;
+}
+
+article > * {
+    margin: 0 0 8px 15px;
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+    clear: both;
+    font-family: Candara, Jura;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    border-left: 0;
+}
+
+h1 {
+    margin: 15px 0 10px 0;
+}
+
+h1, h4, h5, h6, h7 {
+    font-weight: 700;
+}
+
+h2, h3, h4, h5, h6, h7 {
+    margin-top: 20px;
+}
+
+article ul, article ol {
+    padding-left: 1.5em;
+}
+
+blockquote, pre {
+    padding-left: 0.4em;
+    border-width: 1px 0 0 10px;
+    border-style: solid;
+}
+
+blockquote {
+    font-family: Pfennig;
+    font-style: italic;
+    font-size: 1.15em;
+    border-color: #ded;
+}
+
+blockquote em, blockquote i {
+    font-style: normal;
+}
+
+pre, code {
+    font-family: Consolas, Inconsolata;
+}
+
+pre {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-color: #dee;
+    font-size: 1.05em;
+}
+
+code {
+    font-size: 0.96em;
+}
+
+footer {
+    display: block;
+    clear: both;
+    font-family: Candara, Cantarell;
+    font-size: 0.8em;
+    text-align: center;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="media/bug-inv.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="media/fonts.css" />
+    <link rel="stylesheet" href="media/makeblog.css" />
+    <link rel="stylesheet" href="media/common.css" />
+    <link rel="stylesheet" href="media/article.css" />
+    <title>Syntax, Fist line = title, second line can be subtitle</title>
+    <!-- work around IE not handling properly unknown tags -->
+    <!-- suggested here: http://diveintohtml5.org/semantics.html -->
+    <script>
+      document.createElement("article");
+      document.createElement("nav");
+      document.createElement("aside");
+      document.createElement("footer");
+      document.createElement("date");
+    </script>
+  </head>
+  <body>
+    <div id="main_wrapper">
+      <div id="header">
+	<div id="sw"><a href="index.html">S/W</a></div>
+	<nav id="menu">
+	  <a href="archive.html">Archiwum</a>,
+	  <a href="kontakt.html">Kontakt</a>
+	</nav>
+      </div>
+      <div id="latest">
+	<time id="latest_text">poniedziałek, 18 lipiec 2011</time>
+	<article>
+	  <h1>Syntax, Fist line = title, second line can be subtitle</h1>
+	  
+<p>After another empty line, first paragraph starts. Like everywhere,
+end-of-lines aren't sigficant until ended with two backslashes.<br />
+Generally, paragraphs are divided by empty lines. Revealing, huh.</p>
+
+<h2>Sections titles are marked by asterisks. (Stealed from org-mode)</h2>
+
+<p>One star means h2 tag because h1 is reserved for article title.
+By the way, section title is one liner, a paragraph begins immediately after.
+(Empty line is optional).</p>
+
+<h2>Lists</h2>
+
+<p>There can be bulleted lists. In the input text each list elem starts
+ with dash.</p>
+<ul>
+<li>item one</li>
+<ol>
+<li>asdf</li>
+<ul>
+<li>uiop</li>
+</ul>
+<li>qwer</li>
+</ol>
+<li>item two</li>
+<ul>
+<li>subitem of "item two", identation matters.</li>
+<ul>
+<li>obvious.</li>
+</ul>
+</ul>
+<ol>
+<li>obviously there can be numbered lists.</li>
+<li>they start with hash mark.</li>
+</ol></ul>
+<h2>Comments</h2>
+
+<p>Lines starting with percentage mark (%) are comments. You won't see this:</p>
+
+<h2>Links</h2>
+
+<p>Any word ending with .html pointing to existing file
+or to an html file that has its *.txt source
+or beginning with an http(s):// will treated as a link.
+The word immediately before address will be text of the link.
+If it's ! then link address will be used.</p>
+
+<p>Tests:</p>
+<ul>
+<li><a href="http://pstryk.net/~santamon">http://pstryk.net/~santamon</a> sdfs  sadf</li>
+<li><a href="http://ps-tr@yk.net/~sant@amon"><em>UIOP</em></a> sdfwefw</li>
+<li><a href="Syntax.html">ASDF</a> wefwe</li>
+<li><a href="Syntax.html">qwer uiop</a></li>
+<li><a href="archive.html"><code>tyuio ghjk tyui</code></a></li>
+<li>sd fas Syntax.html wefwe</li>
+<li><a href="http://pstryk.net/asdf/asdf/asdf/#123">tyu erty erty wert</a> wefwe</li>
+<li>QWER http://pstryk.net/~santamon wfewe we</li>
+<li><a href="http://google.com/bsd/a/a_a_a"><em>asdf asdfas</em></a></li>
+</ul>
+<p>Also, appending ! to the address will make it plain text.</p>
+
+<h4>Images</h4>
+
+<p>All words ending with .png, .jpg, .gif, .bmp (maybe some more) will be
+translated to inlined thumbnail pointing to original image, only if
+they point to existing file or if they're begining with <code>http://</code> or
+<code>https://</code>. If ! is added like in asdf.png! , original image will be
+inlined.</p>
+
+<h3>Font Styles</h3>
+<ul>
+<li><em>italic</em> between slashes</li>
+<li><u>underlines</u> between underscores</li>
+<li><strong>bolds</strong> between asterisks</li>
+<li><del>crosses</del> between dashes</li>
+<li><code>code()</code> between monkeys: @</li>
+<li>first, <strong>bolded, then <em>emphasised</em></strong></li>
+<li><em><strong><del>asdf</del></strong></em> <del><strong><em>qwer</em></strong></del></li>
+<li>hint: they will only work if there is no space between symbol and a word.</li>
+<ul>
+<li><strong>this works</strong></li>
+<li>* this won't work*</li>
+</ul></ul>
+<h2>Positioning</h2>
+
+<p class="makeblog_box makeblog_box_right">Paragraphs that begins with be right-aligned, right-floated,
+with auto width.</p>
+
+<p class="makeblog_box makeblog_box_left">Analogical to =>.</p>
+
+<p class="makeblog_right">Paragraphs that begins with -> will be right-aligned. -> adsf ->
+asdf</p>
+
+<p class="makeblog_center">Paragraphs that begins with | will be centered.</p>
+
+<h2>Code and Qutoes</h2>
+
+<p>To be thought.</p>
+
+<p>Each line of quote should begin with >, like this:</p>
+
+<blockquote>
+ Gravity can't be held responsible for people
+ falling in love.<br />
+ <em>Albert Einstein</em>
+</blockquote>
+
+<h2>My Beautiful English</h2>
+
+<p>To be learned.</p>
+
+	</article>
+      </div>
+      <footer>
+	&copy; 2010 Szymon Witamborski
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+body {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+#main_wrapper {
+    margin-top: 0px;
+}
+
+#header {
+    line-height: 1.5em;
+}
+
+#sw {
+    font-family: Candara, Jura;
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-right: 10px;
+    float:left;
+}
+
+#sw a {
+    background: none;
+    text-decoration: none;
+    color: #000;
+}
+
+#menu {
+    font-family: Corbel, Cantarell;
+    font-size: 0.9em;
+}
+
+#menu a {
+    background: none;
+    color: #444;
+    text-decoration: none;
+}
+
+.archive_list {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.archive_day {
+    font-family: Candara, Jura;
+    font-size: 1.4em;
+    margin-right: 3px;
+}
+
+.archive_list li a {
+    background: none;
+    color: #222;
+}

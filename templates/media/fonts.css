@@ -1,0 +1,120 @@
+/* Cantarell http://abattis.org/cantarell/
+   These files are made available under the GNU General Public License Version 3 or any later version, with an additional permission for embedding them in documents.
+ */
+
+@font-face {
+  font-family: 'Cantarell';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Cantarell'), url('Cantarell-Regular.ttf') format('truetype');
+}
+/* @font-face { */
+/*   font-family: 'Cantarell'; */
+/*   font-style: normal; */
+/*   font-weight: bold; */
+/*   src: local('Cantarell'), url('Cantarell-Bold.ttf') format('truetype'); */
+/* } */
+/* @font-face { */
+/*   font-family: 'Cantarell'; */
+/*   font-style: italic; */
+/*   font-weight: normal; */
+/*   src: local('Cantarell'), url('Cantarell-Oblique.ttf') format('truetype'); */
+/* } */
+/* @font-face { */
+/*   font-family: 'Cantarell'; */
+/*   font-style: italic; */
+/*   font-weight: bold; */
+/*   src: local('Cantarell'), url('Cantarell-BoldOblique.ttf') format('truetype'); */
+/* } */
+
+/* Jura OFL + GPL v.3
+   http://openfontlibrary.org/files/Daniel_J/98
+ */
+@font-face {
+  /* Light */
+  font-family: "Jura";
+  src: url("JuraLight.ttf") format("truetype");
+  font-weight:  300;
+  font-style:   normal;
+  font-variant: normal;
+  font-stretch: normal;
+}
+/* @font-face { */
+/*   /\* Book *\/ */
+/*   font-family: "Jura"; */
+/*   src: url("JuraBook.ttf") format("truetype"); */
+/*   font-weight:  400; */
+/*   font-style:   normal; */
+/*   font-variant: normal; */
+/*   font-stretch: normal; */
+/* } */
+@font-face {
+  /* Medium */
+  font-family: "Jura";
+  src: url("JuraMedium.ttf") format("truetype");
+  font-weight:  500;
+  font-style:   normal;
+  font-variant: normal;
+  font-stretch: normal;
+}
+@font-face {
+  /* DemiBold */
+  font-family: "Jura";
+  src: url("JuraDemiBold.ttf") format("truetype");
+  font-weight:  700;
+  font-style:   normal;
+  font-variant: normal;
+  font-stretch: normal;
+}
+
+/* Pfennig, OFL
+   http://openfontlibrary.org/files/Daniel_J/96
+ */
+
+@font-face {
+  /* BoldItalic */
+  font-family: "Pfennig";
+  src: url("PfennigBoldItalic.otf") format("opentype");
+  font-weight:  700;
+  font-style:   italic;
+  font-variant: normal;
+  font-stretch: normal;
+}
+@font-face {
+  /* Bold */
+  font-family: "Pfennig";
+  src: url("PfennigBold.otf") format("opentype");
+  font-weight:  700;
+  font-style:   normal;
+  font-variant: normal;
+  font-stretch: normal;
+}
+@font-face {
+  /* Italic */
+  font-family: "Pfennig";
+  src: url("PfennigItalic.otf") format("opentype");
+  font-weight:  400;
+  font-style:   italic;
+  font-variant: normal;
+  font-stretch: normal;
+}
+@font-face {
+  /* Medium */
+  font-family: "Pfennig";
+  src: url("Pfennig.otf") format("opentype");
+  font-weight:  500;
+  font-style:   normal;
+  font-variant: normal;
+  font-stretch: normal;
+}
+
+/* Inconsolata, OFL
+   http://www.levien.com/type/myfonts/inconsolata.html
+ */
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: normal;
+  src: url('Inconsolata.otf') format('opentype');
+}
