@@ -1,0 +1,11 @@
+* Long Standing Bug - EN
+Uses Makeblog which is, atm, hosted on Launchpad:
+http://launchpad.net/makeblog
+
+Most of the site is in Polish, I will add some English content in future.
+
+* Long Standing Bug - PL
+Strona używa systemu Makeblog, hostowanego póki co na Launchpadzie:
+http://launchpad.net/makeblog
+
+Większość treści jest/będzie po polsku.
