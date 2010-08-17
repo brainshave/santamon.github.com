@@ -1,16 +1,22 @@
-Informacje o autorze i stronie
+Info
 
 index: false
 
 * Kontakt
-Szymon Witamborski\\
+Szymon Witamborski,\\
 mail: santamon ø gmail · com
+
+Profile tu i tam:
+- [GitHub - kody źródłowe] http://github.com/santamon ,
+- [Launchpad - j/w] http://launchpad.net/~santamon .
 
 * Licencja treści
 Treść dostępna jest na licencji [CC by] http://creativecommons.org/licenses/by/3.0/deed.pl . W skrócie oznacza to, że można ją cytować we fragmentach lub w całości
 pod warunkiem umieszczenia łącza do strony z oryginałem.
 
 * Strona
-Strona używa systemu Makeblog http://launchpad.net/makeblog do generowania treści.
-Źródła treści strony dostępne są pod adresem: ! http://github.com/santamon/santamon.github.com/tree/master/input/ .
+Generowana przez Makeblog http://launchpad.net/makeblog , hostowana na
+serwerach GitHuba http://github.com .
+
+Źródła treści strony dostępne są tu: ! http://github.com/santamon/santamon.github.com/tree/master/input/ .
 
