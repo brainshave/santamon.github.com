@@ -1,0 +1,75 @@
+Makeblog: je się z...
+
+date: 2010-08-21
+
+Makeblog powstał dla mojej własnej przyjemności. Poza przyczyną powstania (Hej, można by tu przytoczyć
+argument przyczyny powstania czegokolwiek...) wszystkie dalsze decyzje wyglądają całkiem logicznie.
+
+* Marketing
+Co daje Makeblog? W kilku punktach:
+
+# Generuje Twojego bloga na Twoim komputerze. = Problem backupu rozwiązany o ile sam[a] je robisz :P .
+# Wysyłasz wygenerowane pliki na wybrany hosting, możesz synchronizować go łatwo między wieloma serwerami.
+# Szybkość. Są to gotowe, wygenerowane pliki HTML, co znaczy, że nie ma miliarda odwołań do bazy danych za każdym otwarciem strony.
+# Możesz pisać bloga w swoim ulubionym edytorze tekstowym. *Giń, o TEXTAREA !!*
+# Domyślna składnia plików tekstowych jest prosta, coś jak ASCII art dla HTML-a. (zostanie omówiona za jakiś czas).
+  - Domyślną składnię można zmienić ;) .
+# Tworzenie szablonów jest niesłychanie proste (i ograniczone za razem ;) ).
+  - Zapomniałem wspomnieć, że pliki generowane są na podstawie szablonów ;) .
+# Pisanie i instalacja rozszerzeń są banalnie proste i można je pisać w dowolnym języku.
+
+* Dlaczego *make*  ?
+Make wygląda na przesłuszny wybór, gdy chodzi o kompilację wielu plików z jednej formy do drugiej.
+Przy tym kompilowane są tylko te cele, które są starsze od plików, z których powstały.
+Oczywiście tak samo dobry byłby każdy inny system jak np. jam czy ant...
+Make'a po prostu znam (trochę). Kiedyś bawiłem się także jamem (zaciekawił mnie dlatego, że jest używany
+do budowania Haiku http://haiku-os.org , w sensie do budowania _całego_ systemu operacyjnego...).
+Dodatkową motywacją było poćwiczenie mózgownicy. No bo kto dzisiaj z palca pisze Makefile'e... ;)
+
+* Zasada działania
+Najprościej ująć to tak: make zagląda do katalogu z plikami wejściowymi, dla każdego typu odpala
+odpowiedni skrypt (np. inny dla plików graficznych, inny dla tekstowych, o czym więcej za chwilę,
+przy okazji opisu rozszerzeń), który wypluwa odpowiedni plik do katalogu wyjściowego.
+
+** Kawałki wbudowane
+W Makeblog wbudowany jest tylko jeden element: indekser. Jest odpowiedzialny za kompilowanie
+archiwum archive.html plików, głównej strony index.html i (w przyszłości) koryta RSS albo Atom
+(serio, nie wiem jak przetłumaczyć /feed/, żeby oddało to sens oryginału ;) ).
+
+** Pisanie wtyczek
+Rozszerzanie Makeblog jest bardzo łatwe. Instalacja rozszerzenia polega na wrzuceniu jej do katalogu
+z Makeblogiem. Rozszerzenie powinno składać się z przynajmniej jednego pliku @Makefile@ lub @~ *.mk@ .
+To, co robi z plikami wejściowymi jest już prywatną sprawą autora wtyczki. Nie jest jednak pozostawiony
+sam[a] sobie i stworzyłem kilka makr, które będą pomocne:
+
+- @ALL_TARGETS@ : dodajemy do niego wszystkie pliki, które składają się na bloga (przez operator @+=@ ), np. pliki @~ *.html@, które będą wynikiem działania naszej wtyczki.
+- @INDEXED_TARGETS@ : dodajemy do niego wszystkie pliki, które chcemy, by zostały zindeksowane. (Tak naprawdę to tutaj musimy wygenerować pliki z metadanymi, zawierające wyekstraktowane tytuł, datę, itd.)
+
+Z innej strony zasadę działania można opisać tak: Makeblog najpierw przetworzy wszystkie pliki z @ALL_TARGETS@ a później
+wygeneruje archiwum i indeks na podstawie @INDEXED_TARGETS@ .
+
+** Pierwsza wtyczka: txt-to-html
+Pierwszym rozszerzeniem (włączonym do Makebloga) jest @txt-to-html@. Parsuje pliki tekstowe (z najprostszą
+z możliwych składni, wierzcie mi ;) ). Sama składnia jest częściowo ukradziona z org-mode'a http://orgmode.org ale uprościłem
+ją nieco na własne potrzeby. Będzie omówiona wkrótce, w osobnym wpisie.
+
+Myślę, że &Makefile z tej wtyczki& http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/txt-to-html/txt-to-html.mk
+jest dobrym punktem startowym dla pisania nowych. Myślę, że o pisaniu wtyczek pojawi się wpis w bliskiej przyszłości.
+
+* Python zamiast Clojure WTF
+Generalnie rozszerzenia do Makeblog można pisać w *dowolnym* języku. Ludzie, którzy mnie znają osobiście wiedzą,
+że mam lekkie zboczenie na temat Clojure.
+Indekser i parser są napisane w Pythonie z tych powodów:
+
+# JVM+Clojure wolno startują.
+  - Najpierw odpalona musi zostać JVM, później jeszcze samo Clojure, w sumie 2s (na moim sprzęcie). Jest to niewybaczalne jeśli ma być skrypt/program ma być odpalany osobno dla każdego pliku wejściowego.
+  - Python i inne języki skryptowe są interpretowane i startują zazwyczaj pomijalnie szybko.
+# Główna logika parsera zawarta jest w wyrażeniach regularnych.
+  - W takim przypadku język programowania jest sprawą drugorzędną, o ile mają wsparcie dla wyr. reg.. Oba mają.
+  - Podobno parserów &nie powinno& http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454 się pisać wyłącznie w wyrażeniach regularnych ;), no cóż :P
+# Pythona znam. Pamiętam, że 2 lata temu, jak uczyłem się Ruby'ego napisałem coś podobnego w nim, Lecz:
+  - Ruby'ego już nie pamiętam.
+  - Skrypt zagubiłem między formatami/zmianami kompów/itd., zostawmy więc to w kategorii legend, które będę opowiadał wnukom.
+Ponieważ (2) i (3) są /in plus/ dla Pythona, (1) jest /in minus/ dla Clojure, (3) jest /in minus/ dla Ruby'ego,
+wygrywa Python.\\
+/c.b.d.u./
