@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="media/bug-inv.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="media/fonts.css" />
+    <link rel="stylesheet" href="media/makeblog.css" />
+    <link rel="stylesheet" href="media/common.css" />
+    <link rel="stylesheet" href="media/article.css" />
+    <title>Pierwsze prawo (młodego) parsownika</title>
+    <!-- work around IE not handling properly unknown tags -->
+    <!-- suggested here: http://diveintohtml5.org/semantics.html -->
+    <script>
+      document.createElement("article");
+      document.createElement("nav");
+      document.createElement("aside");
+      document.createElement("footer");
+      document.createElement("date");
+    </script>
+  </head>
+  <body>
+    <div id="main_wrapper">
+      <div id="header">
+	<div id="sw"><a href="index.html">S/W</a></div>
+	<nav id="menu">
+	  <a href="archive.html">Archiwa</a>,
+	  <a href="info.html">Info</a>
+	</nav>
+      </div>
+      <div id="latest">
+	<time id="latest_text">wtorek, 31 sierpień 2010</time>
+	<article>
+	  <h1>Pierwsze prawo (młodego) parsownika</h1>
+	  <p><em><strong>Parsownik</strong> &mdash; osoba pisząca parsery.</em><br />
+Tytuł zawdzięczam mojemu bratu :)
+</p><p>Pierwsze prawo młodego parsownika brzmi:
+</p><blockquote><p><del>Nigdy nie pisz parserów używając wyrażeń regularnych.</del>
+</p></blockquote><p>Okej, nie czuję się w tym temacie Wielkim Autorytetem a wyrażenia regularne mają
+dobrą opinię w pewnych kręgach więc raczej powyższa zasada powinna brzmieć:
+</p><blockquote><p>Nigdy nie pisz parserów tak jak pewnego razu zrobił to Szymon.
+</p></blockquote><p>O pisaniu parserów za pomocą regexpów jest bardzo dobry wątek na Stackoverflow
+z <a href="http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454">bardzo piękną odpowiedzią</a>.
+</p>
+	</article>
+      </div>
+      <footer>
+	&copy; 2010 Szymon Witamborski
+      </footer>
+    </div>
+  </body>
+</html>
