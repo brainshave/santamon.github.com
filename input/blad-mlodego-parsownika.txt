@@ -1,0 +1,149 @@
+Błąd młodego parsownika
+
+date: 2010-09-02
+index: false
+
+/*Parsownik* -- osoba pisząca parsery./\\
+/(Termin zawdzięczam mojemu bratu.)/
+
+Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze w tym jest to, że
+zacząłem pisać następny wpis już następnego dnia po wystartowaniu
+bloga. Cały wpis powstał bez sprawdzania czy kompiluje się ładnie do
+HTML-a. Po ukończeniu skompilował się. Niestety źle. Bardzo
+źle. Tagi przeplatały się w nieprawidłowy sposób, np. gwiazdka gdzieś
+wcześniej w którymś paragrafie i gwiazdka gdzieś dalej w wypunktowaniu
+powodowały otoczenie to tagiem \&lt;b\&gt;.
+
+Mój parser działał ogólnie tak, że miał listę par: wyrażenie regularne
++ funkcja, która wywoływana była na tekście do którego zostało
+dopasowane to wyrażenie. Ekstremalne znaczenie miała tutaj kolejność
+w jakim wyrażenia te były ułożone. Aby zapobiec złemu przeplataniu się
+tagów wyrażenia ozdobników (takich jak pogrubienie, pochylenie,
+podkreślenie; do tego używam pojedynczych znaków, np:
+@\/asdf\/@ → @\&lt;em\&gt;asdf\&lt;\/em\&gt;@)
+stały się bardzo skomplikowane. Mam na myśli coś takiego
+(@\@@ to znacznik):
+
+@@
+r"(?<!<|\w|[@])\@(?=\S)([^@]+)(?<=\S)\@(?=\W)"
+@@
+
+Nie jestem specjalistą od wyrażeń regularnych ale użycie ich wydawało
+mi się bardzo obiecujące. Szczególnie łatwo było na początku ;).
+
+Przedstawione podejście miało poważne wady:
+
+# za każdym razem przetwarzany był cały tekst,
+# wyrażenia widziały go jako sam tekst nie jako strukturę,
+# w praktyce dopuszczalne było przeplatanie się znaczników HTML j/w.
+
+Ogólnie całość sprawiała wrażenie jakby trzymała się na rzęsach :P.
+Ciągłe dopasowywanie regexpów mogło się szybko skończyć kodem
+spaghetti... Jednym słowem
+
+* Fail.
+
+W sumie spodziewałem się tego po przeczytaniu &tego wątku na Stack Overflow& http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454.
+Dotyczył on parsowania HTML-a więc najpierw pomyślałem, że moja 
+wymarzona składnia nie jest aż tak trudna do przetworzenia.
+
+Wróciłem do Stack Overflow jak mój parser zaczął nawalać...
+
+* Pyparsing
+
+>>
+Have you tried using an XML parser instead?
+-- Will http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454
+<<
+
+Wow. To mi dało myślenia. Oczywiście nie chodziło o użycie parsera XML-a
+ale śladem "gotowych, dobrze sprawdzonych rozwiązań" trafiłem na
+pyparsing http://pyparsing.wikispaces.com/.
+
+Pyparsing jest (dla mnie, laika z tego tematu :P ) parserem dowolnie
+zdefiniowanej gramatyki. Od np. &ANTLR-a& http://www.antlr.org/ różni się
+tym, że gramatykę definiuje się za pomocą wyrażeń w Pythonie (używając
+zwykłych operatorów takich jak @+@ czy @|@)
+zamiast tradycyjnego EBNF http://pl.wikipedia.org/wiki/Notacja_EBNF.
+
+Idealnie dla mnie. Wystarczyło zrozumieć filozofię działania, przeczytać
+&krótką i przystępną instrukcję& http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html
+oraz czasem zajrzeć do &dokumentacji API& http://packages.python.org/pyparsing/.
+
+** Prosty przykład
+Skoro jesteśmy przy moich *pogrubieniach* za pomocą gwiazdki i
+/pochyleniach/ za pomocą ukośnika, proponuję prosty, rekurencyjny przykład.
+
+Najpierw wersja nierekurencyjna:
+
+@@
+# -*- coding: utf-8 -*-
+from pyparsing import *
+from pprint import pprint
+
+undecorated = OneOrMore( # tłumaczy się samo przez się
+                         Word( # słowo (przynajmniej 1 znak) złożone z:
+                               alphanums)) # litery i cyfry
+
+bold = "*" + undecorated + "*"   # prawda,
+italic = "/" + undecorated + "/" # że proste? :)
+
+# metoda parseString() służy do... parsowania napisów
+pprint(bold.parseString("*asdf*").asList())
+pprint(italic.parseString("/qwer/").asList())
+@@
+
+Wynikiem tego będzie:
+
+@@
+['*', 'asdf', '*']
+['/', 'qwer', '/']
+@@
+
+Jak widać, pyparsing dzieli łańcuch na kawałki określone w gramatyce
+(tokeny). Domyślnie omija też ew. białe znaki pomiędzy nimi.
+
+Rekurencyjny przykład będzie nieco dłuższy. Ponieważ Python nie pozwala
+na używanie niezdefiniowanych symboli, pyparsing załatwia to
+klasą @Forward@, która umożliwia najpierw zdefiniowanie elementu
+a później podanie jego definicji za pomocą operatora @\&lt;\&lt;@.
+
+@@
+bold = Forward()
+italic = Forward()
+
+expression = OneOrMore( undecorated | bold | italic )
+
+# Domyślnie wszystkie elementy odnalezione przez pyparsing
+# zwracane są jako jednowymiarowa lista, Group stworzy
+# listę zagnieżdżoną
+bold << Group("*" + expression + "*")
+italic << Group("/" + expression + "/")
+
+pprint(expression.parseString("""
+czysty tekst
+/krzywo/ *grubo*
+/*krzywo grubo*/ */grubo krzywo/*
+*grubo /krzywo i jeszcze raz *grubo*/*
+""").asList())
+@@
+
+Tym razem wyjście wygląda tak:
+
+@@
+['czysty', 'tekst',        # czysty tekst
+ ['/', 'krzywo', '/'],     # /krzywo/
+ ['*', 'grubo', '*'],      # *grubo*
+ ['/', ['*', 'krzywo', 'grubo', '*'], '/'], # /*krzywo grubo*/
+ ['*', ['/', 'grubo', 'krzywo', '/'], '*'], # */grubo krzywo/*
+ ['*', 'grubo',
+  ['/', 'krzywo', 'i', 'jeszcze', 'raz',
+   ['*', 'grubo', '*'],
+   '/'],
+  '*']]
+@@
+
+Ostatni kawałek przykład jest szczególnie ciekawy. Zostawiam go
+do samodzielnego przeanalizowania :P. Dla mnie to była eureka,
+która pozwoliła mi dalej popchnąć projekt :)
+
