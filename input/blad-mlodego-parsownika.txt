@@ -1,13 +1,12 @@
 Błąd młodego parsownika
 
 date: 2010-09-03
-index: false
 tags: Python, pyparsing, Makeblog, dokumentacja porażek
 
 /*Parsownik* -- osoba pisząca parsery./\\
 /(Termin zawdzięczam mojemu bratu.)/
 
-Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze w tym jest to, że
+Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze jest to, że
 zacząłem pisać następny wpis już następnego dnia po wystartowaniu
 bloga. Cały wpis powstał bez sprawdzania czy kompiluje się ładnie do
 HTML-a. Po ukończeniu skompilował się, niestety źle. Bardzo
@@ -160,7 +159,7 @@ która pozwoliła mi dalej popchnąć projekt :)
 
 Oba przykłady umieszczone są w &jednym pliku& input/blad-mlodego-parsownika.py.
 Plik ten posiada jeszcze jeden cukierek dla osób wnikliwych ;).
-Przedstawiony przykład jest uproszczeniem takiego samego kodu
+Przedstawiony przykład jest uproszczeniem analogicznego kodu
 z mojego parsera http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/txt-to-html/txt-to-html.py.
 
 Takie drzewko jak w ostatnim listingu możemy już dowolnie przetworzyć
@@ -169,20 +168,17 @@ zdefiniowanym elemencie gramatyki, gdzie @fn@ to funkcja.
 Jeśli @fn@ zwróci jakąś wartość to element w drzewie zostanie
 zastąpiony tą wartością.
 
-* Zbierając do kupy
+* Podsumowanie
 Nowy parser pozbawiony jest wad poprzedniego, przede wszystkim:
 
+# działa,
 # jest bardziej przewidywalny,
 # kod jest przejrzystszy,
-# łatwiej rozszerzalny.
+# jest łatwiej rozszerzalny.
 
 Polecam przyjrzeć się pyparsing http://pyparsing.wikispaces.com/ jeśli
-mamy potrzebę/chęć przetworzenia jakiegoś tekstu no i piszemy
+mamy potrzebę/chęć przetworzenia jakiegoś tekstu i piszemy
 w Pythonie. Jeszcze raz podaję adres do samouczka http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html
 oraz do &dokumentacji API& http://packages.python.org/pyparsing/.
-Pyparsing ma bardzo fajną licencję (MIT http://www.opensource.org/licenses/mit-license.php) i jest dość popularna, co znaczy, że powinna być dostępna w
+Pyparsing ma bardzo fajną licencję (MIT http://www.opensource.org/licenses/mit-license.php, "róbta co chceta ale pochwalcie się od kogo ściągaliście" :P ) i jest dość popularne, co znaczy, że powinna być dostępna w
 Twojej Ulubionej Dystrybucji ;).
-
-Co do ew. trudności tworzenia gramatyk to problem jest z naszymi mózgami.
-Często robimy skróty myślowe a komputery są głupie. Nie zrobią
-niczego o co ich nie poprosimy ;).

@@ -33,7 +33,7 @@
 	  <h1>Błąd młodego parsownika</h1>
 	  <p><em><strong>Parsownik</strong> &mdash; osoba pisząca parsery.</em><br />
 <em>(Termin zawdzięczam mojemu bratu.)</em>
-</p><p>Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze w tym jest to, że
+</p><p>Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze jest to, że
 zacząłem pisać następny wpis już następnego dnia po wystartowaniu
 bloga. Cały wpis powstał bez sprawdzania czy kompiluje się ładnie do
 HTML-a. Po ukończeniu skompilował się, niestety źle. Bardzo
@@ -143,27 +143,25 @@ do samodzielnego przeanalizowania :P. Dla mnie to była eureka,
 która pozwoliła mi dalej popchnąć projekt :)
 </p><p>Oba przykłady umieszczone są w <a href="input/blad-mlodego-parsownika.py">jednym pliku</a>.
 Plik ten posiada jeszcze jeden cukierek dla osób wnikliwych ;).
-Przedstawiony przykład jest uproszczeniem takiego samego kodu
+Przedstawiony przykład jest uproszczeniem analogicznego kodu
 z mojego <a href="http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/txt-to-html/txt-to-html.py">parsera</a>.
 </p><p>Takie drzewko jak w ostatnim listingu możemy już dowolnie przetworzyć
 manipulując listami, albo użyć metody <code>setParseAction(fn)</code> na każdym
 zdefiniowanym elemencie gramatyki, gdzie <code>fn</code> to funkcja.
 Jeśli <code>fn</code> zwróci jakąś wartość to element w drzewie zostanie
 zastąpiony tą wartością.
-</p><h2>Zbierając do kupy</h2><p>Nowy parser pozbawiony jest wad poprzedniego, przede wszystkim:
+</p><h2>Podsumowanie</h2><p>Nowy parser pozbawiony jest wad poprzedniego, przede wszystkim:
 </p><ol>
+<li>działa,</li>
 <li>jest bardziej przewidywalny,</li>
 <li>kod jest przejrzystszy,</li>
-<li>łatwiej rozszerzalny.</li>
+<li>jest łatwiej rozszerzalny.</li>
 </ol><p>Polecam przyjrzeć się <a href="http://pyparsing.wikispaces.com/">pyparsing</a> jeśli
-mamy potrzebę/chęć przetworzenia jakiegoś tekstu no i piszemy
+mamy potrzebę/chęć przetworzenia jakiegoś tekstu i piszemy
 w Pythonie. Jeszcze raz podaję adres do <a href="http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html">samouczka</a>
 oraz do <a href="http://packages.python.org/pyparsing/">dokumentacji API</a>.
-Pyparsing ma bardzo fajną licencję (<a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>) i jest dość popularna, co znaczy, że powinna być dostępna w
+Pyparsing ma bardzo fajną licencję (<a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>, "róbta co chceta ale pochwalcie się od kogo ściągaliście" :P ) i jest dość popularne, co znaczy, że powinna być dostępna w
 Twojej Ulubionej Dystrybucji ;).
-</p><p>Co do ew. trudności tworzenia gramatyk to problem jest z naszymi mózgami.
-Często robimy skróty myślowe a komputery są głupie. Nie zrobią
-niczego o co ich nie poprosimy ;).
 </p>
 	</article>
       </div>
