@@ -25,8 +25,8 @@ expression = OneOrMore( undecorated | bold | italic )
 # listę zagnieżdżoną
 bold << Group("*" + expression + "*")
 italic << Group("/" + expression + "/")
-bold.setParseAction(lambda x: ['<b>', x[0][1:-1], '</b>'])
-italic.setParseAction(lambda x: ['<em>', x[0][1:-1], '</em>'])
+#bold.setParseAction(lambda x: ['<b>', x[0][1:-1], '</b>'])
+#italic.setParseAction(lambda x: ['<em>', x[0][1:-1], '</em>'])
 
 pprint(expression.parseString("""
 czysty tekst

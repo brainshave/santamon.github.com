@@ -1,7 +1,8 @@
 Błąd młodego parsownika
 
-date: 2010-09-02
+date: 2010-09-03
 index: false
+tags: Python, pyparsing, Makeblog, dokumentacja porażek
 
 /*Parsownik* -- osoba pisząca parsery./\\
 /(Termin zawdzięczam mojemu bratu.)/
@@ -9,20 +10,24 @@ index: false
 Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze w tym jest to, że
 zacząłem pisać następny wpis już następnego dnia po wystartowaniu
 bloga. Cały wpis powstał bez sprawdzania czy kompiluje się ładnie do
-HTML-a. Po ukończeniu skompilował się. Niestety źle. Bardzo
+HTML-a. Po ukończeniu skompilował się, niestety źle. Bardzo
 źle. Tagi przeplatały się w nieprawidłowy sposób, np. gwiazdka gdzieś
 wcześniej w którymś paragrafie i gwiazdka gdzieś dalej w wypunktowaniu
-powodowały otoczenie to tagiem \&lt;b\&gt;.
+powodowały otoczenie to tagiem \&lt;b\&gt;. Co dawało np. takie wyjście:
+
+@@
+... <p> ... <b> ... </p>
+<ul> <li> ... </b> ...
+@@
 
 Mój parser działał ogólnie tak, że miał listę par: wyrażenie regularne
 + funkcja, która wywoływana była na tekście do którego zostało
-dopasowane to wyrażenie. Ekstremalne znaczenie miała tutaj kolejność
-w jakim wyrażenia te były ułożone. Aby zapobiec złemu przeplataniu się
+dopasowane to wyrażenie. Aby zapobiec złemu przeplataniu się
 tagów wyrażenia ozdobników (takich jak pogrubienie, pochylenie,
 podkreślenie; do tego używam pojedynczych znaków, np:
 @\/asdf\/@ → @\&lt;em\&gt;asdf\&lt;\/em\&gt;@)
 stały się bardzo skomplikowane. Mam na myśli coś takiego
-(@\@@ to znacznik):
+(@\@@ to odpowiednik dla znacznika @\&lt;code\&gt;@):
 
 @@
 r"(?<!<|\w|[@])\@(?=\S)([^@]+)(?<=\S)\@(?=\W)"
@@ -34,16 +39,16 @@ mi się bardzo obiecujące. Szczególnie łatwo było na początku ;).
 Przedstawione podejście miało poważne wady:
 
 # za każdym razem przetwarzany był cały tekst,
-# wyrażenia widziały go jako sam tekst nie jako strukturę,
+# wyrażenia widziały go jako sam tekst a nie jako strukturę,
 # w praktyce dopuszczalne było przeplatanie się znaczników HTML j/w.
 
 Ogólnie całość sprawiała wrażenie jakby trzymała się na rzęsach :P.
 Ciągłe dopasowywanie regexpów mogło się szybko skończyć kodem
-spaghetti... Jednym słowem
+spaghetti... Jednym słowem...
 
-* Fail.
+* Porażka :D.
 
-W sumie spodziewałem się tego po przeczytaniu &tego wątku na Stack Overflow& http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454.
+Mogłem spodziewać się tego po przeczytaniu &tego wątku na Stack Overflow& http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454.
 Dotyczył on parsowania HTML-a więc najpierw pomyślałem, że moja 
 wymarzona składnia nie jest aż tak trudna do przetworzenia.
 
@@ -104,11 +109,17 @@ Jak widać, pyparsing dzieli łańcuch na kawałki określone w gramatyce
 (tokeny). Domyślnie omija też ew. białe znaki pomiędzy nimi.
 
 Rekurencyjny przykład będzie nieco dłuższy. Ponieważ Python nie pozwala
-na używanie niezdefiniowanych symboli, pyparsing załatwia to
-klasą @Forward@, która umożliwia najpierw zdefiniowanie elementu
+na używanie niezdefiniowanych symboli pyparsing załatwia to
+klasą @Forward@, która umożliwia najpierw zadeklarowanie elementu
 a później podanie jego definicji za pomocą operatora @\&lt;\&lt;@.
 
 @@
+# -*- coding: utf-8 -*-
+from pyparsing import *
+from pprint import pprint
+
+undecorated = OneOrMore( Word(alphanums))
+
 bold = Forward()
 italic = Forward()
 
@@ -116,7 +127,7 @@ expression = OneOrMore( undecorated | bold | italic )
 
 # Domyślnie wszystkie elementy odnalezione przez pyparsing
 # zwracane są jako jednowymiarowa lista, Group stworzy
-# listę zagnieżdżoną
+# listę zagnieżdżoną dla tego dopasowania
 bold << Group("*" + expression + "*")
 italic << Group("/" + expression + "/")
 
@@ -143,7 +154,35 @@ Tym razem wyjście wygląda tak:
   '*']]
 @@
 
-Ostatni kawałek przykład jest szczególnie ciekawy. Zostawiam go
+Ostatni kawałek jest szczególnie ciekawy. Zostawiam go
 do samodzielnego przeanalizowania :P. Dla mnie to była eureka,
 która pozwoliła mi dalej popchnąć projekt :)
 
+Oba przykłady umieszczone są w &jednym pliku& input/blad-mlodego-parsownika.py.
+Plik ten posiada jeszcze jeden cukierek dla osób wnikliwych ;).
+Przedstawiony przykład jest uproszczeniem takiego samego kodu
+z mojego parsera http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/txt-to-html/txt-to-html.py.
+
+Takie drzewko jak w ostatnim listingu możemy już dowolnie przetworzyć
+manipulując listami, albo użyć metody @setParseAction(fn)@ na każdym
+zdefiniowanym elemencie gramatyki, gdzie @fn@ to funkcja.
+Jeśli @fn@ zwróci jakąś wartość to element w drzewie zostanie
+zastąpiony tą wartością.
+
+* Zbierając do kupy
+Nowy parser pozbawiony jest wad poprzedniego, przede wszystkim:
+
+# jest bardziej przewidywalny,
+# kod jest przejrzystszy,
+# łatwiej rozszerzalny.
+
+Polecam przyjrzeć się pyparsing http://pyparsing.wikispaces.com/ jeśli
+mamy potrzebę/chęć przetworzenia jakiegoś tekstu no i piszemy
+w Pythonie. Jeszcze raz podaję adres do samouczka http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html
+oraz do &dokumentacji API& http://packages.python.org/pyparsing/.
+Pyparsing ma bardzo fajną licencję (MIT http://www.opensource.org/licenses/mit-license.php) i jest dość popularna, co znaczy, że powinna być dostępna w
+Twojej Ulubionej Dystrybucji ;).
+
+Co do ew. trudności tworzenia gramatyk to problem jest z naszymi mózgami.
+Często robimy skróty myślowe a komputery są głupie. Nie zrobią
+niczego o co ich nie poprosimy ;).
