@@ -1,1 +1,1 @@
-include ../makeblog/trunk/Makefile
+include ../makeblog/Makefile
