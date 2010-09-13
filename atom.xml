@@ -2,22 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Long Standing Bug</title> 
   <link href="http://longstandingbug.com" rel="self" />
-  <updated>2010-09-13T14:33:52Z</updated>
+  <updated>2010-09-13T13:43:21Z</updated>
   <author> 
     <name>Szymon Witamborski</name>
   </author>
   <id>http://longstandingbug.com/./atom.xml</id>
   
-  <entry>
-    <title>Wpis testowy</title>
-    <link href="http://longstandingbug.com/test.html" rel="alternate" />
-    <id>http://longstandingbug.com/test.html</id>
-    <updated>2010-09-13T14:33:52Z</updated>
-    <published>2010-09-13T14:33:52Z</published>
-    <content type="html">&lt;p&gt;lala, sprawdzamy jak działa generowanie atoma.
-&lt;/p&gt;</content>
-  </entry>
-
   <entry>
     <title>Błąd młodego parsownika</title>
     <link href="http://longstandingbug.com/blad-mlodego-parsownika.html" rel="alternate" />
