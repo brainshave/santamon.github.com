@@ -1,0 +1,3 @@
+Wpis testowy
+
+lala, sprawdzamy jak działa generowanie atoma.
