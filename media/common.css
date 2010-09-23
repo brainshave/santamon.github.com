@@ -1,17 +1,27 @@
 /* Main font and page settings */
 
 body {
-    font-family: 'Segoe UI',  Pfennig, Verdana, sans-serif;
+    font-family: 'Linux Biolinum O', sans-serif;
+    font-size: 1.1em;
     color: #AAA;
     background: #fff url('bug-light.png') no-repeat right bottom;
 }
 
 a {
     background-color: #f3f3f3;
-    color: #555;} 
+    color: #555;
+}
+
+em, i {
+    font-family: 'Linux Libertine O', serif;
+}
+
+b, strong {
+    font-family: 'Linux Libertine C', serif;
+}
 
 #main_wrapper {
-    max-width: 45em;
+    max-width: 600px;
     margin: auto;
 }
 
@@ -33,17 +43,17 @@ a {
 
 article {
     color: #222;
+    line-height: 1.4em;
 }
 
 article > * {
-    margin: 0 0 8px 15px;
+    margin: 0 0 0.8em 15px;
 }
 
 h1, h2, h3, h4, h5, h6, h7 {
     clear: both;
-    font-family: Candara, Jura;
-    font-weight: 500;
-    margin: 0;
+    font-family: 'Linux Libertine C', serif;
+    margin: 20px 0 7px 0;
     padding: 0;
     border-left: 0;
 }
@@ -52,13 +62,6 @@ h1 {
     margin: 15px 0 10px 0;
 }
 
-h1, h4, h5, h6, h7 {
-    font-weight: 700;
-}
-
-h2, h3, h4, h5, h6, h7 {
-    margin-top: 20px;
-}
 
 article ul, article ol {
     padding-left: 1.5em;
@@ -71,7 +74,7 @@ blockquote, pre {
 }
 
 blockquote {
-    font-family: Pfennig;
+    font-family: 'Linux Libertine O', serif;
     font-style: italic;
     font-size: 1.15em;
     border-color: #ded;
@@ -79,17 +82,18 @@ blockquote {
 
 blockquote em, blockquote i {
     font-style: normal;
+    font-family: 'Linux Biolinum O';
 }
 
 pre, code {
-    font-family: Consolas, Inconsolata;
+    font-family: Inconsolata, Consolas;
 }
 
 pre {
     padding-top: 3px;
     padding-bottom: 3px;
     border-color: #dee;
-    font-size: 1.05em;
+    line-height: 1.2em;
 }
 
 code {
@@ -99,7 +103,6 @@ code {
 footer {
     display: block;
     clear: both;
-    font-family: Candara, Cantarell;
     font-size: 0.8em;
     text-align: center;
 }

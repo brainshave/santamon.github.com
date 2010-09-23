@@ -9,7 +9,6 @@
 
 #info {
     /* margin-bottom: 15px; */
-    font-family: Candara, Cantarell;
     font-size: 0.95em;
     color: #666;
     vertical-align: bottom;
@@ -42,7 +41,6 @@
     width: 29%;
     margin: 0 10px 40px 0;
     float: right;
-    font-family: Corbel, Cantarell;
     font-size: 0.9em;
     color: #777;
     /* line-height: 1.05em; */

@@ -1,6 +1,6 @@
 BLOG_AUTHOR = Szymon Witamborski
 BLOG_EMAIL = santamon@gmail.com
-BLOG_TITLE = Long Standing Bug
+BLOG_TITLE = Long-standing Bug
 BLOG_ARCHIVE_TITLE = Archiwa
 BLOG_DATE_FORMAT = %A, %d %B %Y
 INDEX_TEMPLATE = $(TEMPLATES_DIR)/index.html

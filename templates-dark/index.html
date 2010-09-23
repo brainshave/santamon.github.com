@@ -2,13 +2,8 @@
 <html lang="pl">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="media/bug-inv.ico" type="image/x-icon" />
-    <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
-    <link rel="stylesheet" href="media/fonts.css" />
-    <link rel="stylesheet" href="media/makeblog.css" />
-    <link rel="stylesheet" href="media/common.css" />
-    <link rel="stylesheet" href="media/index.css" />
-    <title>Long-standing Bug - Szymon Witamborski</title>
+    <link rel="stylesheet" href="media/style.css" />
+    <title>Szymon Witamborski: Long-standing Bug</title>
     <!-- work around IE not handling properly unknown tags -->
     <!-- suggested here: http://diveintohtml5.org/semantics.html -->
     <script>
@@ -16,12 +11,12 @@
       document.createElement("nav");
       document.createElement("aside");
       document.createElement("footer");
-      document.createElement("date");
     </script>
   </head>
   <body>
     <div id="main_wrapper">
       <div id="header">
+
 	<div id="sw">
 	  S/W
 	</div>
@@ -31,6 +26,7 @@
 	<div id="info">
 	  Witam na&nbsp;stronie Szymona Witamborskiego. Jest on&nbsp;zainteresowany nowymi językami programowania, głównie Clojure. Poza tym od&nbsp;zawsze martwiły go&nbsp;tematy wokół tworzenia GUI. Ta&nbsp;strona opowiada o&nbsp;jego poczynaniach w&nbsp;w/w zagadnieniach.
 	</div>
+
       </div>
       <aside id="menus">
 	<nav id="misc" class="menu">
@@ -39,6 +35,7 @@
 	    <li><a href="archive.html">Archiwa</a></li>
 	    <li><a href="info.html">Info</a></li>
 	  </ul>
+
 	</nav>
 	<nav id="projects" class="menu">
 	  Własne projekty:
@@ -49,6 +46,7 @@
 	<nav id="categories" class="menu">
 	  Piszę o:
 	  <ul>
+
 	    <li>Tu pojawią się kategorie.</li>
 	  </ul>
 	</nav>
@@ -56,6 +54,7 @@
       <div id="latest">
 	<div id="latest_text">Najnowszy wpis: <date>piątek, 03 wrzesień 2010</date></div>
 	<article>
+
 	  <h1>Błąd młodego parsownika</h1>
 	  <p><em><strong>Parsownik</strong> &mdash; osoba pisząca parsery.</em><br />
 <em>(Termin zawdzięczam mojemu bratu.)</em>
@@ -67,6 +66,7 @@ HTML-a. Po ukończeniu skompilował się, niestety źle. Bardzo
 wcześniej w którymś paragrafie i gwiazdka gdzieś dalej w wypunktowaniu
 powodowały otoczenie to tagiem &lt;b&gt;. Co dawało np. takie wyjście:
 </p><pre>... &lt;p&gt; ... &lt;b&gt; ... &lt;/p&gt;
+
 &lt;ul&gt; &lt;li&gt; ... &lt;/b&gt; ...
 </pre><p>Mój parser działał ogólnie tak, że miał listę par: wyrażenie regularne
 + funkcja, która wywoływana była na tekście do którego zostało
@@ -76,6 +76,7 @@ podkreślenie; do tego używam pojedynczych znaków, np:
 <code>/asdf/</code> → <code>&lt;em&gt;asdf&lt;/em&gt;</code>)
 stały się bardzo skomplikowane. Mam na myśli coś takiego
 (<code>@</code> to odpowiednik dla znacznika <code>&lt;code&gt;</code>):
+
 </p><pre>r"(?&lt;!&lt;|\w|[@])\@(?=\S)([^@]+)(?&lt;=\S)\@(?=\W)"
 </pre><p>Nie jestem specjalistą od wyrażeń regularnych ale użycie ich wydawało
 mi się bardzo obiecujące. Szczególnie łatwo było na początku ;).
@@ -90,6 +91,7 @@ spaghetti... Jednym słowem...
 </p><h2>Porażka :D.</h2><p>Mogłem spodziewać się tego po przeczytaniu <a href="http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454">tego wątku na Stack Overflow</a>.
 Dotyczył on parsowania HTML-a więc najpierw pomyślałem, że moja 
 wymarzona składnia nie jest aż tak trudna do przetworzenia.
+
 </p><p>Wróciłem do Stack Overflow jak mój parser zaczął nawalać...
 </p><h2>Pyparsing</h2><blockquote><p>Have you tried using an XML parser instead?
 &mdash; <a href="http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454">Will</a>
@@ -101,6 +103,7 @@ zdefiniowanej gramatyki. Od np. <a href="http://www.antlr.org/">ANTLR-a</a> ró�
 tym, że gramatykę definiuje się za pomocą wyrażeń w Pythonie (używając
 zwykłych operatorów takich jak <code>+</code> czy <code>|</code>)
 zamiast tradycyjnego <a href="http://pl.wikipedia.org/wiki/Notacja_EBNF">EBNF</a>.
+
 </p><p>Idealnie dla mnie. Wystarczyło zrozumieć filozofię działania, przeczytać
 <a href="http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html">krótką i przystępną instrukcję</a>
 oraz czasem zajrzeć do <a href="http://packages.python.org/pyparsing/">dokumentacji API</a>.
@@ -122,6 +125,7 @@ italic = "/" + undecorated + "/" # że proste? :)
 pprint(bold.parseString("*asdf*").asList())
 pprint(italic.parseString("/qwer/").asList())
 </pre><p>Wynikiem tego będzie:
+
 </p><pre>['*', 'asdf', '*']
 ['/', 'qwer', '/']
 </pre><p>Jak widać, pyparsing dzieli łańcuch na kawałki określone w gramatyce
@@ -171,6 +175,7 @@ która pozwoliła mi dalej popchnąć projekt :)
 Plik ten posiada jeszcze jeden cukierek dla osób wnikliwych ;).
 Przedstawiony przykład jest uproszczeniem analogicznego kodu
 z mojego <a href="http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/txt-to-html/txt-to-html.py">parsera</a>.
+
 </p><p>Takie drzewko jak w ostatnim listingu możemy już dowolnie przetworzyć
 manipulując listami, albo użyć metody <code>setParseAction(fn)</code> na każdym
 zdefiniowanym elemencie gramatyki, gdzie <code>fn</code> to funkcja.
@@ -180,6 +185,7 @@ zastąpiony tą wartością.
 </p><ol>
 <li>działa,</li>
 <li>jest bardziej przewidywalny,</li>
+
 <li>kod jest przejrzystszy,</li>
 <li>jest łatwiej rozszerzalny.</li>
 </ol><p>Polecam przyjrzeć się <a href="http://pyparsing.wikispaces.com/">pyparsing</a> jeśli
@@ -190,10 +196,12 @@ Pyparsing ma bardzo fajną licencję (<a href="http://www.opensource.org/license
 Twojej Ulubionej Dystrybucji ;).
 </p>
 	</article>
+
       </div>
       <footer>
 	&copy; 2010 Szymon Witamborski
       </footer>
     </div>
+
   </body>
 </html>

@@ -12,7 +12,7 @@ body {
 }
 
 #sw {
-    font-family: Candara, Jura;
+
     font-size: 1.6em;
     font-weight: 700;
     margin-right: 10px;
@@ -26,7 +26,6 @@ body {
 }
 
 #menu {
-    font-family: Corbel, Cantarell;
     font-size: 0.9em;
 }
 
@@ -36,14 +35,17 @@ body {
     text-decoration: none;
 }
 
+#latest h2 {
+    font-size: 1.2em;
+}
 .archive_list {
     list-style-type: none;
     padding-left: 0px;
 }
 
 .archive_day {
-    font-family: Candara, Jura;
     font-size: 1.4em;
+    font-family: 'Linux Libertine O', serif;
     margin-right: 3px;
 }
 
