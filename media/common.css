@@ -33,6 +33,7 @@ b, strong {
 /* Latest article part */
 
 #latest {
+    font-size: 0.9em;
     clear: both;
     border-top: 2px solid #DDD;
 }
@@ -47,19 +48,19 @@ article {
 }
 
 article > * {
-    margin: 0 0 0.8em 15px;
+    margin: 0 0 0.8em 14px;
 }
 
 h1, h2, h3, h4, h5, h6, h7 {
     clear: both;
     font-family: 'Linux Libertine C', serif;
-    margin: 20px 0 7px 0;
+    margin: 20px 0 8px 0;
     padding: 0;
     border-left: 0;
 }
 
 h1 {
-    margin: 15px 0 10px 0;
+    margin: 15px 0 18px 0;
 }
 
 
