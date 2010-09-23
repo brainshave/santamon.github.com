@@ -1,6 +1,12 @@
+/* On Windows fonts local fonts will be used instead.
+   Because Libertine fonts looks like crap with ClearType.
+   The substitutions are here for Windows browsers to not
+   download fonts. */
+
 @font-face {
   font-family: 'Linux Biolinum O';
-  src: url('LinBiolinum_Re-0.6.4.woff') format('woff'),
+  src: local('Candara'),
+       url('LinBiolinum_Re-0.6.4.woff') format('woff'),
        url('LinBiolinum_Re-0.6.4.otf') format('opentype');
   font-style: normal;
   font-weight: normal;
@@ -8,7 +14,8 @@
 
 @font-face {
   font-family: 'Linux Libertine O';
-  src: url('LinLibertine_It-4.2.6.woff') format('woff'),
+  src: local('Gentium Book Basic'),
+       url('LinLibertine_It-4.2.6.woff') format('woff'),
        url('LinLibertine_It-4.2.6.otf') format('opentype');
   font-style: italic;
   font-weight: normal;
@@ -25,7 +32,8 @@
 
 @font-face {
   font-family: 'Inconsolata';
-  src: url('Inconsolata.woff') format('woff'),
+  src: local('Consolas'),
+       url('Inconsolata.woff') format('woff'),
        url('Inconsolata.otf') format('opentype');
   font-style: normal;
   font-weight: normal;

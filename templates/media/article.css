@@ -7,10 +7,6 @@ body {
     margin-top: 0px;
 }
 
-#header {
-    
-}
-
 #sw {
     display: inline;
 }
@@ -49,7 +45,7 @@ body {
 
 .archive_day {
     font-size: 1.4em;
-    font-family: 'Linux Libertine C', serif;
+    font-family: 'Linux Libertine C', 'Gentium Book Basic', Georgia, serif;
     margin-right: 3px;
 }
 
