@@ -14,7 +14,7 @@
 
 @font-face {
   font-family: 'Linux Libertine O';
-  src: local('Gentium Book Basic'),
+  src: local('Palatino Linotype'),
        url('LinLibertine_It-4.2.6.woff') format('woff'),
        url('LinLibertine_It-4.2.6.otf') format('opentype');
   font-style: italic;
