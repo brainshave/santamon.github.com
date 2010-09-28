@@ -160,7 +160,7 @@ która pozwoliła mi dalej popchnąć projekt :)
 Oba przykłady umieszczone są w &jednym pliku& input/blad-mlodego-parsownika.py.
 Plik ten posiada jeszcze jeden cukierek dla osób wnikliwych ;).
 Przedstawiony przykład jest uproszczeniem analogicznego kodu
-z mojego parsera http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/txt-to-html/txt-to-html.py.
+z mojego parsera http://github.com/santamon/makeblog/blob/master/txt-to-html/txt-to-html.py.
 
 Takie drzewko jak w ostatnim listingu możemy już dowolnie przetworzyć
 manipulując listami, albo użyć metody @setParseAction(fn)@ na każdym

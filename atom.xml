@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Long-standing Bug</title> 
   <link href="http://longstandingbug.com" rel="self" />
-  <updated>2010-09-15T12:45:29Z</updated>
+  <updated>2010-09-28T20:45:24Z</updated>
   <author> 
     <name>Szymon Witamborski</name>
   </author>
@@ -127,7 +127,7 @@ która pozwoliła mi dalej popchnąć projekt :)
 &lt;/p&gt;&lt;p&gt;Oba przykłady umieszczone są w &lt;a href="input/blad-mlodego-parsownika.py"&gt;jednym pliku&lt;/a&gt;.
 Plik ten posiada jeszcze jeden cukierek dla osób wnikliwych ;).
 Przedstawiony przykład jest uproszczeniem analogicznego kodu
-z mojego &lt;a href="http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/txt-to-html/txt-to-html.py"&gt;parsera&lt;/a&gt;.
+z mojego &lt;a href="http://github.com/santamon/makeblog/blob/master/txt-to-html/txt-to-html.py"&gt;parsera&lt;/a&gt;.
 &lt;/p&gt;&lt;p&gt;Takie drzewko jak w ostatnim listingu możemy już dowolnie przetworzyć
 manipulując listami, albo użyć metody &lt;code&gt;setParseAction(fn)&lt;/code&gt; na każdym
 zdefiniowanym elemencie gramatyki, gdzie &lt;code&gt;fn&lt;/code&gt; to funkcja.
@@ -171,15 +171,14 @@ co mi bardzo odpowiada: synchronizacja treści przez gita, cud-miód &lt;code&gt
 &lt;/p&gt;&lt;p&gt;Makeblog używa składni podobnej do &lt;a href="http://orgmode.org"&gt;&lt;code&gt;org-mode&lt;/code&gt;'a&lt;/a&gt;.
 Dzięki temu mogę pisać wpisy w czystym tekście, polecam zobaczyć
 &lt;a href="http://github.com/santamon/santamon.github.com/blob/master/input/intro.txt"&gt;plik źródłowy tego wpisu&lt;/a&gt; 
-oraz plik &lt;a href="http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/input/Syntax.txt"&gt;Syntax&lt;/a&gt;, którego używałem do testowania parsera.
+oraz plik &lt;a href="http://github.com/santamon/makeblog/blob/master/input/Syntax.txt"&gt;Syntax&lt;/a&gt;, którego używałem do testowania parsera.
 &lt;a href="http://github.com/santamon/santamon.github.com/blob/master/templates/article.html"&gt;Schematy stron&lt;/a&gt; używają bardzo prostej składni (podmiany z &lt;code&gt;$&lt;/code&gt;).
 &lt;/p&gt;&lt;h3&gt;Skąd taka nazwa?&lt;/h3&gt;&lt;p&gt;Proste: Makeblog używa programu &lt;strong&gt;make&lt;/strong&gt; do śledzenia, które pliki mają być
 zaktualizowane. Skrypty do parsowania tekstu i indeksowania są napisane
 w Pythonie. Dlaczego nie w Clojure? Może więcej o Makeblogu w następnym
 wpisie.
-&lt;/p&gt;&lt;p&gt;Projekt jest hostowany na Launchpadzie: &lt;a href="http://launchpad.net/makeblog"&gt;http://launchpad.net/makeblog&lt;/a&gt;.
-Ludzie przywykli do githuba wolą od razu zobaczyć kod:
-&lt;a href="http://bazaar.launchpad.net/~santamon/makeblog/trunk/files"&gt;http://bazaar.launchpad.net/~santamon/makeblog/trunk/files&lt;/a&gt;.
+&lt;/p&gt;&lt;p&gt;Projekt jest hostowany na &lt;a href="http://launchpad.net/makeblog"&gt;&lt;del&gt;Launchpadzie&lt;/del&gt;&lt;/a&gt; GitHubie: &lt;a href="http://github.com/santamon/makeblog"&gt;http://github.com/santamon/makeblog&lt;/a&gt;.
+&lt;del&gt;Ludzie przywykli do githuba wolą od razu zobaczyć kod: &lt;a href="http://bazaar.launchpad.net/~santamon/makeblog/trunk/files"&gt;http://bazaar.launchpad.net/~santamon/makeblog/trunk/files&lt;/a&gt;&lt;/del&gt;.
 &lt;/p&gt;&lt;h2&gt;Braki i niedoróbki&lt;/h2&gt;&lt;p&gt;Póki co zauważyłem problemy z renderowaniem czcionek pod Windowsem (gdy używa się
 ClearType, pod Safari z renderowaniem "makowym" wygląda b. dobrze).
 Dlatego na Viście i 7 zostaną użyte kroje systemowe (nowe kroje wprowadzone z Vistą,

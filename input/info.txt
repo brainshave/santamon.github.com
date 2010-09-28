@@ -16,7 +16,7 @@ Treść dostępna jest na licencji &CC by& http://creativecommons.org/licenses/b
 pod warunkiem umieszczenia łącza do strony z oryginałem.
 
 * Strona
-Generowana przez Makeblog http://launchpad.net/makeblog, hostowana na
+Generowana przez Makeblog http://github.com/santamon/makeblog, hostowana na
 serwerach GitHuba http://github.com.
 
 Źródła treści strony dostępne są tu: ! http://github.com/santamon/santamon.github.com/tree/master/input/.

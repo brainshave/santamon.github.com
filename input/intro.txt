@@ -22,7 +22,7 @@ co mi bardzo odpowiada: synchronizacja treści przez gita, cud-miód @:)@.
 Makeblog używa składni podobnej do &@org-mode@'a& http://orgmode.org.
 Dzięki temu mogę pisać wpisy w czystym tekście, polecam zobaczyć
 &plik źródłowy tego wpisu& http://github.com/santamon/santamon.github.com/blob/master/input/intro.txt 
-oraz plik Syntax http://bazaar.launchpad.net/~santamon/makeblog/trunk/annotate/head%3A/input/Syntax.txt, którego używałem do testowania parsera.
+oraz plik Syntax http://github.com/santamon/makeblog/blob/master/input/Syntax.txt, którego używałem do testowania parsera.
 &Schematy stron& http://github.com/santamon/santamon.github.com/blob/master/templates/article.html używają bardzo prostej składni (podmiany z @$@).
 
 ** Skąd taka nazwa?
@@ -31,9 +31,8 @@ zaktualizowane. Skrypty do parsowania tekstu i indeksowania są napisane
 w Pythonie. Dlaczego nie w Clojure? Może więcej o Makeblogu w następnym
 wpisie.
 
-Projekt jest hostowany na Launchpadzie: ! http://launchpad.net/makeblog.
-Ludzie przywykli do githuba wolą od razu zobaczyć kod:
-! http://bazaar.launchpad.net/~santamon/makeblog/trunk/files.
+Projekt jest hostowany na -Launchpadzie- http://launchpad.net/makeblog GitHubie: ! http://github.com/santamon/makeblog.
+-Ludzie przywykli do githuba wolą od razu zobaczyć kod: ! http://bazaar.launchpad.net/~santamon/makeblog/trunk/files-.
 
 * Braki i niedoróbki
 
