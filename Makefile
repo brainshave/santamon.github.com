@@ -1,1 +1,2 @@
-include ../makeblog/Makefile
+include config
+include $(MAKEBLOG_PATH)/Makefile
