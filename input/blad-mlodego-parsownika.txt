@@ -173,7 +173,7 @@ Nowy parser pozbawiony jest wad poprzedniego, przede wszystkim:
 
 # działa,
 # jest bardziej przewidywalny,
-# kod jest przejrzystszy,
+# kod jest bardziej przejrzysty,
 # jest łatwiej rozszerzalny.
 
 Polecam przyjrzeć się pyparsing http://pyparsing.wikispaces.com/ jeśli

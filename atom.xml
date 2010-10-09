@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Long-standing Bug</title> 
   <link href="http://longstandingbug.com" rel="self" />
-  <updated>2010-09-28T20:45:24Z</updated>
+  <updated>2010-10-09T16:15:07Z</updated>
   <author> 
     <name>Szymon Witamborski</name>
   </author>
@@ -137,7 +137,7 @@ zastąpiony tą wartością.
 &lt;/p&gt;&lt;ol&gt;
 &lt;li&gt;działa,&lt;/li&gt;
 &lt;li&gt;jest bardziej przewidywalny,&lt;/li&gt;
-&lt;li&gt;kod jest przejrzystszy,&lt;/li&gt;
+&lt;li&gt;kod jest bardziej przejrzysty,&lt;/li&gt;
 &lt;li&gt;jest łatwiej rozszerzalny.&lt;/li&gt;
 &lt;/ol&gt;&lt;p&gt;Polecam przyjrzeć się &lt;a href="http://pyparsing.wikispaces.com/"&gt;pyparsing&lt;/a&gt; jeśli
 mamy potrzebę/chęć przetworzenia jakiegoś tekstu i piszemy
