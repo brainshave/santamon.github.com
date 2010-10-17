@@ -12,6 +12,10 @@ a {
     color: #555;
 }
 
+img {
+    border: 0;
+}
+
 em, i {
     font-family: 'Palatino Linotype', 'Linux Libertine O', Georgia, serif;
 }

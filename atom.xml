@@ -2,12 +2,31 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Long-standing Bug</title> 
   <link href="http://longstandingbug.com" rel="self" />
-  <updated>2010-10-09T16:15:07Z</updated>
+  <updated>2010-10-16T17:04:36Z</updated>
   <author> 
     <name>Szymon Witamborski</name>
   </author>
   <id>http://longstandingbug.com/./atom.xml</id>
   
+  <entry>
+    <title>Idea i Iluzja łeb w web</title>
+    <link href="http://longstandingbug.com/idea-iluzja.html" rel="alternate" />
+    <id>http://longstandingbug.com/idea-iluzja.html</id>
+    <updated>2010-10-16T00:00:00Z</updated>
+    <published>2010-10-16T00:00:00Z</published>
+    <content type="html">&lt;p&gt;Co najbardziej lubię w Makeblogu, to składnia plików wejściowych. Na dobrą 
+sprawę mógłbym ich nie parsować wcale. Same w sobie mają odpowiedni wygląd.
+Myślę, że gdybym pisał przeglądarkę tekstową zamieniałbym strony z HTML-a na coś
+podobnego ;).
+&lt;/p&gt;&lt;p&gt;To co mam na myśli, zpikselowane:
+&lt;/p&gt;&lt;p class="makeblog_center"&gt;&lt;a href="idea-iluzja.png"&gt;&lt;img src="idea-iluzja_m.png" alt="zrzut ekranu" /&gt;&lt;/a&gt; &lt;br /&gt;
+&lt;em&gt;Z lewej strony źródło wpisu, z prawej efekt.&lt;/em&gt;
+&lt;/p&gt;&lt;p&gt;Choć ciągle w fazie rozwojowej, Makeblog w tym momencie realizuje większość
+funkcji, które założyłem. Następnym krokiem będzie dokumentacja.
+Nie widzę innego wyjścia jak generowanie jej Makeblogiem we własnej osobie.
+&lt;/p&gt;</content>
+  </entry>
+
   <entry>
     <title>Błąd młodego parsownika</title>
     <link href="http://longstandingbug.com/blad-mlodego-parsownika.html" rel="alternate" />

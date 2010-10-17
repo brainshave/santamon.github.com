@@ -7,3 +7,6 @@ INDEX_TEMPLATE = $(TEMPLATES_DIR)/index.html
 MAKEBLOG_PATH = ../makeblog
 BLOG_URL = http://longstandingbug.com
 OUTDIR = .
+
+MINIATURE_WIDTH = 560
+MINIATURE_HEIGHT = 660
