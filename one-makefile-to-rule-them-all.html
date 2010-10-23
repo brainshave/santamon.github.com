@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="media/bug-inv.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
+    <link rel="stylesheet" href="media/fonts.css" />
+    <link rel="stylesheet" href="media/makeblog.css" />
+    <link rel="stylesheet" href="media/common.css" />
+    <link rel="stylesheet" href="media/article.css" />
+    <title>One Makefile To Rule Them All</title>
+    <!-- work around IE not handling properly unknown tags -->
+    <!-- suggested here: http://diveintohtml5.org/semantics.html -->
+    <script>
+      document.createElement("article");
+      document.createElement("nav");
+      document.createElement("aside");
+      document.createElement("footer");
+      document.createElement("date");
+    </script>
+  </head>
+  <body>
+    <div id="main_wrapper">
+      <div id="header">
+	<div id="sw">
+	  <a href="index.html">
+	    <img src="media/s-w-small.png" alt="S/W" />
+	  </a>
+	</div>
+	<nav id="menu">
+	  <a href="archive.html">Archiwa</a>,
+	  <a href="info.html">Info</a>
+	</nav>
+      </div>
+      <div id="latest">
+	<time id="latest_text">niedziela, 07 czerwiec 2009</time>
+	<article>
+	  <h1>One Makefile To Rule Them All</h1>
+	  <blockquote><p>One Makefile to rule them all, One Makefile to find them,<br />
+One Makefile to bring them all and in the batch compile them<br />
+In the Land of Unix where the Shells lie.
+</p></blockquote><p class="makeblog_box makeblog_box_right">Wpis archiwalny z <a href="http://gaco.wordpress.com">mojej starej strony</a>.
+</p><p>Kiedyś szukałem sposobu, by dodając nowe pliki *.cpp do projektu
+(każdy z nich był osobnym programem) nie trzeba było modyfikować
+Makefile'a i dałem sobie spokój w pewnym momencie.  Szukałem niezbyt
+gorliwie jak się okazuje, bo podpowiedź była
+<a href="http://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html">w manualu do GNU Make'a</a>.
+Ten Makefile skompiluje wszystkie pliki *.cpp jako osobne programy
+do podkatalogu bin.
+</p><pre>cele := $(patsubst %.cpp,bin/%,$(wildcard *.cpp))
+
+komp=g++ -Wall -O2
+
+asdf: $(cele)
+
+$(cele) : bin/% : %.cpp
+        $(komp) $&lt; -o $@
+
+clean:
+        rm $(cele)
+</pre><p>Żeby pakowało binarki bezpośrednio do katalogu ze źródłami trzeba usunąć 2x <code>bin/</code>.
+</p>
+	</article>
+      </div>
+      <footer>
+	&copy; 2010 Szymon Witamborski
+      </footer>
+    </div>
+  </body>
+</html>

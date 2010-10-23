@@ -1,15 +1,15 @@
 Info
 
+date: 2010-10-23
 index: false
 
-* Kontakt
-Szymon Witamborski, \\
-mail: santamon ø gmail · com
+* Szymon Witamborski
+
+mail: santamon \@ darwin.png gmail · com
 
 Profile tu i tam:
 
-- &GitHub -- kody źródłowe& http://github.com/santamon,
-- &Launchpad -- j/w& http://launchpad.net/~santamon.
+- &GitHub -- kody źródłowe& http://github.com/santamon.
 
 * Licencja treści
 Treść dostępna jest na licencji &CC by& http://creativecommons.org/licenses/by/3.0/deed.pl. W skrócie oznacza to, że można ją cytować we fragmentach lub w całości

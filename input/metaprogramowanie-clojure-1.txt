@@ -1,0 +1,70 @@
+Metaprogramowanie w Clojure, cz. 1
+
+date: 2010-10-18
+index: false
+
+* Clojure, WTF?
+
+Co to jest, link do prostej instalki, Clojure In The Box czy coś
+
+- instalacja w Emacsie, NB, Eclipse, Windows (Clojure In the box)
+  - jest sens to podawać?
+
+* Plan podróży
+
+Ten wpis może się okazać drastycznym doświadczeniem. Przelecimy szybko
+od podstaw języka do bardzo fajnych (ktoś mógłby powiedzieć
+/trudnych/, ale to nie prawda) rzeczy, nie zatrzymując się specjalnie
+długo po drodze.  Zakładam zero znajomości Clojure i Lispa oraz jakąś
+znajomość Javy.
+
+* LISt Processing [1]
+
+Wiemy już skąd się wzięła nazwa. (na nieszczęście języka po angielsku
+znaczy to również seplenienie) Lisp służy do młócenia list na różne
+sposoby. I tyle. Z prostoty języka wynika jego siła.
+Najprzyjemniejszym faktem jest to, że sam kod programu w Lispie jest
+listą. Listą list. Listą list złożonych z list. Itd. Jeśli światły
+umysł, usiadłby spokojnie na łonie przyrody, sam, z dala od ludzi i w
+głowie przywołałby tylko te dwa fakty, że:
+
+# Lisp jest językiem do przetwarzania list,
+# kod programu w Lispie jest listą,
+
+to są szanse, że doszedłby do wniosku, iż /Można by przecież/
+/przetwarzać kod programu w programie!/. Na szczęście tak musiało się
+już kiedyś stać. Od jakiegoś czasu (końca lat 50-tych) Lisp pozwala na
+/metaprogramowanie/.
+
+* Metaprogramowanie
+
+
+
+- makra w C
+- szablony w C++ (Stroustrup: preprocesor to zło)
+- powód: dodawanie własnych konstrukcji do języka
+- błaganie Suna o foreach-a
+
+* Przebieg kompilacji w Clojure
+
+* Wzroce i schematy w Javie
+
+get\*, (bean obj)
+
+* LISt Processing [2] -- konkretnie
+
+Składnia, głowa i ogon, first, rest
+
+* Problem: Tworzenie obiektu i nadawanie mu właściwości (ładniejszy wyraz dla /properties/)
+
+** Java w Clojure
+
+** doto: Makro "znęcacz"
+
+** Pan Kotek jest leniwy i nie lubi się powtarzać
+
+* Upraszczamy sobie życie - piszemy makro
+
+** Piszemy makro doprops
+
+* W drodze do deklaratywnego UI
