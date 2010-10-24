@@ -1,8 +1,8 @@
 /* Main font and page settings */
 
 body {
-    font-family: Candara, 'Linux Biolinum O', Arial, sans-serif;
-    font-size: 1.1em;
+    font-family: 'Segoe UI', 'Droid Sans', Helvetica, Arial, sans-serif;
+    font-size: 16px;
     color: #AAA;
     background: #fff url('bug-light.png') no-repeat right bottom;
 }
@@ -14,14 +14,6 @@ a {
 
 img {
     border: 0;
-}
-
-em, i {
-    font-family: 'Palatino Linotype', 'Linux Libertine O', Georgia, serif;
-}
-
-b, strong {
-    font-family: 'Linux Libertine C';
 }
 
 #main_wrapper {
@@ -37,7 +29,7 @@ b, strong {
 /* Latest article part */
 
 #latest {
-    font-size: 0.9em;
+    font-size: 0.85em;
     clear: both;
     border-top: 2px solid #DDD;
 }
@@ -48,16 +40,18 @@ b, strong {
 
 article {
     color: #222;
-    line-height: 1.4em;
+    font-size: 1.12em;
+    line-height: 1.7em;
 }
 
 article > * {
-    margin: 0 0 0.8em 14px;
+    margin: 0 0 1.2em 14px;
+    text-align: justify;
 }
 
 h1, h2, h3, h4, h5, h6, h7 {
     clear: both;
-    font-family: 'Linux Libertine C','Palatino Linotype', Georgia, serif;
+    font-weight: 100;
     margin: 20px 0 8px 0;
     padding: 0;
     border-left: 0;
@@ -65,8 +59,12 @@ h1, h2, h3, h4, h5, h6, h7 {
 
 h1 {
     margin: 15px 0 18px 0;
+    font-size: 2em;
 }
 
+h2, h3, h4, h5, h6, h7 {
+    border-bottom: 1px solid #bbb;
+}
 
 article ul, article ol {
     padding-left: 1.5em;
@@ -74,23 +72,26 @@ article ul, article ol {
 
 blockquote, pre {
     padding-left: 0.4em;
-    border-width: 1px 0 0 10px;
+    border-width: 0 0 0 10px;
     border-style: solid;
 }
 
 blockquote {
-    font-family: 'Palatino Linotype', 'Linux Libertine O', Georgia, serif;
     font-style: italic;
     border-color: #ded;
+    font-size: 1.1em;
 }
 
 blockquote em, blockquote i {
     font-style: normal;
-    font-family: 'Linux Biolinum O';
 }
 
-pre, code {
-    font-family: Inconsolata, Consolas;
+code {
+    font-family: 'Segoe UI Mono', 'Droid Sans Mono', monospace;
+}
+
+pre {
+    font-family: Consolas, Inconsolata, 'Droid Sans Mono', monospace;
 }
 
 pre {

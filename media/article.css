@@ -38,6 +38,12 @@ body {
 #latest h2 {
     font-size: 1.2em;
 }
+
+h2.archive_month {
+    border: 0;
+    margin-bottom: 0.1em;
+}
+
 .archive_list {
     list-style-type: none;
     padding-left: 0px;
@@ -45,8 +51,11 @@ body {
 
 .archive_day {
     font-size: 1.4em;
-    font-family: 'Linux Libertine C', Georgia, serif;
-    margin-right: 3px;
+    /* font-family: 'Linux Libertine C', Georgia, serif; */
+    margin-right: 0.5em;
+    float: left;
+    text-align: right;
+    width: 1.5em;
 }
 
 .archive_list li a {
