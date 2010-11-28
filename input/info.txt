@@ -1,9 +1,9 @@
-Info
+Szymon Witamborski
 
 date: 2010-10-23
 index: false
 
-* Szymon Witamborski
+Student informatyki na UMCS w Lublinie.
 
 mail: santamon \@ darwin.png gmail · com
 

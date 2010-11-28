@@ -1,9 +1,11 @@
 Metaprogramowanie w Clojure, cz. 1
 
-date: 2010-10-18
+date: 2010-11-14
 index: false
 
-* Clojure, WTF?
+
+ *Metaprogramowanie* http://pl.wikipedia.org/wiki/Metaprogramowanie
+to technika
 
 Co to jest, link do prostej instalki, Clojure In The Box czy coś
 
@@ -13,28 +15,28 @@ Co to jest, link do prostej instalki, Clojure In The Box czy coś
 * Plan podróży
 
 Ten wpis może się okazać drastycznym doświadczeniem. Przelecimy szybko
-od podstaw języka do bardzo fajnych (ktoś mógłby powiedzieć
-/trudnych/, ale to nie prawda) rzeczy, nie zatrzymując się specjalnie
-długo po drodze.  Zakładam zero znajomości Clojure i Lispa oraz jakąś
-znajomość Javy.
+od podstaw języka do bardzo fajnych (ktoś mógłby powiedzieć /trudnych/
+ale to nie prawda) rzeczy, nie zatrzymując się specjalnie długo po
+drodze. Zakładam zero znajomości Clojure i Lispa oraz jakąś znajomość
+Javy.
 
-* LISt Processing [1]
+* LISt Processing (1)
 
-Wiemy już skąd się wzięła nazwa. (na nieszczęście języka po angielsku
-znaczy to również seplenienie) Lisp służy do młócenia list na różne
+Wiemy już skąd się wzięła nazwa. (Na nieszczęście języka po angielsku
+znaczy to również seplenienie.) Lisp służy do młócenia list na różne
 sposoby. I tyle. Z prostoty języka wynika jego siła.
-Najprzyjemniejszym faktem jest to, że sam kod programu w Lispie jest
-listą. Listą list. Listą list złożonych z list. Itd. Jeśli światły
-umysł, usiadłby spokojnie na łonie przyrody, sam, z dala od ludzi i w
-głowie przywołałby tylko te dwa fakty, że:
+Najprzyjemniejszym (kluczowym?) faktem jest to, że sam kod programu w
+Lispie jest listą. Listą list. Listą list złożonych z list. Itd. Jeśli
+światły umysł, usiadłby spokojnie na łonie przyrody, sam, z dala od
+ludzi i w głowie przywołałby tylko te dwa fakty, a mianowicie:
 
 # Lisp jest językiem do przetwarzania list,
 # kod programu w Lispie jest listą,
 
 to są szanse, że doszedłby do wniosku, iż /Można by przecież/
-/przetwarzać kod programu w programie!/. Na szczęście tak musiało się
-już kiedyś stać. Od jakiegoś czasu (końca lat 50-tych) Lisp pozwala na
-/metaprogramowanie/.
+/przetwarzać kod programu w samym programie!/. Na szczęście tak
+musiało się już kiedyś stać. Od jakiegoś czasu (końca lat 50-tych)
+Lisp pozwala na /metaprogramowanie/.
 
 * Metaprogramowanie
 
@@ -51,7 +53,7 @@ już kiedyś stać. Od jakiegoś czasu (końca lat 50-tych) Lisp pozwala na
 
 get\*, (bean obj)
 
-* LISt Processing [2] -- konkretnie
+* LISt Processing (2) -- konkretnie
 
 Składnia, głowa i ogon, first, rest
 
