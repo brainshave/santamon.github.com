@@ -43,9 +43,14 @@ index: false
  konstrukcje tak potrzebne programistom, że stają się częścią ich
  mentalności. 
 
+ //Jakie rzeczy teraz są bibliotekach w większości języków a zaczynają
+ się pojawiać jako konstrukcje w innych
+
+# Zwiększający się stopień skomplikowania architektury programów
+# Programowanie konkurencyjne
+ 
 * Clojure
 
- 
  *Clojure* http://clojure.org jest nowym językiem programowania
  mającym dwa główne techniczne założenia:
 
