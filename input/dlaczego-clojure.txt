@@ -5,7 +5,7 @@ index: false
 
  Patrząc na historię języków programowania można zaobserwować, że co
  kilka lat twórcy oprogramowania rewidują swoje narzędzia. Weryfikują,
- czy te dotychczas przez nie używane spełniają obecne wymogi stawiane
+ czy te dotychczas przez nich używane spełniają obecne wymogi stawiane
  im w pracy. Efektami tych rewizji są nowe narzędzia: biblioteki i
  języki. Zacznijmy od bibliotek.
 
@@ -28,15 +28,23 @@ index: false
  Teraz wkraczają twórcy języków. Powstaje pierwszy eksperymentalny
  język, implementujący tablice w kompilatorze. Jego twórcy najpierw są
  krytykowani za rozrzutność i komplikowanie języka. Przecież nie każdy
- potrzebuje tablic. Resztę skrócę: historia kończy się tak, że każdy
- język ma tablice.
+ potrzebuje tablic.
 
- Można więc zauważyć, że nowe języki (albo nowe wersje starych)
- /agregują/ konstrukcje tak potrzebne programistom, że stają się
- częścią ich mentalności. W tym momencie przedstawię Clojure, po czym
- wrócę do tego tematu.
+ Najpierw pali się na stosach heretyków i czarownice. Później
+ przyznaje się im rację. Resztę skrócę: historia kończy się tak, że
+ każdy język ma tablice.
+
+* Wracając do rzeczywistości
+
+ Przykład powyżej oczywiście jest celowo uwypuklony. W rzeczywistości
+ jest tak, że ta "nowa herezja" znajduje swoją niszę.
+
+ Można zauważyć, że nowe języki (albo nowe wersje starych) /agregują/
+ konstrukcje tak potrzebne programistom, że stają się częścią ich
+ mentalności. 
 
 * Clojure
+
  
  *Clojure* http://clojure.org jest nowym językiem programowania
  mającym dwa główne techniczne założenia:

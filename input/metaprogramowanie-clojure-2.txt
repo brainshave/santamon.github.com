@@ -5,3 +5,4 @@ index: false
 - o pomyśle na makro w nocy
 - szybka, idiomatyczna implementacja i kupa radości (podać ile czasu upłynęło od pomysłu do realizacji, wspomnieć o deklaratywnym UI z Eclipse'a, XML, każdy kocha onclick)
 - zasady pisania makr (1. nie pisz makr)
+- generowanie klas z użycierm reify, (opisać proces jak powstały mechanizmy podpinania zdarzeń w GUIFTW.
