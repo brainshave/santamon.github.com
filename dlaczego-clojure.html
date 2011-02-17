@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="media/bug-inv.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
+    <!-- <link rel="stylesheet" href="media/fonts.css" /> -->
+    <link rel="stylesheet" href="media/makeblog.css" />
+    <link rel="stylesheet" href="media/common.css" />
+    <link rel="stylesheet" href="media/article.css" />
+    <title>Dlaczego Clojure?</title>
+    <!-- work around IE not handling properly unknown tags -->
+    <!-- suggested here: http://diveintohtml5.org/semantics.html -->
+    <script>
+      document.createElement("article");
+      document.createElement("nav");
+      document.createElement("aside");
+      document.createElement("footer");
+      document.createElement("date");
+    </script>
+    <script src="media/hyphenator.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="main_wrapper">
+      <div id="header">
+	<div id="sw">
+	  <a href="index.html">
+	    <img src="media/s-w-small.png" alt="S/W" />
+	  </a>
+	</div>
+	<nav id="menu">
+	  <a href="archive.html">Archiwa</a>,
+	  <a href="info.html">Info</a>
+	</nav>
+      </div>
+      <div id="latest">
+	<time id="latest_text">sobota, 25 grudzień 2010</time>
+	<article class="hyphenate">
+	  <h1>Dlaczego Clojure?</h1>
+	  <h2>Clojure</h2><p><a href="http://clojure.org"><strong>Clojure</strong></a> jest nowym językiem programowania
+mającym dwa główne techniczne założenia:
+</p><ol>
+<li>Jest językiem <strong>goszczonym</strong>, tzn. działa na istniejącej maszynie wirtualnej.</li>
+<li>Jest <strong>lispem</strong>.</li>
+</ol><p>To, co Clojure wprowadza <strong>nowego</strong> zostanie opisane niżej.
+</p><h3>Gość na maszynach wirtualnych</h3><p>Clojure z założenia jest językiem bez własnego środowiska
+uruchomieniowego. Zamiast tego, integruje się z istniejącymi
+maszynami wirtualnymi (MW). W tym momencie istnieją dwie implementacje: na
+<a href="http://github.com/clojure/clojure">JVM</a> i .<a href="http://github.com/richhickey/clojure-clr">NET</a>.
+</p><p>Integracja dotyczy:
+</p><ul>
+<li>generowania <strong>natywnego</strong> dla danej MW <strong>kodu bajtowego</strong> (co znaczy, że szybkość programów będzie porównywalna z innymi językami na te platformy, np. Java czy C#),</li>
+<li>użycia <strong>rodzimego modelu obiektowego</strong> (w przeciwieństwie np. {J/Iron}Ruby'ego i {J/Iron}Pythona, które wprowadzają swój własny model obiektowy ponad natywnym)</li>
+</ul><p>Drugi punkt ma jedną ważną konsekwencję: Programy w Clojure i
+C#/Javie mogą na danej MW współpracować w dwie strony bez pisania
+warstwy pośredniczącej. Na przykład program w Javie może używać
+biblioteki napisanej w Clojure i w drugą stronę. Znaczy to także, że
+wszystkie dotychczas powstałe biblioteki dla danej MW są dla nas
+dostępne.
+</p><h3>lisp z małej litery</h3><p>Clojure jest lispem, tzn. jednym z wielu dialektów <a href="http://pl.wikipedia.org/wiki/Lisp">Lispa</a>. Najbardziej rozpoznawalną cechą
+tego języka jest konstrukcja kodu: Kod programu w Lispie jest listą
+(jako struktura danych). Z kolei sam Lisp jest językiem, w którym z
+łatwością operuje się na listach. Umożliwia to pisanie programów
+piszących programy (przed kompilacją kodu można go przetworzyć w
+samym programie) co jest zasadniczą ideą <a href="http://pl.wikipedia.org/wiki/Metaprogramowanie"><strong>metaprogramowania</strong></a>.
+</p><p>Metaprogramownie w Lispie i Clojure pozwala na:
+</p><ol>
+<li>optymalizację i skracanie kodu w sytuacjach, gdy nie jest możliwe użycie zwykłych funkcji,</li>
+<li>umieszczanie istniejącego kodu w otoczeniu zmieniającym jego sens,</li>
+<li>tworzenie <strong>nowych konstrukcji języka</strong> <u>bez ingerencji w kompilator</u>,</li>
+<li>pisanie zupełnie nieczytelnych i błędnych programów ;-).</li>
+</ol><p>Myślę, że nie wyczerpałem wszystkich przykładów ale szczególnie ważny
+jest punkt trzeci. W popularnych językach (C++, Java, C#) o nowe
+konstrukcje trzeba prosić ich twórców i później na nie
+czekać. Rozwiązaniem tymczasowym może być wstępne przetwarzanie kodu
+przez zewnętrzny program przed kompilacją. Komplikuje to oczywiście
+proces kompilacji (także spowalnia go), zwiększa zależności w naszym
+projekcie i zrywa kompatybilność z innym kodem.
+</p><p>Rozwiązanie w Lispie jest eleganckie i nie ma wad wymienionych
+powyżej. Metaprogramowanie zasługuje na osobny wpis i taki wkrótce
+się tutaj pojawi.
+</p>
+	</article>
+      </div>
+      <footer>
+	&copy; 2010 Szymon Witamborski
+      </footer>
+    </div>
+  </body>
+</html>

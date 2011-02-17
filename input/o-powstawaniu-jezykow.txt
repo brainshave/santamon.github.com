@@ -1,0 +1,115 @@
+O powstawaniu języków (tytuł roboczy)
+
+original-date: 2010-11-13
+date: 2010-12-25
+index: false
+
+ Patrząc na historię języków programowania można zaobserwować, że co
+ kilka lat twórcy oprogramowania rewidują swoje narzędzia. Weryfikują,
+ czy te dotychczas przez nich używane spełniają obecne wymogi stawiane
+ im w pracy. Efektami tych rewizji są nowe narzędzia: biblioteki i
+ języki. Zacznijmy od bibliotek.
+
+=> Na potrzeby przykładu załóżmy, że żyjemy w smutnym świecie nieznającym jeszcze tablic ;\-)
+
+ Kiedy programiście na potrzeby jego projektu brakuje jakiejś
+ konstrukcji w języku -- powiedzmy zwykłej *tablicy* -- pisze na swoje
+ potrzeby pierwszą implementację. Początkowo jest to wersja
+ obsługująca jeden typ danych, pisana na szybko, z nagłej
+ potrzeby. Używa dostępnych mu konstrukcji języka, np. wyciąganie
+ elementów odbywa się z użyciem metody @pobierz(numer)@.
+ 
+ Potem dochodzi do wniosku, że jego tablice mogą przydać się także w
+ innych projektach. Szlifuje swoją implementację i tworzy z niej
+ *bibliotekę*. Z czasem staje się ona tak popularna, że używa jej
+ niemal każdy programista. Każdy z nich wchłonął już mentalnie zasadę
+ działania tablic i sposób ich użycia. W tym momencie można
+ powiedzieć, że tablice stały się częścią świadomości zbiorowej.
+
+ Teraz wkraczają twórcy języków. Powstaje pierwszy eksperymentalny
+ język, implementujący tablice w kompilatorze. Jego twórcy są
+ krytykowani za rozrzutność i komplikowanie języka -- przecież nie
+ każdy potrzebuje tablic!
+
+ Najpierw pali się na stosach heretyków i czarownice. Później
+ przyznaje się im rację. Resztę skrócę: historia kończy się tak, że
+ każdy język ma tablice.
+
+* Małe podsumowanie
+
+  Można zauważyć, że nowe języki (albo nowe wersje starych) /agregują/
+  konstrukcje tak potrzebne programistom, że stają się częścią ich
+  mentalności.
+
+  Często zdarza się również, że zanim konstrukcja pojawi się w jakimś
+  języku przechodzi przez etap bycia wzorcem projektowym.
+
+* Po co powstają nowe języki, biblioteki, maszyny wirtualne, itp.?
+
+  Zawsze po to, by programista mógł zrobić więcej pisząc mniej
+  kodu. Kiedy okazuje się, że większość kodu aplikacji to tylko
+  otoczka potrzebna do działania programu to znaczy, że używamy złych
+  narzędzi. 
+
+* Nowe problemy i rozwiązania
+
+** 1. Programowanie współbieżne
+
+   Prawdą jest, że kompilatory zawsze były w tyle za sprzętem. Przez
+   lata pomijano w ogóle fakt, że w pewnym momencie przestaną pojawiać
+   się szybsze procesory. W tym momencie mamy sytuację, gdzie
+   producenci sprzętu mówią "Nie damy wam już szybszych procesorów ale
+   możemy dać ich więcej.". Po prostu zysk wydajności przy zwiększaniu
+   taktowania jest niewspółmierny ze wzrostem zużycia energii. W
+   takich okolicznościach odpowiedzialność za przyspieszenie programu
+   spada na programistę.
+ 
+   Tu pojawia się problem. Aplikacje (szczególnie te użytkowe, dla
+   ludu) były pisane na jeden procesor, w sposób zupełnie ignorujący
+   problem wykorzystania na raz ich większej ilości. Działo się tak
+   chociażby dlatego, że *programowanie równoległe jest* (uważane za)
+   *trudne*.
+
+   A gdyby sformułować to inaczej, np.: programowanie równoległe jest
+   trudne *bez odpowiednich abstrakcji*? Tak jak tablica jest
+   abstrakcją dostępu do bloków pamięci możliwe jest stworzenie
+   abstrakcji ułatwiających pisanie algorytmów wykonujących się
+   współbieżnie.
+
+   Istnieje wielkie zapotrzebowanie na narzędzia (kompilatory, języki,
+   maszyny wirtualne, biblioteki) ułatwiające programowanie
+   równoległe. W tym momencie nie jest już to "atrakcyjny ficzer" a
+   mus. Musem jest także zmiana mentalności programistów.
+
+** 1 1\/2. Obiektowe a funkcyjne
+
+   OOP to bardzo dobry model do projektowania oprogramowania. W
+   intuicyjny sposób oddaje to jak człowiek postrzega świat albo
+   urządzenia. Mamy obiekty, na których wykonujemy odpowiednie im
+   czynności, np. @~ Samochód.zapal()@ albo @~ Skała.przesuń()@. Po
+   wywołaniu tych metod samochód zapala a skała się
+   przesuwa. Moment. Nie. Człowiek przesunie.
+
+   Można powiedzieć, że programowanie funkcyjne od obiektowego różni
+   się tym co @~ Samochód.zapal()@ od @przesuń(Skała)@.
+   
+   Dokładniej, można powiedzieć, że pisząc obiektowo opisuje się co
+   można zrobić z czym. Pisząc funkcyjnie mówimy jak przetworzyć coś
+   na coś. Wynikiem funkcji @przesuń@ będzie nowa skała, w innym
+   miejscu. Stara skała siedzi w starym miejscu i ma się dobrze.
+
+   O ile nie ma sensu zapalać na raz samochodu przez wiele osób
+   (wyobraźmy sobie trzystu chłopa w jednej kabinie łapiących za
+   kluczyk) to może mieć sens przesunięcie skały na raz w wiele
+   miejsc. Np. skała to pionek w programie szachowym, w którym chcemy,
+   by wszystkie możliwe rozwiązania były obliczane równolegle.
+
+   Dzięki temu, że oryginalna skała pozostała na swoim miejscu, ktoś
+   inny (wątek) może w tym samym czasie swobodnie "przesunąć" ją w
+   inne. Jeśli byłby to obiekt w rozumieniu tradycyjnego OOP ze
+   zmiennymi polami X i Y oznaczającymi pozycję, musielibyśmy sami
+   dbać o sklonowaniu go dla każdego wątku. Język funkcyjny w ogóle
+   nie pozwoliłby na modyfikację tych pól, sam za nas skopiowałby
+   obiekt. Zdejmuje zatem z nas obowiązek pamiętania o tym, wyklucza
+   również możliwość wystąpienia błędu przez zapomnienie o klonowaniu
+   w jakimś miejscu.

@@ -1,53 +1,6 @@
 Dlaczego Clojure?
 
-date: 2010-11-13
-index: false
-
- Patrząc na historię języków programowania można zaobserwować, że co
- kilka lat twórcy oprogramowania rewidują swoje narzędzia. Weryfikują,
- czy te dotychczas przez nich używane spełniają obecne wymogi stawiane
- im w pracy. Efektami tych rewizji są nowe narzędzia: biblioteki i
- języki. Zacznijmy od bibliotek.
-
-=> Na potrzeby przykładu załóżmy, że żyjemy w smutnym świecie nieznającym jeszcze tablic ;\-)
-
- Kiedy programiście na potrzeby jego projektu brakuje jakiejś
- konstrukcji w języku -- powiedzmy zwykłej *tablicy* -- pisze na swoje
- potrzeby pierwszą implementację. Początkowo jest to wersja
- obsługująca jeden typ danych, pisana na szybko, z nagłej
- potrzeby. Używa dostępnych mu konstrukcji języka, np. wyciąganie
- elementów odbywa się z użyciem metody @pobierz(numer)@.
- 
- Potem dochodzi do wniosku, że jego tablice mogą przydać się także w
- innych projektach. Szlifuje swoją implementację i tworzy z niej
- *bibliotekę*. Z czasem staje się ona tak popularna, że używa jej
- niemal każdy programista. Każdy z nich wchłonął już mentalnie zasadę
- działania tablic i sposób ich użycia. W tym momencie można
- powiedzieć, że tablice stały się częścią świadomości zbiorowej.
-
- Teraz wkraczają twórcy języków. Powstaje pierwszy eksperymentalny
- język, implementujący tablice w kompilatorze. Jego twórcy najpierw są
- krytykowani za rozrzutność i komplikowanie języka. Przecież nie każdy
- potrzebuje tablic.
-
- Najpierw pali się na stosach heretyków i czarownice. Później
- przyznaje się im rację. Resztę skrócę: historia kończy się tak, że
- każdy język ma tablice.
-
-* Wracając do rzeczywistości
-
- Przykład powyżej oczywiście jest celowo uwypuklony. W rzeczywistości
- jest tak, że ta "nowa herezja" znajduje swoją niszę.
-
- Można zauważyć, że nowe języki (albo nowe wersje starych) /agregują/
- konstrukcje tak potrzebne programistom, że stają się częścią ich
- mentalności. 
-
- //Jakie rzeczy teraz są bibliotekach w większości języków a zaczynają
- się pojawiać jako konstrukcje w innych
-
-# Zwiększający się stopień skomplikowania architektury programów
-# Programowanie konkurencyjne
+index:false
  
 * Clojure
 
