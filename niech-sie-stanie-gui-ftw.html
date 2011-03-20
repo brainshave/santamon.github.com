@@ -7,8 +7,8 @@
     <!-- <link rel="stylesheet" href="media/fonts.css" /> -->
     <link rel="stylesheet" href="media/makeblog.css" />
     <link rel="stylesheet" href="media/common.css" />
-    <link rel="stylesheet" href="media/index.css" />
-    <title>Long-standing Bug - Szymon Witamborski</title>
+    <link rel="stylesheet" href="media/article.css" />
+    <title>Niech się stanie GUI FTW!</title>
     <!-- work around IE not handling properly unknown tags -->
     <!-- suggested here: http://diveintohtml5.org/semantics.html -->
     <script>
@@ -24,41 +24,19 @@
     <div id="main_wrapper">
       <div id="header">
 	<div id="sw">
-	  <img src="media/s-w-big.png" alt="S/W" />
+	  <a href="index.html">
+	    <img src="media/s-w-small.png" alt="S/W" />
+	  </a>
 	</div>
-	<div id="cv">
-	  <a href="swftwcv.pdf" alt="Hire me!">CV</a>
-	</div>
-	<div id="info" class="hyphenate">
-	  Witam na&nbsp;stronie Szymona Witamborskiego. Jest on&nbsp;zainteresowany nowymi językami programowania, głównie Clojure. Poza tym od&nbsp;zawsze martwiły go&nbsp;tematy wokół tworzenia GUI. Ta&nbsp;strona opowiada o&nbsp;jego poczynaniach w&nbsp;w/w zagadnieniach.
-	</div>
+	<nav id="menu">
+	  <a href="archive.html">Archiwa</a>,
+	  <a href="info.html">Info</a>
+	</nav>
       </div>
-      <aside id="menus">
-	<nav id="misc" class="menu">
-	  <ul>
-	    <li><a href="atom.xml">Kanał Atom</a></li> 
-	    <li><a href="archive.html">Archiwa</a></li>
-	    <li><a href="info.html">Info</a></li>
-	  </ul>
-	</nav>
-	<nav id="projects" class="menu">
-	  Własne projekty:
-	  <ul>
-	    <li><a href="http://github.com/santamon/GUIFTW">GUI FTW!</li>
-	    <li><a href="http://github.com/santamon/makeblog">Makeblog</a></li>
-	  </ul>
-	</nav>
-	<nav id="categories" class="menu">
-	  Piszę o:
-	  <ul>
-	    <li>Tu pojawią się kategorie.</li>
-	  </ul>
-	</nav>
-      </aside>
       <div id="latest">
-	<div id="latest_text">Najnowszy wpis: <date>niedziela, 20 marzec 2011</date></div>
+	<time id="latest_text">niedziela, 20 marzec 2011</time>
 	<article class="hyphenate">
-	  <h1><a href="http://longstandingbug.com/niech-sie-stanie-gui-ftw.html">Niech się stanie GUI FTW!</a></h1>
+	  <h1>Niech się stanie GUI FTW!</h1>
 	  <p>Ponieważ bardzo lubię programowanie deklaratywne brakowało mi od dawna
 czegoś deklaratywnego do tworzenia GUI. Kod tworzący GUI jest zawsze
 bardzo nudny i powtarzalny: "stwórz obiekt, ustaw jego tekst, ikonę,
@@ -149,7 +127,6 @@ dwustronnie pod clojure'owe atomy, refy, agentów itp. Pozwoliłoby to
 na spięcie GUI i np. pamięci transakcyjnej.
 </p>
 	</article>
-	
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">
 	  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

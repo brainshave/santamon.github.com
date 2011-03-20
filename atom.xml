@@ -2,12 +2,109 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Long-standing Bug</title> 
   <link href="http://longstandingbug.com" rel="self" />
-  <updated>2010-11-27T10:25:40Z</updated>
+  <updated>2011-03-20T18:59:44Z</updated>
   <author> 
     <name>Szymon Witamborski</name>
   </author>
   <id>http://longstandingbug.com/./atom.xml</id>
   
+  <entry>
+    <title>Niech się stanie GUI FTW!</title>
+    <link href="http://longstandingbug.com/niech-sie-stanie-gui-ftw.html" rel="alternate" />
+    <id>http://longstandingbug.com/niech-sie-stanie-gui-ftw.html</id>
+    <updated>2011-03-20T00:00:00Z</updated>
+    <published>2011-03-20T00:00:00Z</published>
+    <content type="html">&lt;p&gt;Ponieważ bardzo lubię programowanie deklaratywne brakowało mi od dawna
+czegoś deklaratywnego do tworzenia GUI. Kod tworzący GUI jest zawsze
+bardzo nudny i powtarzalny: "stwórz obiekt, ustaw jego tekst, ikonę,
+dodaj akcję na klik (wcześniej stwórz obiekt implementujący
+odpowiedniego listenera), ew. stwórz obiekty-dzieci, bla bla bla".
+&lt;/p&gt;&lt;p&gt;Projektanci stron internetowych od początku mają do dyspozycji HTML i
+CSS, które są jak najbardziej deklaratywne w swojej naturze. Dodatkowo
+treść określa się osobno od tego jak ma wyglądać. Model ten zaczyna
+wychodzić poza przeglądarki, np. XAML w .NET albo pliki layoutów w
+Androidzie. Wszystkie znane mi do tej pory tego przykłady opierają się
+na XML-u i dodatkowym programie generującym kod w trakcie kompilacji.
+&lt;/p&gt;&lt;p&gt;Ostatnio pracuję nad podobną biblioteką dla Clojure. Są jednak dwie
+główne różnice: 
+&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;Tak jak dla programistów Javy naturalnym językiem do opisu danych jest XML tak dla programistów Clojure tym językiem jest Clojure.&lt;/li&gt;
+&lt;li&gt;Moja biblioteka jest jedynie biblioteką, nie wymaga dodatkowych programów generujących (powiedzmy) kod Javy z XML-a.&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;Ad 1. Składnia Clojure to tylko struktury danych: listy, wektory i
+mapy o &lt;em&gt;wybornej&lt;/em&gt; składni. Grzechem byłoby używać w takiej sytuacji
+XML-a. Całe parsowanie robi za mnie Clojure więc mogę martwić się już
+tylko znaczeniem tego co siedzi w środku. Zarówno drzewo GUI (analogia
+do HTML) jak i style (CSS) definiowane są za pomocą kodu w Clojure.
+&lt;/p&gt;&lt;p&gt;Ad 2. Dzięki magicznym technikom metaprogramowania (makrom) mogę
+wchodzić w drogę kompilatorowi Clojure i generować kod tuż przed
+kompilacją zamiast generować kod programem i dopiero potem wywoływać
+kompilator. Dlatego całą funkcjonalność można spakować do pliku jar i
+używać jak każdej innej biblioteki. Ułatwia to także programowanie
+interaktywne z użyciem REPL.
+&lt;/p&gt;&lt;h2&gt;Co, gdzie, jak?&lt;/h2&gt;&lt;p&gt;Teraz nieco więcej o samej bibliotece. Nazwałem ją &lt;strong&gt;GUI FTW!&lt;/strong&gt; a pobrać
+ją można stąd: &lt;a href="http://github.com/santamon/GUIFTW"&gt;http://github.com/santamon/GUIFTW&lt;/a&gt;. Jest dostępna
+także na &lt;a href="http://clojars.org/guiftw"&gt;Clojars&lt;/a&gt; więc wystarczy dodać
+&lt;code&gt;[guiftw "0.1.0-SNAPSHOT"]&lt;/code&gt; do zależności projektu aby jej
+użyć. Polecam poeksperymentować z przykładami w katalogu
+&lt;a href="http://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples"&gt;src/guiftw/examples&lt;/a&gt;, które są również mocno obkomentowane w formie tutoriala.
+&lt;/p&gt;&lt;p&gt;GUI FTW! nie jest kolejnym toolkitem obok SWT i Swinga &amp;mdash; jest
+deklaratywną nakładką na nie. Tzn. GUI FTW! można używać do tworzenia
+interfejsów używając jednego albo drugiego pod spodem. Do tego zostało
+napisane na tyle abstrakcyjnie, że można łatwo dopisać obsługę
+kolejnego toolkitu. Ułatwi to przesiadkę programistom Javy, którzy
+znają jedno albo drugie. Poza tym, pisanie kolejnego toolkitu nie jest
+po prostu celem tego projektu.
+&lt;/p&gt;&lt;h2&gt;Banalny przykład&lt;/h2&gt;&lt;p&gt;Strukturą GUI jest drzewo, którego węzeł składa się z nazwy
+klasy, listy właściwości oraz z jego węzłów-dzieci.
+&lt;/p&gt;&lt;pre&gt;(def window
+ (swing
+  [JFrame [:title "GUI FTW!"
+           :visible true]
+   [JButton [:text "To jest przycisk!"]]]))
+&lt;/pre&gt;&lt;p&gt;Wewnątrz listy cech można używać dowolnych nazw, które mają swoje
+settery w danej klasie. Np. &lt;code&gt;:title&lt;/code&gt; tłumaczone jest na wywołanie
+metody &lt;code&gt;setTitle&lt;/code&gt;, &lt;code&gt;:default-close-operation&lt;/code&gt; na
+&lt;code&gt;setDefaultCloseOperation&lt;/code&gt; itd.
+&lt;/p&gt;&lt;p&gt;Aby zdefiniować style osobno musimy nadać elementom identyfikatory:
+&lt;/p&gt;&lt;pre&gt;[JFrame [*id :okno-ftw]
+ [JButton [*id :przycisk-omg]]]
+&lt;/pre&gt;&lt;p&gt;a osobno w tzw. arkuszu stylów zdefiniować cechy obiektów:
+&lt;/p&gt;&lt;pre&gt;(def sheet
+ (stylesheet
+  [:okno-ftw] [:title "GUI FTW!"
+               :size ^unroll (300 200)
+               :visible true]
+  [:przycisk-omg] [:text "To jest przycisk!"]))
+&lt;/pre&gt;&lt;p&gt;Składnia styli składa się z par list: najpierw lista identyfikatorów,
+druga lista jest listą właściwości jak poprzednio. &lt;code&gt;^unroll&lt;/code&gt; jest
+potrzebne dla setterów, które mają więcej niż jeden parametr. Lista
+poprzedzona &lt;code&gt;^unroll&lt;/code&gt; zostanie rozwinięta na wszystkie jego parametry
+zamiast wywołać setter z listą jako parametrem. Czyli otrzymamy
+odpowiednik &lt;code&gt;setSize(300, 200)&lt;/code&gt; zamiast &lt;code&gt;setSize((300, 200))&lt;/code&gt;.
+&lt;/p&gt;&lt;p&gt;Makro &lt;code&gt;swing&lt;/code&gt; zwraca funkcję, która utworzy chciane GUI, więc &lt;code&gt;window&lt;/code&gt;
+będzie funkcją. Parametrami tej funkcji jest ew. obiekt nadrzędny
+(jeśli nie tworzylibyśmy okna tylko jakiś podrzędny element, może być
+nil) oraz dowolna ilość arkuszy styli. Utworzenie okna będzie więc
+wyglądało tak:
+&lt;/p&gt;&lt;pre&gt;(window nil sheet)
+&lt;/pre&gt;&lt;p&gt;&lt;img src="gui-ftw-pierwsze-okno.png" alt="Pierwsze okno" /&gt;
+&lt;/p&gt;&lt;p&gt;Arkuszy może być więcej, możemy także podać inny komplet. Możemy też
+utworzyć wiele okien wywołując powtórnie tę funkcję. Zwrócony zostanie
+element na korzeniu drzewa.
+&lt;/p&gt;&lt;p&gt;Analogiczny przykład w SWT użyłby klas specyficznych dla SWT i przede
+wszystkim makra &lt;code&gt;swt&lt;/code&gt; zamiast &lt;code&gt;swing&lt;/code&gt;.
+&lt;/p&gt;&lt;h2&gt;Co dalej&lt;/h2&gt;&lt;p&gt;Zacząłem pisać dokumentację. Jest dostępna w kodzie bądź przez &lt;code&gt;doc&lt;/code&gt; w
+REPL-u. Przydałaby się też dokumentacja on-line w stylu &lt;a href="http://clojure.github.com/clojure/"&gt;tej&lt;/a&gt;
+dla samego Clojure.
+&lt;/p&gt;&lt;p&gt;W tym momencie można stworzyć GUI, ostylować go i podpiąć zdarzenia (o
+czym będzie następny wpis). Brakuje całej części "stanowej", w
+szczególności wyciąganie z drzewa interesujących nas elementów. Mam
+również pomysł, by podpinać wartości (np. tekst pola tekstowego)
+dwustronnie pod clojure'owe atomy, refy, agentów itp. Pozwoliłoby to
+na spięcie GUI i np. pamięci transakcyjnej.
+&lt;/p&gt;</content>
+  </entry>
+
   <entry>
     <title>Idea i Iluzja łeb w web</title>
     <link href="http://longstandingbug.com/idea-iluzja.html" rel="alternate" />

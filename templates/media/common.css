@@ -12,6 +12,12 @@ a {
     color: #555;
 }
 
+h1 a {
+    text-decoration: none;
+    background-color: inherit;
+    color: inherit;
+}
+
 img {
     border: 0;
 }
@@ -88,21 +94,16 @@ blockquote em, blockquote i {
 
 code {
     font-family: 'Segoe UI Mono', 'Droid Sans Mono', monospace;
+    background-color: #eed;
+    font-size: 0.96em;
 }
 
 pre {
     font-family: Consolas, Inconsolata, 'Droid Sans Mono', monospace;
-}
-
-pre {
     padding-top: 3px;
     padding-bottom: 3px;
-    border-color: #dee;
+    border-color: #eed;
     line-height: 1.2em;
-}
-
-code {
-    font-size: 0.96em;
 }
 
 footer {
