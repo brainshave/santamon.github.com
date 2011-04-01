@@ -3,7 +3,6 @@
 body {
     font-family: liber, 'Segoe UI', 'Droid Sans', Helvetica, Arial, sans-serif;
     font-size: 21px;
-    color: #AAA;
     background: #fff url('bug-light.png') no-repeat right bottom;
 }
 
@@ -41,6 +40,7 @@ img {
 }
 
 #latest_text {
+    color: #AAA;
     margin: 0 0 10px 0;
 }
 
