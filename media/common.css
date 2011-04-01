@@ -1,8 +1,8 @@
 /* Main font and page settings */
 
 body {
-    font-family: 'Segoe UI', 'Droid Sans', Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-family: liber, 'Segoe UI', 'Droid Sans', Helvetica, Arial, sans-serif;
+    font-size: 21px;
     color: #AAA;
     background: #fff url('bug-light.png') no-repeat right bottom;
 }
@@ -23,7 +23,7 @@ img {
 }
 
 #main_wrapper {
-    max-width: 600px;
+    max-width: 640px;
     margin: auto;
 }
 
@@ -45,8 +45,8 @@ img {
 }
 
 article {
-    color: #222;
-    font-size: 1.12em;
+    color: #000;
+    font-size: 1.14em;
     line-height: 1.7em;
 }
 
@@ -56,6 +56,7 @@ article > * {
 }
 
 h1, h2, h3, h4, h5, h6, h7 {
+    font-family: libercap;
     clear: both;
     font-weight: normal;
     margin: 20px 0 8px 0;
@@ -93,13 +94,13 @@ blockquote em, blockquote i {
 }
 
 code {
-    font-family: 'Segoe UI Mono', 'Droid Sans Mono', monospace;
+    font-family: inconsol, 'Segoe UI Mono', 'Droid Sans Mono', monospace;
     background-color: #eed;
     font-size: 0.96em;
 }
 
 pre {
-    font-family: Consolas, Inconsolata, 'Droid Sans Mono', monospace;
+    font-family: inconsol, Consolas, Inconsolata, 'Droid Sans Mono', monospace;
     padding-top: 3px;
     padding-bottom: 3px;
     border-color: #eed;
