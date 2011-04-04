@@ -4,11 +4,13 @@
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="media/bug-inv.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
-    <link rel="stylesheet" href="media/fonts.css" />
     <link rel="stylesheet" href="media/makeblog.css" />
     <link rel="stylesheet" href="media/common.css" />
-    <link rel="stylesheet" href="media/index.css" />
-    <title>Long-standing Bug - Szymon Witamborski</title>
+    <link rel="stylesheet" href="media/article.css" />
+
+    <link rel="stylesheet" href="media/fonts.css" />
+
+    <title>Zdarzenia w GUI FTW!</title>
     <!-- work around IE not handling properly unknown tags -->
     <!-- suggested here: http://diveintohtml5.org/semantics.html -->
     <script>
@@ -24,44 +26,19 @@
     <div id="main_wrapper">
       <div id="header">
 	<div id="sw">
-	  <img src="media/bug-big.png" alt="Long-standing Bug" />
+	  <a href="index.html">
+	    <img src="media/bug-crop.png" alt="Long-standing Bug" />
+	  </a>
 	</div>
-	<div id="cv">
-	  <a href="swftwcv.pdf" alt="Hire me!">CV</a>
-	</div>
-	<div id="info" class="hyphenate">
-	  <span style="font-family: libercap; color: #000;">Long-standing Bug</span>
-	  &mdash; Szymon Witamborski o programowaniu,
-	  <i>meta</i>programowaniu, Clojure i GUI.<br />
-	  <!-- <code>Content-type: bull/sh*t</code> -->
-	</div>
+	<nav id="menu">
+	  <a href="archive.html">Archiwa</a>,
+	  <a href="info.html">Info</a>
+	</nav>
       </div>
-      <aside id="menus">
-	<nav id="misc" class="menu">
-	  <ul>
-	    <li><a href="atom.xml">Kanał Atom</a></li> 
-	    <li><a href="archive.html">Archiwa</a></li>
-	    <li><a href="info.html">Info</a></li>
-	  </ul>
-	</nav>
-	<nav id="projects" class="menu">
-	  Projekty:
-	  <ul>
-	    <li><a href="http://github.com/santamon/GUIFTW">GUI FTW!</li>
-	    <li><a href="http://github.com/santamon/makeblog">Makeblog</a></li>
-	  </ul>
-	</nav>
-	<nav id="categories" class="menu">
-	  Piszę o:
-	  <ul>
-	    <li>(tu będą tagi)</li>
-	  </ul>
-	</nav>
-      </aside>
       <div id="latest">
-	<div id="latest_text">Najnowszy wpis: <date>poniedziałek, 04 kwiecień 2011</date></div>
+	<time id="latest_text">poniedziałek, 04 kwiecień 2011</time>
 	<article class="hyphenate">
-	  <h1><a href="http://longstandingbug.com/zdarzenia-guiftw.html">Zdarzenia w GUI FTW!</a></h1>
+	  <h1>Zdarzenia w GUI FTW!</h1>
 	  <p>Tradycyjnie w Swingu bądź SWT żeby obsłużyć zdarzenie musimy utworzyć
 nową implementację jakiegoś interfejsu, np. <code>MouseListener</code> a potem
 go zarejestrować w obiekcie, którego zdarzenia nas interesują.
@@ -143,7 +120,6 @@ hellołłorldowy). Dla przypomnienia struktura interfejsu:
 </p><p>Pełny kod tego przykładu znajduje się <a href="https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/basic.clj">tutaj</a>.
 </p>
 	</article>
-	
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">
 	  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
