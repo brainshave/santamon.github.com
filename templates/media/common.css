@@ -1,7 +1,7 @@
 /* Main font and page settings */
 
 body {
-    font-family: liber, 'Segoe UI', 'Droid Sans', Helvetica, Arial, sans-serif;
+    font-family: liber, 'Lucida Grande', 'Lucida Sans Unicode', 'Droid Sans', Helvetica, Arial, sans-serif;
     font-size: 19px;
     background: #fff url('bug-light.png') no-repeat right bottom;
 }
@@ -56,7 +56,7 @@ article > * {
 }
 
 h1, h2, h3, h4, h5, h6, h7 {
-    font-family: libercap;
+    font-family: libercap, Georgia, serif;
     clear: both;
     font-weight: normal;
     margin: 20px 0 8px 0;
@@ -93,14 +93,16 @@ blockquote em, blockquote i {
     font-style: normal;
 }
 
+code, pre {
+    font-family: inconsol, Consolas, Inconsolata, 'Droid Sans Mono', 'Courier New', monospace;
+}
+
 code {
-    font-family: inconsol, 'Segoe UI Mono', 'Droid Sans Mono', monospace;
     background-color: #eed;
     font-size: 0.96em;
 }
 
 pre {
-    font-family: inconsol, Consolas, Inconsolata, 'Droid Sans Mono', monospace;
     padding-top: 3px;
     padding-bottom: 3px;
     border-color: #eed;
