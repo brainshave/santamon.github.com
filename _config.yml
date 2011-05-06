@@ -2,4 +2,4 @@ title: Long-standing Bug
 url: http://longstandingbug.com
 
 permalink: /:title.html
-pygments: true
+markdown: rdiscount

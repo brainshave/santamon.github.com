@@ -64,11 +64,11 @@ Strukturą GUI jest drzewo, którego węzeł składa się z nazwy
 klasy, listy właściwości oraz z jego węzłów-dzieci.
 
 {% highlight clojure %}
-    (def window
-     (swing
-      [JFrame [:title "GUI FTW!"
-               :visible true]
-       [JButton [:text "To jest przycisk!"]]]))
+(def window
+ (swing
+   [JFrame [:title "GUI FTW!"
+            :visible true]
+    [JButton [:text "To jest przycisk!"]]]))
 {% endhighlight %}
 
 Wewnątrz listy cech można używać dowolnych nazw, które mają swoje
@@ -79,19 +79,19 @@ metody `setTitle`, `:default-close-operation` na
 Aby zdefiniować style osobno musimy nadać elementom identyfikatory:
 
 {% highlight clojure %}
-    [JFrame [*id :okno-ftw]
-     [JButton [*id :przycisk-omg]]]
+[JFrame [*id :okno-ftw]
+ [JButton [*id :przycisk-omg]]]
 {% endhighlight %}
 
 a osobno w tzw. arkuszu stylów zdefiniować cechy obiektów:
 
 {% highlight clojure %}
-    (def sheet
-     (stylesheet
-      [:okno-ftw] [:title "GUI FTW!"
-      	           :size ^unroll (300 200)
-       	           :visible true]
-      [:przycisk-omg] [:text "To jest przycisk!"]))
+(def sheet
+ (stylesheet
+  [:okno-ftw] [:title "GUI FTW!"
+ 	       :size ^unroll (300 200)
+       	       :visible true]
+  [:przycisk-omg] [:text "To jest przycisk!"]))
 {% endhighlight %}
 
 Składnia styli składa się z par list: najpierw lista identyfikatorów,
@@ -108,7 +108,7 @@ nil) oraz dowolna ilość arkuszy styli. Utworzenie okna będzie więc
 wyglądało tak:
 
 {% highlight clojure %}
-    (window nil sheet)
+(window nil sheet)
 {% endhighlight %}
 
 ![Pierwsze okno](images/gui-ftw-pierwsze-okno.png)
