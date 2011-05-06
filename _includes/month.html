@@ -1,0 +1,27 @@
+{% capture month_number %}{{ post.date | date: "%m"}}{% endcapture %}
+{% case month_number %}
+{% when '01' %}
+{% capture month %}stycze&#324; {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '02' %}
+{% capture month %}luty {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '03' %}
+{% capture month %}marzec {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '04' %}
+{% capture month %}kwiecie&#324; {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '05' %}
+{% capture month %}maj {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '06' %}
+{% capture month %}czerwiec {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '07' %}
+{% capture month %}lipiec {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '08' %}
+{% capture month %}sierpie&#324; {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '09' %}
+{% capture month %}wrzesie&#324; {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '10' %}
+{% capture month %}pa&#378;dziernik {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '11' %}
+{% capture month %}listopad {{ post.date | date: "%Y"}}{% endcapture %}
+{% when '12' %}
+{% capture month %}grudzie&#324; {{ post.date | date: "%Y"}}{% endcapture %}
+{% endcase %}

@@ -1,0 +1,22 @@
+---
+layout: page
+title: Archiwa
+---
+
+{% for post in site.posts %}
+{% include month.html %}
+{% if month != old_month %}
+{% if old_month != null %}</ul>{% endif %}
+<h2 class="archive_month">
+  {{ post.date | date: "%m" | replace: "01", "stycze&#324;" | replace: "02", "luty" | replace: "03", "marzec" | replace: "04", "kwiecie&#324;" | replace: "05", "maj" | replace: "06", "czerwiec" | replace: "07", "lipiec" | replace: "08", "sierpie&#324;" | replace: "09", "wrzesie&#324;" | replace: "10", "pa&#378;dziernik" | replace: "11", "listopad" | replace: "12", "grudzie&#324;" }}
+  {{ post.date | date: "%Y" }}
+</h2><ul class="archive_list">
+{% endif %}
+{% assign old_month = month %}
+{% capture day %}{{ post.date | date: "%d" }}{% endcapture %}
+<li><span class="archive_day">
+    {% if day < "10" %}{{ day | replace: "0", "" }}
+    {% else %}{{ day }}{% endif %}
+</span> <a class="archive_link" href="{{ post.url }}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>
