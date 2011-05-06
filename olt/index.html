@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="media/bug-inv.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
+    <link rel="stylesheet" href="media/fonts.css" />
+    <link rel="stylesheet" href="media/makeblog.css" />
+    <link rel="stylesheet" href="media/common.css" />
+    <link rel="stylesheet" href="media/index.css" />
+    <title>Long-standing Bug - Szymon Witamborski</title>
+    <!-- work around IE not handling properly unknown tags -->
+    <!-- suggested here: http://diveintohtml5.org/semantics.html -->
+    <script>
+      document.createElement("article");
+      document.createElement("nav");
+      document.createElement("aside");
+      document.createElement("footer");
+      document.createElement("date");
+    </script>
+    <script src="media/hyphenator.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="main_wrapper">
+      <div id="header">
+	<div id="sw">
+	  <img src="media/bug-big.png" alt="Long-standing Bug" />
+	</div>
+	<div id="cv">
+	  <a href="swftwcv.pdf" alt="Hire me!">CV</a>
+	</div>
+	<div id="info" class="hyphenate">
+	  <span style="font-family: libercap; color: #000;">Long-standing Bug</span>
+	  &mdash; Szymon Witamborski o programowaniu,
+	  <i>meta</i>programowaniu, Clojure i GUI.<br />
+	  <!-- <code>Content-type: bull/sh*t</code> -->
+	</div>
+      </div>
+      <aside id="menus">
+	<nav id="misc" class="menu">
+	  <ul>
+	    <li><a href="atom.xml">Kanał Atom</a></li> 
+	    <li><a href="archive.html">Archiwa</a></li>
+	    <li><a href="info.html">Info</a></li>
+	  </ul>
+	</nav>
+	<nav id="projects" class="menu">
+	  Projekty:
+	  <ul>
+	    <li><a href="http://github.com/santamon/GUIFTW">GUI FTW!</li>
+	    <li><a href="http://github.com/santamon/makeblog">Makeblog</a></li>
+	  </ul>
+	</nav>
+	<nav id="categories" class="menu">
+	  Piszę o:
+	  <ul>
+	    <li>(tu będą tagi)</li>
+	  </ul>
+	</nav>
+      </aside>
+      <div id="latest">
+	<div id="latest_text">Najnowszy wpis: <date>piątek, 06 maj 2011</date></div>
+	<article class="hyphenate">
+	  <h1><a href="http://longstandingbug.com/stateful-guiftw.html">Stateful GUI FTW!</a></h1>
+	  <p class="makeblog_box makeblog_box_right">First post in English. Prepare for more.
+</p><p>From several commits back, GUI FTW! doesn't return single element
+after creation of GUI. Now you'll get a map wrapped in an atom.
+</p><pre>user&gt; ((swing [JFrame [*id :window
+                       *groups [:containers]]
+               [JPanel [*groups [:containers :asdfs]]
+                [JButton [*id :button
+                          *groups [:asdfs]]]]]))
+
+#Atom@533e846f:
+  {:ids {:button #&lt;JButton&gt;
+         :window #&lt;JFrame&gt;}
+   :groups {:containers (#&lt;JFrame&gt; #&lt;JPanel&gt;)
+            :asdfs (#&lt;JPanel&gt; #&lt;JButton&gt;)}
+   :root #&lt;JFrame ...&gt;}
+</pre><p>I call it "state map" because it holds information about runtime
+state. State map have three standard keys:
+</p><ul>
+<li><code>:ids</code> &mdash; objects identified by their <code>*id</code></li>
+<li><code>:groups</code> &mdash; objects grouped by their <code>*groups</code></li>
+<li><code>:root</code> &mdash; root (top) element of gui structure &mdash; <code>JFrame</code> instance in this case.</li>
+</ul>
+	</article>
+	
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+	  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+	  var disqus_shortname = 'longstandingbug'; // required: replace example with your forum shortname
+
+	  // The following are highly recommended additional parameters. Remove the slashes in front to use.
+	  var disqus_identifier = 'stateful-guiftw.html';
+	  var disqus_url = 'http://longstandingbug.com/stateful-guiftw.html';
+
+	  /* * * DON'T EDIT BELOW THIS LINE * * */
+	  (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	  })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+      </div>
+      <footer>
+	&copy; 2010-2011 Szymon Witamborski, <a href="info.html">CC by</a>
+      </footer>
+    </div>
+  </body>
+</html>

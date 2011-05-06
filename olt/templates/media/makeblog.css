@@ -1,0 +1,26 @@
+.makeblog_box {
+    border-color: #edd;
+    border-style: solid;
+    clear:both;
+    display: box;
+    width: 33%;
+    padding: 4px;
+}
+
+.makeblog_box_left {
+    border-width: 1px 7px 1px 0;
+    float: left;
+}
+
+.makeblog_box_right {
+    border-width: 1px 0 1px 7px;
+    float: right;
+}
+
+.makeblog_right {
+    text-align: right;
+}
+
+.makeblog_center {
+    text-align: center;
+}
