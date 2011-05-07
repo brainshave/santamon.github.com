@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Niech się stanie GUI FTW!
+lang: pl
 categories: [Clojure, GUI FTW!, GUI, Swing, SWT]
 ---
 

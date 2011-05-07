@@ -1,6 +1,7 @@
 ---
 title: One Makefile To Rule Them All
 layout: post
+lang: pl
 categories: [C++, kompilacja, Make, Makefile, programowanie]
 ---
 

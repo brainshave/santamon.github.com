@@ -26,7 +26,7 @@ site).
 ## Components
 
 Site is generated using
-[Jekylla](https://github.com/mojombo/jekyll) on
+[Jekyll](https://github.com/mojombo/jekyll) on
 [GitHub](http://pages.github.com) servers. Comments are driven by
 [Disqus](http://disqus.com). You can see sources of contents here:
 <http://github.com/santamon/santamon.github.com/tree/master>.
