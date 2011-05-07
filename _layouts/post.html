@@ -2,6 +2,10 @@
 layout: page
 ---
 
+{% for cat in page.categories %}
+{{ cat }}{% if forloop.last == false %},{% endif %}
+{% endfor %}
+
 {{ content }}
 
 {% include disqus.html %}

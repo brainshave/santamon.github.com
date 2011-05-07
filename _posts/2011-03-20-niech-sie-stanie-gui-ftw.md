@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Niech się stanie GUI FTW!
+categories: [Clojure, GUI FTW!, GUI, Swing, SWT]
 ---
 
 date: 2011-03-20
-tags: Clojure, GUI FTW!, GUI, Swing, SWT
 
 Ponieważ bardzo lubię programowanie deklaratywne brakowało mi od dawna
 czegoś deklaratywnego do tworzenia GUI. Kod tworzący GUI jest zawsze
@@ -42,7 +42,7 @@ interaktywne z użyciem REPL.
 
 ## Co, gdzie, jak?
 
-Teraz nieco więcej o samej bibliotece. Nazwałem ją *GUI FTW!* a pobrać
+Teraz nieco więcej o samej bibliotece. Nazwałem ją **GUI FTW!** a pobrać
 ją można stąd: <http://github.com/santamon/GUIFTW>. Jest dostępna
 także na [Clojars](http://clojars.org/guiftw) więc wystarczy dodać
 `[guiftw "0.1.0-SNAPSHOT"]` do zależności projektu aby jej

@@ -3,3 +3,5 @@ url: http://longstandingbug.com
 
 permalink: /:title.html
 markdown: rdiscount
+pygments: true
+safe: true
