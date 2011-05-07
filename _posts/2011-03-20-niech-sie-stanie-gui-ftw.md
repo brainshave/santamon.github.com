@@ -89,8 +89,8 @@ a osobno w tzw. arkuszu stylów zdefiniować cechy obiektów:
 (def sheet
  (stylesheet
   [:okno-ftw] [:title "GUI FTW!"
- 	       :size ^unroll (300 200)
-       	       :visible true]
+               :size ^unroll (300 200)
+               :visible true]
   [:przycisk-omg] [:text "To jest przycisk!"]))
 {% endhighlight %}
 
