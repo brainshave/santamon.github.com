@@ -1,5 +1,6 @@
 title: Long-standing Bug
 url: http://longstandingbug.com
+date_format: %A, %d %B %Y
 
 permalink: /:title.html
 markdown: rdiscount

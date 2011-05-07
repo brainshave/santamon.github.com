@@ -6,40 +6,37 @@ title: Szymon Witamborski
 mail:
 santamon ![@](images/darwin.png) gmail · com
 
-Profile tu i tam:
+Profiles here and there:
 
-- [GitHub -- kody źródłowe](http://github.com/santamon).
+- [GitHub -- my projects](http://github.com/santamon).
 
-## Polecam
-- [InfoQ](http://infoq.com) -- bardzo konkretny serwis o inżynierii
-  programowania (z naciskiem na pragmatyzm!)
+## Recommended Reading
+- [InfoQ](http://infoq.com)
 - [Michał Charmas](http://blog.charmas.pl)
 - [Radek Pycka](http://radek.pycka.com)
 - [Konrad Hałas](http://konradhalas.blogspot.com/)
 
-## Licencja treści
+## Licence
 
-Treść dostępna jest na licencji
-[CC by](http://creativecommons.org/licenses/by/3.0/deed.pl). W skrócie
-oznacza to, że można ją cytować we fragmentach lub w całości pod
-warunkiem umieszczenia łącza do strony z oryginałem.
+All contents (text and images) on this site are copyrighted
+[CC by](http://creativecommons.org/licenses/by/3.0/deed). In essence
+it means you can cite but you have to make a pointer to source (this
+site).
 
-## Strona
+## Components
 
-Strona generowana jest za pomocą
-[Jekylla](https://github.com/mojombo/jekyll) a hostowana na serwerach
-[GitHuba](http://pages.github.com). Komentarze obsługiwane są przez
-[Disqus](http://disqus.com). Źródła treści strony dostępne są tu:
-<http://github.com/santamon/santamon.github.com/tree/master/input/>.
+Site is generated using
+[Jekylla](https://github.com/mojombo/jekyll) on
+[GitHub](http://pages.github.com) servers. Comments are driven by
+[Disqus](http://disqus.com). You can see sources of contents here:
+<http://github.com/santamon/santamon.github.com/tree/master>.
 
-Używam kilku składników na licencjach Open Source:
+I use following awesome OpenSource components:
 
-- czcionki
-  [Linux Libertine i Biolinum](http://www.linuxlibertine.org/)
-  (treść),
-- czcionka
-  [Inconsolata](http://www.levien.com/type/myfonts/inconsolata.html)
-  (kody źródłowe),
-- biblioteka [Hyphenator](http://code.google.com/p/hyphenator/) do
-  dzielenia wyrazów.
+- [Linux Libertine & Biolinum](http://www.linuxlibertine.org/) fonts
+  (prose),
+- [Inconsolata](http://www.levien.com/type/myfonts/inconsolata.html)
+  font (code listings),
+- [Hyphenator](http://code.google.com/p/hyphenator/) library for your
+  reading pleasure ;)
 

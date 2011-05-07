@@ -5,9 +5,8 @@ title: Long-standing Bug
 
 {% for post in site.posts limit:1 %}
 
-<div id="latest_text">Najnowszy wpis: <date>
-    {% assign date_to_handle = post.date %}
-    {% include date.html %}
+<div id="latest_text">Newest invention from: <date>
+    {{ post.date | date: site.date_format }}
 </date></div>
 <article class="hyphenate">
   <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>

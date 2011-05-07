@@ -31,4 +31,6 @@ to develop it more (I'd rather put these hours to GUI FTW!
 project). Jekyll is very well put application. It's elegant, have
 server and auto modes (so changes in sources are compiled on the fly),
 and what's also important: it integrates with GitHub pages well (so I
-keep only sources in my repo).
+keep only sources in my repo). It uses nice
+[Liquid](http://www.liquidmarkup.org/) template engine, one of pros is
+that you can use it not only in layouts but also in posts.

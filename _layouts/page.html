@@ -9,14 +9,12 @@ addcss: article.css
     </a>
   </div>
   <nav id="menu">
-    <a href="archive.html">Archiwa</a>,
+    <a href="archive.html">Archive</a>,
     <a href="info.html">Info</a>
   </nav>
 </div>
 <div id="latest">
-  <time id="latest_text">
-    {% assign date_to_handle = page.date %}
-    {% include date.html %}</time>
+  <time id="latest_text">{{ page.date | date: site.date_format }}</time>
   <article class="hyphenate">
     <h1>{{ page.title }}</h1>
     {{ content }}
