@@ -2,9 +2,10 @@
 layout: post
 title: Błąd młodego parsownika
 categories: [Python, pyparsing, Makeblog, porażka]
+lang: pl
 ---
 
-**Parsownik** -- *osoba pisząca parsery. (Termin zawdzięczam
+**Parsownik** -- *osoba pisząca parsery.<br />(Termin zawdzięczam
   mojemubratu.)*
 
 Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze jest to, że
