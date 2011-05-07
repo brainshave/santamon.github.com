@@ -8,8 +8,7 @@ days (like Clojure is) in Polish was a failure. In past (almost) year
 I've developed belief that community should keep together tight.
 Creating content in Polish doesn't make sense when all Clojurians use
 English to exchange their knowledge. It's like intersecting two very
-small sets (Polish & Clojure) -- intersection elements count is very
-very small.
+small sets (Polish & Clojure) -- intersection elements count is very·very small.
 
 I probably write creepy English. But I don't care more than I'm
 convinced that the more I write the better I write. It's funny (and
@@ -22,7 +21,7 @@ teraz). I'm just inverting proportions and English will be
 default. I'll translate some of Polish contents (such as I'll
 reintroduce GUI FTW! to the World).
 
-## Dr Jekyll and His Drugs to The Rescue
+## Dr Jekyll and His Drugs to Rescue
 
 I've abandoned my [Makeblog](http://github.com/santamon/makeblog)
 project and use [Jekyll](https://github.com/mojombo/jekyll)

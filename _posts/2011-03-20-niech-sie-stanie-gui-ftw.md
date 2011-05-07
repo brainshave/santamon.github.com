@@ -4,8 +4,6 @@ title: Niech się stanie GUI FTW!
 categories: [Clojure, GUI FTW!, GUI, Swing, SWT]
 ---
 
-date: 2011-03-20
-
 Ponieważ bardzo lubię programowanie deklaratywne brakowało mi od dawna
 czegoś deklaratywnego do tworzenia GUI. Kod tworzący GUI jest zawsze
 bardzo nudny i powtarzalny: "stwórz obiekt, ustaw jego tekst, ikonę,

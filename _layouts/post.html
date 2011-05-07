@@ -2,9 +2,11 @@
 layout: page
 ---
 
+{% comment %}
 {% for cat in page.categories %}
 {{ cat }}{% if forloop.last == false %},{% endif %}
 {% endfor %}
+{% endcomment %}
 
 {{ content }}
 
