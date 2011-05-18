@@ -67,9 +67,9 @@ What's created with GUI FTW! is always reusable: you'll get a function
 to instantiate your GUI as many times as you want to. Also, style
 sheets are list of function-like objects that applies some properties
 to objects. You can mix different GUI's with different style sheets at
-runtime freely. This paragraph is if thought that everything is
-written using macros flew across someone's mind ;) . Actually I tried
-to minimize amount of macros.
+runtime freely. This paragraph is here in case of thought that
+everything is written using macros flew across someone's mind ;)
+. Actually, I've tried to minimize use of macros.
 
 ### More?
 
@@ -84,7 +84,7 @@ FTW!. Here's a couple of links you'd likely be interested in:
 
 ## What's New?
 
-From the time of
+Since the
 [original announcement in Polish](niech-sie-stanie-gui-ftw.html) I've
 added couple of things, most important runtime state handling, support
 for custom "special properties" and for custom
@@ -154,12 +154,12 @@ There's a [fancy example](https://github.com/santamon/GUIFTW/blob/master/src/gui
 
 ### Why Bother the Programmer?
 
-If you'd look at my
+If you look at my
 [TODO](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/TODO.md)
-list you'd see that I plan to put those quirks in special style sheet
-in `guiftw.swing`. I also consider using this style sheet by default
-in Swing. If you know any **other cases** that should be included,
-*please* let me know, either by
+list you will see that I plan to put those quirks in special style
+sheet in `guiftw.swing`. I also consider using this style sheet by
+default in Swing. If you know any **other cases** that should be
+included, *please* let me know, either by
 [creating an issue](https://github.com/santamon/GUIFTW/issues),
 [mailing me](http://longstandingbug.com/info.html) or throwing a brick
 at my window<sup><a href="#foot3" id="foot3back">3</a></sup>.
