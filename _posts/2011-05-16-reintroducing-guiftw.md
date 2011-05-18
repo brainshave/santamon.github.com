@@ -171,5 +171,5 @@ do.</span><br />
 <span id="foot2"><sup><a href="#foot2back">2</a></sup> Notice that
 [swt](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/src/guiftw/swt.clj#L13)
 is just a wrapper around `parse-gui` and `swt-create`).</span><br />
-<span id="foot3"><sup><a href="#foot3back">3</a></sup> Good look with that, I live on 10th floor :P.</span>
+<span id="foot3"><sup><a href="#foot3back">3</a></sup> Good luck with that, I live on 10th floor :P.</span>
 </small>
