@@ -8,8 +8,8 @@ I meant this post to be a simple translation of
 [this](niech-sie-stanie-gui-ftw.html) but some things changed that are
 worth mentioning.
 
-**GUI FTW!** is a *declarative* GUI library. I borrowed concepts from
-the Web (the good parts). It's kind of little internal DSL for
+**GUI FTW!** is a *declarative* GUI library. I've borrowed concepts
+from the Web (the good parts). It's kind of little internal DSL for
 GUI's. You'll stop manually creating boring repetitive code like:
 
 {% highlight clojure %}
