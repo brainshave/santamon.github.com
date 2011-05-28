@@ -1,7 +1,0 @@
----
-layout: atom
----
-{% assign feed = site.categories.Clojure %}
-{% include atom-listing.xml %}
-{% assign feed = site.categories["GUI FTW!"] %}
-{% include atom-listing.xml %}

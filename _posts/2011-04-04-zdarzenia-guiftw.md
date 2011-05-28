@@ -2,7 +2,6 @@
 title: Zdarzenia w GUI FTW!
 layout: post
 lang: pl
-categories: [GUI FTW!, Clojure]
 ---
 
 Tradycyjnie w Swingu bądź SWT żeby obsłużyć zdarzenie musimy utworzyć
