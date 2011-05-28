@@ -1,5 +1,5 @@
 ---
 layout: atom
 ---
-{% assign feed = site.posts %}
+{% assign feed = site.categories.Clojure %}
 {% include atom-listing.xml %}

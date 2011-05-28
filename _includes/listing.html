@@ -11,4 +11,6 @@
     {% else %}{{ day }}{% endif %}
 </span> <a class="archive_link" href="{{ post.url }}">{{ post.title }}</a></li>
 {% endfor %}
+{% if month != null %}
 </ul>
+{% endif %}

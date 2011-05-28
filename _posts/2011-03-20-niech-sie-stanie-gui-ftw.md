@@ -2,7 +2,7 @@
 layout: post
 title: Niech się stanie GUI FTW!
 lang: pl
-categories: [Clojure, GUI FTW!, GUI, Swing, SWT]
+categories: [GUI FTW!, GUI, Swing, SWT, Clojure]
 ---
 
 Ponieważ bardzo lubię programowanie deklaratywne brakowało mi od dawna

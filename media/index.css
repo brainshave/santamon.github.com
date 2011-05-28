@@ -66,3 +66,8 @@
     background: none;
 }
 
+#menus a img {
+    vertical-align: middle;
+    text-decoration: none;
+    border: 0;
+}
