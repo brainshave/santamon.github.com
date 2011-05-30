@@ -131,8 +131,8 @@ expression = OneOrMore( undecorated | bold | italic )
 # Domyślnie wszystkie elementy odnalezione przez pyparsing
 # zwracane są jako jednowymiarowa lista, Group stworzy
 # listę zagnieżdżoną dla tego dopasowania
-bold &lt;&lt; Group("*" + expression + "*")
-italic &lt;&lt; Group("/" + expression + "/")
+bold << Group("*" + expression + "*")
+italic << Group("/" + expression + "/")
 
 pprint(expression.parseString("""
 czysty tekst
