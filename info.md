@@ -34,9 +34,9 @@ Site is generated using
 I use following awesome OpenSource components:
 
 - [Linux Libertine & Biolinum](http://www.linuxlibertine.org/) fonts
-  (prose),
+  (prose, disabled atm),
 - [Inconsolata](http://www.levien.com/type/myfonts/inconsolata.html)
-  font (code listings),
+  font (code listings, disabled atm),
 - [Hyphenator](http://code.google.com/p/hyphenator/) library for your
   reading pleasure ;)
 

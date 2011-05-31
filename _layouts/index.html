@@ -3,42 +3,44 @@ layout: default
 addcss: index.css
 ---
 <div id="header">
-  <div id="sw">
-    <img src="media/bug-big.png" alt="Long-standing Bug" />
-  </div>
+  <aside id="menus">
+    <nav id="sw" class="menu">
+      <img src="media/bug-big.png" alt="Long-standing Bug" />
+    </nav>
+    <nav id="projects" class="menu">
+      Projects:
+      <ul>
+        <li><a href="http://github.com/santamon/GUIFTW">GUI FTW!</a></li>
+        <li><a href="http://github.com/santamon/makeblog">Makeblog</a></li>
+      </ul>
+    </nav>
+    <nav id="categories" class="menu">
+      Writing about:
+      <ul>
+        <li><a href="clojure-category.html">Clojure</a> <a href="clojure-category.xml"><img alt="Clojure category Atom feed" src="media/feed.png" /></a></li>
+        <li><a href="gui-ftw-category.html">GUI FTW!</a> <a href="gui-ftw-category.xml"><img alt="GUI FTW! category Atom feed" src="media/feed.png" /></a></li>
+      </ul>
+    </nav>
+    <nav id="misc" class="menu">
+      <ul>
+        <li><a href="atom.xml">Atom Feed</a> <a href="atom.xml"><img src="media/feed.png" /></a></li>
+        <li><a href="archive.html">Archive</a></li>
+        <li><a href="info.html">Info</a></li>
+      </ul>
+    </nav>
+  </aside>
+
   <div id="cv">
     <a href="swftwcv.pdf" alt="Hire me!">CV</a>
   </div>
-  <div id="info" class="hyphenate">
-    <span style="font-family: libercap; color: #000;">{{ site.title }}</span>
-    &mdash; Szymon <span style="color: #BBB;">(Simon/santamon)</span> Witamborski on programming,
-    <i>meta</i>programming, Clojure &amp; GUI.<br />
-    <!-- <code>Content-Type: bull/sh<img alt="*" src="media/bug-light.png" />t</code> -->
-  </div>
 </div>
-<aside id="menus">
-  <nav id="misc" class="menu">
-    <ul>
-      <li><a href="atom.xml">Atom Feed</a> <a href="atom.xml"><img src="media/feed.png" /></a></li>
-      <li><a href="archive.html">Archive</a></li>
-      <li><a href="info.html">Info</a></li>
-    </ul>
-  </nav>
-  <nav id="projects" class="menu">
-    Projects:
-    <ul>
-      <li><a href="http://github.com/santamon/GUIFTW">GUI FTW!</a></li>
-      <li><a href="http://github.com/santamon/makeblog">Makeblog</a></li>
-    </ul>
-  </nav>
-  <nav id="categories" class="menu">
-    Writing about:
-    <ul>
-      <li><a href="clojure-category.html">Clojure</a> <a href="clojure-category.xml"><img alt="Clojure category Atom feed" src="media/feed.png" /></a></li>
-      <li><a href="gui-ftw-category.html">GUI FTW!</a> <a href="gui-ftw-category.xml"><img alt="GUI FTW! category Atom feed" src="media/feed.png" /></a></li>
-    </ul>
-  </nav>
-</aside>
+
+<div id="info">
+  <span id="blog_title">{{ site.title }}</span>
+  &mdash; Szymon <span style="color: #BBB;">(Simon/santamon)</span> Witamborski on programming,
+  <i>meta</i>programming, Clojure &amp; GUI.<br />
+  <!-- <code>Content-Type: bull/sh<img alt="*" src="media/bug-light.png" />t</code> -->
+</div>
 <div id="latest">
-    {{ content }}
+  {{ content }}
 </div>

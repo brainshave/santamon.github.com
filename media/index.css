@@ -8,11 +8,11 @@
 
 
 #info {
-    /* margin-bottom: 15px; */
-    /*font-size: 0.95em;*/
+    clear:both;
     color: #666;
-    vertical-align: bottom;
-    text-align: justify;
+    text-align: left;
+    line-height: 1.4em;
+    margin-bottom: 20px;
 }
 
 #info code {
@@ -28,18 +28,20 @@
     vertical-align: text-top;
 }
 
+#blog_title {
+    font-family: Calibri, sans-serif;
+    color: #000;
+    font-weight: bold;
+}
+
 #sw {
     font-size: 4em;
-    float:left;
-    margin-right: 20px;
     color: #555;
 }
 
 #cv {
     display: none;
     font-size: 2em;
-    float:right;
-    margin-left: 15px;
 }
 
 
@@ -47,12 +49,11 @@
 
 #menus nav {
     display: block;
-    width: 29%;
-    margin: 0 10px 30px 0;
-    float: right;
+    float: left;
+    width: 150px;
+    margin: 0 10px 10px 0;
     font-size: 0.9em;
     color: #777;
-    /* line-height: 1.05em; */
 }
 
 #menus nav ul {

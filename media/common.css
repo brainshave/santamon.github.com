@@ -1,13 +1,12 @@
 /* Main font and page settings */
 
 body {
-    font-family: liber, 'Lucida Grande', 'Lucida Sans Unicode', 'Droid Sans', Helvetica, Arial, sans-serif;
-    font-size: 19px;
+    font-family: Cambria, 'Droid Serif', Georgia, Helvetica, Arial, serif;
+    font-size: 16pt;
     background: #fff url('bug-light.png') no-repeat right bottom;
 }
 
 a {
-    /*background-color: #f3f3f3;*/
     color: #330;
 }
 
@@ -27,7 +26,7 @@ img {
 }
 
 
-#latest, #misc, #menus {
+#latest, #menus {
     clear: both;
 }
 
@@ -56,9 +55,8 @@ article > * {
 }
 
 h1, h2, h3, h4, h5, h6, h7 {
-    font-family: libercap, Georgia, serif;
     clear: both;
-    font-weight: normal;
+    font-family: Calibri, sans-serif;
     margin: 20px 0 8px 0;
     padding: 0;
     border-left: 0;
@@ -81,6 +79,7 @@ blockquote, pre {
     padding-left: 0.4em;
     border-width: 0 0 0 10px;
     border-style: solid;
+    font-size: 14pt;
 }
 
 blockquote {
@@ -94,12 +93,16 @@ blockquote em, blockquote i {
 }
 
 code, pre {
-    font-family: inconsol, Consolas, Inconsolata, 'Droid Sans Mono', 'Courier New', monospace;
+    font-family: Consolas, Monaco, Inconsolata, 'Droid Sans Mono', monospace;
 }
 
-code {
-    /*background-color: #eed;*/
-    font-size: 0.96em;
+p code, li code, a code {
+    background-color: #eed;
+    font-size: 0.9em;
+}
+
+pre code {
+    background-color: inherit;
 }
 
 pre {
