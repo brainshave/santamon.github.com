@@ -119,6 +119,7 @@ pre {
 footer {
     display: block;
     clear: both;
+    font-family: Calibri, inherit;
     font-size: 0.8em;
     text-align: center;
 }

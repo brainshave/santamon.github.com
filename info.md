@@ -16,7 +16,7 @@ Profiles here and there:
 - [Radek Pycka](http://radek.pycka.com)
 - [Konrad Hałas](http://konradhalas.blogspot.com/)
 
-## Licence
+## License
 
 All contents (text and images) on this site are copyrighted
 [CC by](http://creativecommons.org/licenses/by/3.0/deed). In essence
