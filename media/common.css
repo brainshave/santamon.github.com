@@ -1,7 +1,7 @@
 /* Main font and page settings */
 
 body {
-    font-family: Cambria, 'Droid Serif', Georgia, Helvetica, Arial, serif;
+    font-family: Corbel, 'Droid Sans', Helvetica, Arial, serif;
     font-size: 16pt;
     background: #fff url('bug-light.png') no-repeat right bottom;
 }
@@ -25,6 +25,9 @@ img {
     margin: auto;
 }
 
+#header {
+    font-family: Calibri, inherit;
+}
 
 #latest, #menus {
     clear: both;
@@ -39,6 +42,7 @@ img {
 }
 
 #latest_text {
+    font-family: Calibri, inherit;
     color: #AAA;
     margin: 0 0 10px 0;
 }

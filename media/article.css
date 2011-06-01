@@ -51,7 +51,7 @@ h2.archive_month {
 
 .archive_day {
     font-size: 1.4em;
-    /* font-family: 'Linux Libertine C', Georgia, serif; */
+    font-family: Calibri, inherit;
     margin-right: 0.5em;
     float: left;
     text-align: right;
