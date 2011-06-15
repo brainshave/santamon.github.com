@@ -4,14 +4,23 @@ title: Szymon Witamborski
 ---
 
 mail:
-santamon ![@](images/darwin.png) gmail · com
+santamon ![@](images/darwin.png) gmail ![@](images/darwin.png) com
 
-Profiles here and there:
+What I do is on [GitHub](http://github.com/santamon).
 
-- [GitHub -- my projects](http://github.com/santamon).
+## People I Admire
 
-## Recommended Reading
-- [InfoQ](http://infoq.com)
+- [Pomplamoose](http://www.youtube.com/user/PomplamooseMusic) composed of [Jack Conte](http://www.youtube.com/user/jackcontemusic) & [Nataly Dawn](http://www.youtube.com/user/natalydawn) [#1](http://www.youtube.com/watch?v=z9KMgg7T_sg) [#2](http://www.youtube.com/watch?v=gdEhvS9P1DI) [#3](http://www.youtube.com/watch?v=eFiBnd0zBFM) [#4](http://www.youtube.com/watch?v=Reb5IwMHzoE)
+- [Douglas Adams](http://en.wikipedia.org/wiki/Douglas_adams) of *The Hitchhiker's Guide to the Galaxy* series [#1](http://www.imdb.com/video/screenplay/vi93192473/) [#2](http://www.youtube.com/watch?v=MbGNcoB2Y4I)
+- Arthur C. Clarke of *Rama* series
+- [Nick Cave](http://en.wikipedia.org/wiki/Nick_Cave) [#1](http://www.youtube.com/watch?v=EU7WLuy9V18) [#2](http://www.youtube.com/watch?v=o7vYLdqt68E)
+- Whole King Crimson crowd in all possible configurations :)
+- Directors [Guy Ritchie](http://www.imdb.com/name/nm0005363/) and [Jean-Pierre Jeunet](http://www.imdb.com/name/nm0000466/) (almost all films)
+- [Rich Hickey](http://clojure.blogspot.com/)
+- [Megan McIsaac](http://www.meganmcisaac.com/)
+
+## Young And Fearless
+
 - [Michał Charmas](http://blog.charmas.pl)
 - [Radek Pycka](http://radek.pycka.com)
 - [Konrad Hałas](http://konradhalas.blogspot.com/)
@@ -33,10 +42,8 @@ Site is generated using
 
 I use following awesome OpenSource components:
 
-- [Linux Libertine & Biolinum](http://www.linuxlibertine.org/) fonts
-  (prose, disabled atm),
-- [Inconsolata](http://www.levien.com/type/myfonts/inconsolata.html)
-  font (code listings, disabled atm),
-- [Hyphenator](http://code.google.com/p/hyphenator/) library for your
-  reading pleasure ;)
+-   [Hyphenator](http://code.google.com/p/hyphenator/) library for your
+    reading pleasure ;)
+-   [CoffeScript](http://coffeescript.org/)
+-   [glmatrix](http://code.google.com/p/glmatrix/)
 
