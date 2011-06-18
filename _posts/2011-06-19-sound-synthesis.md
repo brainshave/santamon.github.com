@@ -9,6 +9,8 @@ frequency (sines) and accessing Java Sound API. There's a big and
 in-depth tutorial made by Sun, but as it turns out you don't need to
 know that much :) (and there's nothing about Clojure there too).
 
+Entry level: *know where your repl is*
+
 ## Fast Facts About Sound
 
 Making some noise is in fact moving particles of air and the speaker
@@ -19,11 +21,11 @@ position in concrete moments only. These *moments* come at constant
 rate. So we can imagine that playing a sound is actually feeding our
 speaker with it's position values regularly.
 
-About **moments**: Speaker can move back and forth. It's position is
-relative to some starting position to which we will refer as position
-*zero*. Moving speaker forward is increasing it's position and moving
-backward is decreasing it's position. So, speaker position is a number
-and it's called a **sample**.
+About those **moments**: Speaker can move back and forth. Its position
+is relative to some starting position to which we will refer as
+position *zero*. Moving speaker forward is increasing it's position
+and moving backward is decreasing it's position. So, speaker position
+is a number and it's called a **sample**.
 
 ## Technicalia of Sound
 
@@ -165,8 +167,16 @@ Again, I'll explain the numbered lines:
 
 ## How To Actually Play Something?
 
-I won't get into detail on this but in short we have to get an output
-*line* from `AudioSystem` class that conforms our desired format.
+
+
+{% highlight clojure %}
+(defn open-line [audio-format]
+  (let [line (AudioSystem/getLine
+              (DataLine$Info. SourceDataLine audio-format))]
+    (.open line audio-format)
+    (.start line)
+    line))
+{% endhighlight %}
 
 ! GETTING LINE, AGENT !
 
@@ -238,9 +248,13 @@ This is one thing that I won't explain here :P. It'd be just too
 big. It's based on how signed and unsigned numbers [look
 internally](http://en.wikipedia.org/wiki/Two%27s_complement).
 
-### 3. Repeating for Each Channel
+### 3. Repeating Data For Each Channel
 
-
+OK. This will be very lame stereo. We'll just repeat data for each
+channel and I do it like this: `(take frame-size (cycle bytes))`. If
+you wanna you can modify that code (in fact, you should) and
+incorporate some fancy space-age surround effect<sup><a
+href="#foot1" id="foot1back">1</a></sup>.
 
 ### 4. Gathering All Together
 
@@ -265,3 +279,7 @@ predecessor:
 {% endhighlight %}
 
 Numbers in comments corresponds to points mentioned before.
+
+<small>
+<span id="foot1"><sup><a href="#foot1back">1</a></sup> Sound doesn't fly in Space.</span>
+</small>

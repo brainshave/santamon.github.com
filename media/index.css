@@ -2,7 +2,6 @@
 /* Header part */
 
 #header {
-    /* border-bottom: 1px solid #000; */
     margin: 30px 0 15px 0;
 }
 
@@ -35,8 +34,9 @@
 }
 
 #sw {
-    font-size: 4em;
     color: #555;
+    float: left;
+    margin-right: 20px;
 }
 
 #cv {
@@ -47,22 +47,24 @@
 
 /* Menu */
 
-#menus nav {
+.menu {
     display: block;
     float: left;
-    width: 150px;
-    margin: 0 10px 10px 0;
+    width: 130px;
+    margin: 0 10px 0 0;
+    text-align: left;
     font-size: 0.9em;
     color: #777;
 }
 
-#menus nav ul {
+.menu ul {
     margin: 0 0 5px 5px;
     padding: 0;
     list-style: none;
 }
 
-#menus a {
+
+.menu a {
     color: #222;
     background: none;
 }
