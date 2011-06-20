@@ -3,10 +3,6 @@ title: Efekty uboczne programowania
 layout: post
 ---
 
-
-date: 2010-01-07
-tags: grafika, zrzuty ekranu, efekty uboczne
-
 Wpis archiwalny z [mojej starej strony](http://gaco.wordpress.com).
 
 Pliki png w pełnej rozdzielczości mają po 2-4,5 MB.
