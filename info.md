@@ -21,6 +21,7 @@ What I do is on [GitHub](http://github.com/santamon).
 
 ## Young And Fearless
 
+- [Sejal Somaiya](http://sejalks.daportfolio.com/) (my sister!)
 - [Michał Charmas](http://blog.charmas.pl)
 - [Radek Pycka](http://radek.pycka.com)
 - [Konrad Hałas](http://konradhalas.blogspot.com/)
@@ -34,7 +35,7 @@ site).
 
 ## Components
 
-Site is generated using
+This site is generated using
 [Jekyll](https://github.com/mojombo/jekyll) on
 [GitHub](http://pages.github.com) servers. Comments are driven by
 [Disqus](http://disqus.com). You can see sources of contents here:
@@ -43,7 +44,8 @@ Site is generated using
 I use following awesome OpenSource components:
 
 -   [Hyphenator](http://code.google.com/p/hyphenator/) library for your
-    reading pleasure ;)
--   [CoffeScript](http://coffeescript.org/)
--   [glmatrix](http://code.google.com/p/glmatrix/)
+    reading pleasure ;) ,
+-   [CoffeScript](http://coffeescript.org/) for some scripting,
+-   [glmatrix](http://code.google.com/p/glmatrix/) for some WebGL,
+-   [Incanter](http://incanter.org) for some graphs.
 

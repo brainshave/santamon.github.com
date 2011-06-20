@@ -8,13 +8,10 @@ I've been playing with sound in Clojure lately so I thought I'd
 document what I've learned.
 
 This tutorial covers generating simple, clean sounds of desired
-frequency (sines) and accessing Java Sound API. We'll start with
-nothing and at the end, we'll even play some melody with synthesized
-sounds :) (no instruments, pre-recorded samples or
-whatsoever). There's a [big and in-depth tutorial made by
-Sun](http://download.oracle.com/javase/tutorial/sound/TOC.html), but
-as it turns out you don't need to know that much :) (and there's no
-word at all about synthesizing sounds).
+frequency (sines) and accessing Java Sound API (it's not that scary,
+really). We'll start with nothing and at the end, we'll even play some
+melody with synthesized sounds :) (no instruments, pre-recorded
+samples or whatsoever).
 
 Entry level: *know where your repl is*
 
