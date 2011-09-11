@@ -31,7 +31,7 @@ of posts at my home page. I also made a sidebar with "Archive"
 section in it. This also new design is better suited if I decide to
 make standard pagination or implement infinite scrolling.
 
-{% section The Wrongness of *Footnotes* %}
+{% section The Wrongness of Footnotes %}
 
 I am uberly annoyed by footnotes idea on web sites. It feels *so
 wrong* to break reading, scroll down to the bottom of an article to
@@ -58,11 +58,12 @@ RSS reader--sorry, only on-site feature for now.
 
 Some more noticable changes are the logo which is now vectorized in
 SVG. The usual lack of color shouldn't surprise anyone but this time
-it's actually 99% 1-bit ;) (with exception in code listings for now).
+it's actually 99% 1-bit ;) (with exception in code listings and some
+images).
 
 Someone observant can also notice that I've finally adhered to the
-[960 grid system](http://960.gs). I tried to be consequent so even
-logo is aligned to it ;) . For now there's no mobile CSS but I'm
+[960 grid system](http://960.gs). I've tried to be consequent so even
+the logo is aligned to it ;) . For now there's no mobile CSS but I'm
 thinking about it.
 
 As much as I am not a designer I enjoy tinkering with this blog's

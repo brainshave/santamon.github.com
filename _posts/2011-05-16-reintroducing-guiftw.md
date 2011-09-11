@@ -54,12 +54,20 @@ doesn't have those fancy selectors yet.
 
 {% section SWT FTW! (and swing too...) %}
 
+{% sidenote %}
+[1] Well, for toolkits that follow the same pattern
+that SWT and Swing do.
+
+[2] Notice that
+[swt](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/src/guiftw/swt.clj#L13)
+is just a wrapper around `parse-gui` and `swt-create`).
+{% endsidenote %}
+
 GUI FTW works with SWT! It's because it's an **abstract**
 library. Neither Swing nor SWT stuff are hard-coded. And GUI FTW needs
-only one function to be implemented to support another toolkit<sup><a
-href="#foot1" id="foot1back">1</a></sup>. And those functions are
+only one function to be implemented to support another toolkit. [1] And those functions are
 simple as
-[swt-create](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/src/guiftw/swt.clj#L8)<sup><a href="#foot2" id="foot2back">2</a></sup>.
+[swt-create](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/src/guiftw/swt.clj#L8). [2]
 
 {% section Reusability %}
 
@@ -154,6 +162,10 @@ There's a [fancy example](https://github.com/santamon/GUIFTW/blob/master/src/gui
 
 {% section Why Bother the Programmer? %}
 
+{% sidenote %}
+[3] Good luck with that, I live on 10th floor :P.
+{% endsidenote %}
+
 If you look at my
 [TODO](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/TODO.md)
 list you will see that I plan to put those quirks in special style
@@ -162,14 +174,4 @@ default in Swing. If you know any **other cases** that should be
 included, *please* let me know, either by
 [creating an issue](https://github.com/santamon/GUIFTW/issues),
 [mailing me](http://longstandingbug.com/info.html) or throwing a brick
-at my window<sup><a href="#foot3" id="foot3back">3</a></sup>.
-
-<small>
-<span id="foot1"><sup><a href="#foot1back">1</a></sup> Well, for
-toolkits that follow the same pattern that SWT and Swing
-do.</span><br />
-<span id="foot2"><sup><a href="#foot2back">2</a></sup> Notice that
-[swt](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/src/guiftw/swt.clj#L13)
-is just a wrapper around `parse-gui` and `swt-create`).</span><br />
-<span id="foot3"><sup><a href="#foot3back">3</a></sup> Good luck with that, I live on 10th floor :P.</span>
-</small>
+at my window. [3]
