@@ -1,0 +1,224 @@
+* { margin: 0; padding: 0; }
+
+body {
+    font-size: 16px;
+    font-family: Georgia, serif;
+    overflow-y: scroll;
+}
+
+
+/* main layout and sizes */
+
+#main_container {
+    width: 960px;
+    margin: 0 auto;
+}
+
+#main_container > div {
+    display: table-cell;
+    vertical-align: top;
+}
+
+#left_container {
+    width: 720px;
+}
+
+article#content > * {
+    width: 540px;
+    float: right;
+}
+
+article#content > *, blockquote > * {
+    margin: 4px 10px;
+}
+
+article#content > blockquote {
+    width: 510px;
+    margin: 0 25px;
+}
+
+article#content > .didascalia, article#content > .subsection_number, article#content > time {
+    width: 140px;
+}
+
+
+#right_container {
+    width: 240px;
+    font-family: Arial, sans-serif;
+}
+
+#right_container > * {
+    margin: 10px 10px;
+}
+
+
+/* standard elements */
+
+/*a, a:visited { color: #0088BF; }*/
+/*a:hover { color: #33BBFF}*/
+a, a:visited { color: black; }
+/* a:visited { color: #C40233; }*/
+a > img { border: 0; }
+p { text-align: justify; }
+p, li { line-height: 22px; }
+li { margin-left: 25px; }
+pre { white-space: pre-wrap; }
+code { font-family: Consolas, Monaco, 'Droid Sans Mono', 'Lucida Console', 'DejaVu Sans Mono', monospace; }
+
+blockquote {
+    font-style: italic;
+}
+
+blockquote em, blockquote i, .didascalia i, .didascalia em {
+    font-style: normal;
+}
+
+
+/* left container contents */
+
+article#content > .didascalia, article#content > .subsection_number,
+article#content > time {
+    clear: both;
+    float: left;
+}
+
+article#content > .didascalia > *, article#content > .subsection_number,
+article#content > time {
+    text-align: right;
+}
+
+article#content > .didascalia > * {
+    font-size: 0.8em;
+    line-height: 1.3em;
+    font-style: italic;
+}
+
+/* .h* classes are used for subsection_nubers and time to have similar
+style as corresponding headings */
+
+article#content h1, article#content >  h2, article#content >  h3,
+article#content >  h4, article#content >  h5, article#content >  h6,
+article#content > time, article#content >  .h2, article#content >  .h3,
+article#content >  .h4, article#content >  .h5, article#content >  .h6 {
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+article#content h1, article#content > time {
+    margin-top: 16px;
+}
+
+h1, h2, .h2 {
+    font-size: 24px;
+}
+
+article > time {
+    line-height: 32px;
+}
+
+h3, .h3, h4, .h4 {
+    font-size: 19px;
+}
+
+h5, .h5, h6, .h6 {
+    font-size: 16px;
+}
+
+/* index article list */
+nav#content {
+    clear: both;
+    padding-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+nav#content > ul {
+    list-style: none;
+    display: table;
+}
+
+nav#content > ul > li {
+    margin-left: 0;
+    display: table-row;
+}
+
+nav#content > ul > li > a.h3, nav#content > ul > li > time  {
+    display: table-cell;
+    padding: 0 10px;
+}
+
+nav#content > ul > li > time {
+    width: 140px;
+    text-align: right;
+}
+nav#content > ul > li > a.h3 {
+}
+
+/* right container contents */
+
+
+#meta_menu {
+    text-transform: uppercase;
+    margin-top: 180px;
+}
+
+#right_container > nav > p {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#archive_menu > label {
+    display: block;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#archive_menu > input {
+    display: none;
+}
+
+#archive_menu > ul {
+    display: none;
+    list-style: none;
+}
+
+#archive_menu > input:checked + ul {
+    display: table;
+}
+
+#archive_menu > ul:focus {
+    display: table;
+}
+
+#archive_menu > ul > li {
+    margin-left: 15px;
+    display: table-row;
+}
+
+#archive_menu > ul > li > time, #archive_menu >  ul > li > a  {
+    display: table-cell;
+}
+#archive_menu > ul > li > time {
+    padding: 0 5px;
+    text-align: right;
+}
+
+footer {
+    display: table;
+    width: 960px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+}
+footer > div {
+    margin: 0 250px 0 170px;
+}
+/*footer > span {
+    display: table-cell;
+    padding: 0 10px;
+}
+
+footer > .left {
+    width: 140px;
+    text-align: right;
+}*/

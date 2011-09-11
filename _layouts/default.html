@@ -2,11 +2,8 @@
 <html lang="{% if page.lang == null %}en-gb{% else %}{{ page.lang }}{% endif %}">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=320, initial-scale=1.0">
     <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="atom.xml" />
-    <link rel="stylesheet" href="media/common.css" />
-    <link rel="stylesheet" href="media/colorful.css" />
-    <link rel="stylesheet" href="media/{{ page.addcss }}" />
+    <link rel="stylesheet" href="media/main.css" />
 
     <title>{{ page.title }}</title>
     <!-- work around IE (8?) not handling properly unknown tags -->
@@ -16,9 +13,52 @@
       document.createElement("nav");
       document.createElement("aside");
       document.createElement("footer");
-      document.createElement("date");
+      document.createElement("time");
     </script>
-    <script src="media/hyphenator.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="main_container">
+      <div id="left_container">
+        <header>
+          <a href="index.html" id="logo"><img src="media/header.svg" /></a>
+        </header>
+        {{ content }}
+      </div>
+      <div id="right_container">
+        <nav id="meta_menu">
+          <a href="index.html">Home</a><br />
+          <a href="atom.xml">Atom</a><br />
+          <a href="info.html">Author</a><br />
+          <a href="http://twitter.com/szywon">Twitter</a><br />
+          <a href="http://github.com/santamon">GitHub</a>
+        </nav>
+        <nav id="projects_menu">
+          <p>Projects:</p>
+          <a href="http://github.com/santamon/GUIFTW">GUI FTW!</a><br />
+          <a href="http://github.com/santamon/slideshow-bob">Slideshow Bob</a>
+        </nav>
+        <nav id="catogries_menu">
+          <p>Categories:</p>
+          <a href="clojure-category.html">Clojure</a><br />
+          <a href="gui-ftw-category.html">GUI</a><br />
+          <a href="javascript-category.html">JavaScript</a>
+        </nav>
+        <nav id="links_menu">
+          <p>Links:</p>
+          <a href="http://radek.pycka.com">Radek Pycka</a><br />
+          <a href="http://blog.charmas.pl">Michał Charmas</a><br />
+          <a href="http://konradhalas.blogspot.com/">Konrad Hałas</a><br />
+          <a href="http://infoq.com">InfoQ</a>
+        </nav>
+        <nav id="archive_menu">
+          <p>Archive:</p>
+          {% assign archive = site.posts %}
+          {% include listing-months.html %}
+        </nav>
+      </div>
+    </div>
+    <footer><div>Copywrong 2011 Szymon Witamborski</div></footer>
+    <script src="media/hyphenator.js"></script>
     <!-- google analytics -->
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -31,13 +71,5 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
-  </head>
-  <body>
-    <div id="main_wrapper">
-      {{ content }}
-      <footer>
-	Copywrong 2009-2011 Szymon Witamborski, <a href="info.html">CC by</a>
-      </footer>
-    </div>
   </body>
 </html>

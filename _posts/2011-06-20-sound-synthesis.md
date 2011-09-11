@@ -15,7 +15,7 @@ samples or whatsoever).
 
 Entry level: *know where your repl is*
 
-## Fast Facts About Sound
+{% section Fast Facts About Sound %}
 
 Making some noise is in fact moving particles of air a speaker does
 that. And we will move the speaker. From perspective of a programmer
@@ -32,7 +32,7 @@ and moving backward is decreasing it's position (actually, it can be
 the other way around but this time we shouldn't care). So, the
 speaker's position is a number and it's called a *sample*.
 
-## Technicalia of Sound
+{% section Technicalia of Sound %}
 
 Sample has fixed size and it's usually 16 bits. Sample size is
 limiting our minimum and maximum value. We don't have to bother about
@@ -43,7 +43,7 @@ Pace at which samples come to a sound system is usually 48000 Hz (Hz
 quality) and it's called *sample rate*. Yes, we need to feed our
 speaker **that** fast ;).
 
-## Know Your Math
+{% section Know Your Math %}
 
 Because this tut is about generating sines I have to say what a sine
 actually is. Sine is the cleanest type of sound possible. It's also
@@ -81,7 +81,7 @@ Hz")) "sin-two.png" :width 600 :height 200) -->
 Period is important because we will generate data only for one pass of
 a sine and play it in a loop (without any `loop` involved ;) ).
 
-## Some Code At Last!
+{% section Some Code At Last! %}
 
 Now we'll jump right into code. As a basis of generating sine
 we'll use `Math/sin` function. It generates sine for period of 2*&pi;*
@@ -126,7 +126,7 @@ Now we get the idea of generating a sine. The rest of this tutorial is
 actually just technical stuff, but they're essential to get things
 working.
 
-## Audio Formats
+{% section Audio Formats %}
 
 To tell the sound system what we want to play we need to agree on some
 kind of contract on how our sound data will be formatted. This
@@ -177,7 +177,7 @@ Again, I'll explain the numbered lines:
     reading them backwards. My computer is little endian and I'm
     sympathizing with him.
 
-## How To Actually Play Something?
+{% section How To Actually Play Something? %}
 
 To make our speakers move we need a *medium* (as in *mediation*) that
 will tell speakers what to do for us. This medium is called a *line*
@@ -213,7 +213,7 @@ Then, playing a sound is done by invoking method [write(byte[] b, int off, int l
 Phew, now we know where we need to get: we'll generate that byte array for
 particular line.
 
-## According To Contract...
+{% section According To Contract... %}
 
 Our sine is not quite ready to push it to speakers yet. We need to
 satisfy audio format that we defined earlier. To do that we will:
@@ -228,7 +228,7 @@ satisfy audio format that we defined earlier. To do that we will:
 
 4.  **Pack whole sine** to byte array.
 
-### 1. Scaling
+{% subsection 1. Scaling %}
 
 When coming out from `sine` function our samples have floating-point
 values from -1 to 1. We need to scale them to signed integers with
@@ -252,7 +252,7 @@ Actual scaling will be done in `quantize` function:
   (int (* amplitude value)))
 {% endhighlight %}
 
-### 2. Fragmentation To Bytes
+{% subsection 2. Fragmentation To Bytes %}
 
 I do reading integers backward and forward like this:
 
@@ -280,14 +280,14 @@ This is one thing that I won't explain here :P. It'd be just too
 big. It's based on how signed and unsigned numbers [look
 internally](http://en.wikipedia.org/wiki/Two%27s_complement).
 
-### 3. Repeating Data For Each Channel
+{% subsection 3. Repeating Data For Each Channel %}
 
 OK. This will be very lame stereo. We'll just repeat data for each
 channel and I do it like this: `(take frame-size (cycle bytes))`. If
 you wanna you can modify that code (in fact, you should, wink wink,
 nudge nudge) and incorporate some fancy space-age surround effect.
 
-### 4. Gathering It All Together
+{% subsection 4. Gathering It All Together %}
 
 Whole pipeline is mirrored in `sine-bytes` function with each of these
 steps represented by mapping a function on a collection returned by
@@ -313,7 +313,7 @@ Numbers in comments corresponds to points mentioned before. Line 'A'
 is responsible for flattening the list of lists to a single
 list. Output of `sine-bytes` is what a *line* needs.
 
-## Agent
+{% section Agent %}
 
 I've promised that there will be no `loop` so here it is: whole playing
 thingy will be handled by an agent. State of our agent will look like
@@ -383,7 +383,7 @@ frequency on the fly:
     (play agent)))
 {% endhighlight %}
 
-## Testing Section Without Any Interesting Title
+{% section Testing Section Without Any Interesting Title %}
 
 Now we can test it. Lets create a line agent playing some nice bass
 tone.
@@ -410,7 +410,7 @@ If there's nothing coming out from speakers or some exception happened
 try changing audio format, my guesses would be toggling endianness and
 changing both rates to 44100.
 
-## Appendix A: Melody
+{% section Appendix A: Melody %}
 
 Maybe simple continuous sound is boring? Let's play a melody! :)
 

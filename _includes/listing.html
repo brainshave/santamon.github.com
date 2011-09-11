@@ -1,16 +1,6 @@
+<ul>
 {% for post in archive %}
-{% capture month %}{{ post.date | date: "%B %Y" }}{% endcapture %}
-{% if month != old_month %}
-{% if old_month != null %}</ul>{% endif %}
-<h2 class="archive_month">{{ month }}</h2><ul class="archive_list">
-{% endif %}
-{% assign old_month = month %}
-{% capture day %}{{ post.date | date: "%d" }}{% endcapture %}
-<li><span class="archive_day">
-    {% if day < "10" %}{{ day | replace: "0", "" }}
-    {% else %}{{ day }}{% endif %}
-</span> <a class="archive_link" href="{{ post.url }}">{{ post.title }}</a></li>
+<li><time>{{ post.date | date: site.date_format }}</time>
+  <a href="{{ post.url }}" class="h3">{{ post.title }}</a></li>
 {% endfor %}
-{% if month != null %}
 </ul>
-{% endif %}
