@@ -228,7 +228,7 @@ satisfy audio format that we defined earlier. To do that we will:
 
 4.  **Pack whole sine** to byte array.
 
-{% subsection 1. Scaling %}
+{% subsection Scaling %}
 
 When coming out from `sine` function our samples have floating-point
 values from -1 to 1. We need to scale them to signed integers with
@@ -252,7 +252,7 @@ Actual scaling will be done in `quantize` function:
   (int (* amplitude value)))
 {% endhighlight %}
 
-{% subsection 2. Fragmentation To Bytes %}
+{% subsection Fragmentation To Bytes %}
 
 I do reading integers backward and forward like this:
 
@@ -280,14 +280,14 @@ This is one thing that I won't explain here :P. It'd be just too
 big. It's based on how signed and unsigned numbers [look
 internally](http://en.wikipedia.org/wiki/Two%27s_complement).
 
-{% subsection 3. Repeating Data For Each Channel %}
+{% subsection Repeating Data For Each Channel %}
 
 OK. This will be very lame stereo. We'll just repeat data for each
 channel and I do it like this: `(take frame-size (cycle bytes))`. If
 you wanna you can modify that code (in fact, you should, wink wink,
 nudge nudge) and incorporate some fancy space-age surround effect.
 
-{% subsection 4. Gathering It All Together %}
+{% subsection Gathering It All Together %}
 
 Whole pipeline is mirrored in `sine-bytes` function with each of these
 steps represented by mapping a function on a collection returned by

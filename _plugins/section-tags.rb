@@ -1,3 +1,5 @@
+require 'rdiscount'
+
 module LSB
   class Section < Liquid::Tag
     include Liquid::StandardFilters
@@ -18,7 +20,6 @@ module LSB
 
     def initialize(tag_name, text, tokens)
       super
-      @text = Liquid::Template.parse(text)
       @level = @@level_of[tag_name]
       if(@level > @@level)
         @@counters[@level] = 1
@@ -27,14 +28,17 @@ module LSB
       end
       @number = @@counters[2..@level].join(".")
 
+      @header = RDiscount.new((1..@level).collect{|_| "#"}.join + " " + text, :smart)
+
       @@level += 1
     end
 
     def render(context)
       @@level = 1
+
       <<-HTML
 <div class="subsection_number h#{@level}">#{@number}</div>
-<h#{@level}>#{@text.render}</h#{@level}>
+#{@header.to_html}
 HTML
     end
   end
