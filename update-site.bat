@@ -8,4 +8,4 @@ cd ..\longstandingbug-target
 call git add .
 call git commit -m "Site update from src branch."
 
-cd ..\longstandingbug
+rem cd ..\longstandingbug
