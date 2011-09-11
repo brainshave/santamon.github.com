@@ -1,5 +1,1668 @@
----
-layout: atom
----
-{% assign feed = site.posts %}
-{% include atom-listing.xml %}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Long-standing Bug</title>
+  <link href="http://longstandingbug.com/atom.xml" rel="self" />
+  <link href="http://longstandingbug.com" />
+  <updated>2011-09-11T19:49:27+02:00</updated>
+  <id>http://longstandingbug.com/atom.xml</id>
+  <author>
+    <name>Szymon Witamborski</name>
+    <email>santamon@gmail.com</email>
+  </author>
+
+  
+
+  
+  <entry>
+    <title>The Whys Behind This New Freaky Design</title>
+    <link href="http://longstandingbug.com/whys-behind-new-design.html" />
+    <updated>2011-09-11T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/whys-behind-new-design.html</id>
+    <content type="html">&lt;p&gt;There where 3 persons sitting at the other side of a table and I was at
+a job interview. I was given a quick 10-minute test to comprehend but
+they didn&amp;rsquo;t had anything to make them busy so they took their phones
+out and pointed their browsers at the inteviewee&amp;rsquo;s blog (mine). Quite
+luckily for me they actually started to think out loud about what they
+encounter, not minding I was taking the test ;) . As it turns out, I
+was double-tested :) .&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve heard remarks like &amp;ldquo;It looks strange on iPhone&amp;rdquo; but the most
+important one was that they had taken for granted that my blog has
+only one post (!). This was a big issue for me. The home page of my
+blog was with just one post, then comments with no posts after. The
+only way to get to other posts was to hit the &amp;ldquo;Archive&amp;rdquo;
+link. Apparently that link was not presented in a clean way. Usually
+people assume that there should be something after the post they are
+presented at the first moment. So first they will probably start
+scrolling down rather than carefully investigate the top of the
+page.&lt;/p&gt;
+
+&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;This could be a bad idea as well, time will tell&amp;hellip;&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I felt a need to make my blog more approachable so now I present list
+of posts at my home page. I also made a sidebar with &amp;ldquo;Archive&amp;rdquo;
+section in it. This also new design is better suited if I decide to
+make standard pagination or implement infinite scrolling.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;1&lt;/div&gt;
+
+
+&lt;h2&gt;The Wrongness of Footnotes&lt;/h2&gt;
+
+
+&lt;p&gt;I am uberly annoyed by footnotes idea on web sites. It feels &lt;em&gt;so
+wrong&lt;/em&gt; to break reading, scroll down to the bottom of an article to
+read the footnotes (even if anchored link is provided).&lt;/p&gt;
+
+&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;This was actually inspired by typography in
+&lt;em&gt;Concrete Mathematics&lt;/em&gt; by Graham, Knuth and Patashnik (in PL
+edition but I assume it inherits typography from the original).&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Instead I figured out that &lt;strong&gt;sidenotes&lt;/strong&gt; are much better for the Web.
+It&amp;rsquo;s &lt;em&gt;so&lt;/em&gt; much easier to just glance at the margin than scroll all the
+way to the bottom, and less disruptive too.&lt;/p&gt;
+
+&lt;p&gt;Footnotes are good for printed books (or electronic, but only if
+they&amp;rsquo;re paginated, not scrolled) because they&amp;rsquo;re not that far when
+printed on same page.&lt;/p&gt;
+
+&lt;p&gt;Ah, you won&amp;rsquo;t see sidenotes on the side if you&amp;rsquo;re reading this through
+RSS reader&amp;mdash;sorry, only on-site feature for now.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;2&lt;/div&gt;
+
+
+&lt;h2&gt;The Rest&lt;/h2&gt;
+
+
+&lt;p&gt;Some more noticable changes are the logo which is now vectorized in
+SVG. The usual lack of color shouldn&amp;rsquo;t surprise anyone but this time
+it&amp;rsquo;s actually 99% 1-bit ;) (with exception in code listings and some
+images).&lt;/p&gt;
+
+&lt;p&gt;Someone observant can also notice that I&amp;rsquo;ve finally adhered to the
+&lt;a href=&quot;http://960.gs&quot;&gt;960 grid system&lt;/a&gt;. I&amp;rsquo;ve tried to be consequent so even
+the logo is aligned to it ;) . For now there&amp;rsquo;s no mobile CSS but I&amp;rsquo;m
+thinking about it.&lt;/p&gt;
+
+&lt;p&gt;As much as I am not a designer I enjoy tinkering with this blog&amp;rsquo;s
+&amp;ldquo;design&amp;rdquo;. Be sure that something, sometime will change :) .&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Sound Synthesis &amp; Playback in Clojure</title>
+    <link href="http://longstandingbug.com/sound-synthesis.html" />
+    <updated>2011-06-20T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/sound-synthesis.html</id>
+    <content type="html">&lt;p&gt;I&amp;rsquo;ve been playing with sound in Clojure lately so I thought I&amp;rsquo;d
+document what I&amp;rsquo;ve learned.&lt;/p&gt;
+
+&lt;p&gt;This tutorial covers generating simple, clean sounds of desired
+frequency (sines) and accessing Java Sound API (it&amp;rsquo;s not that scary,
+really). We&amp;rsquo;ll start with nothing and at the end, we&amp;rsquo;ll even play some
+melody with synthesized sounds :) (no instruments, pre-recorded
+samples or whatsoever).&lt;/p&gt;
+
+&lt;p&gt;Entry level: &lt;em&gt;know where your repl is&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;1&lt;/div&gt;
+
+
+&lt;h2&gt;Fast Facts About Sound&lt;/h2&gt;
+
+
+&lt;p&gt;Making some noise is in fact moving particles of air a speaker does
+that. And we will move the speaker. From perspective of a programmer
+playing some sound is changing speaker&amp;rsquo;s position over time. Because
+on computers nothing is continuous, we can manage it&amp;rsquo;s position in
+concrete moments only. These &lt;em&gt;moments&lt;/em&gt; come at constant rate. So we
+can imagine that playing a sound is actually feeding our speaker with
+it&amp;rsquo;s position values regularly.&lt;/p&gt;
+
+&lt;p&gt;About those &lt;strong&gt;moments&lt;/strong&gt;: Speaker can move back and forth. It&amp;rsquo;s
+position is relative to some starting position to which we will refer
+as position &lt;em&gt;zero&lt;/em&gt;. Moving speaker forward is increasing it&amp;rsquo;s position
+and moving backward is decreasing it&amp;rsquo;s position (actually, it can be
+the other way around but this time we shouldn&amp;rsquo;t care). So, the
+speaker&amp;rsquo;s position is a number and it&amp;rsquo;s called a &lt;em&gt;sample&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;2&lt;/div&gt;
+
+
+&lt;h2&gt;Technicalia of Sound&lt;/h2&gt;
+
+
+&lt;p&gt;Sample has fixed size and it&amp;rsquo;s usually 16 bits. Sample size is
+limiting our minimum and maximum value. We don&amp;rsquo;t have to bother about
+what these values are (it&amp;rsquo;ll be handled automatically).&lt;/p&gt;
+
+&lt;p&gt;Pace at which samples come to a sound system is usually 48000 Hz (Hz
+[Hertz] means &amp;ldquo;ticks/samples per second&amp;rdquo;) or 44100 Hz (&amp;ldquo;Audio CD&amp;rdquo;
+quality) and it&amp;rsquo;s called &lt;em&gt;sample rate&lt;/em&gt;. Yes, we need to feed our
+speaker &lt;strong&gt;that&lt;/strong&gt; fast ;).&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;3&lt;/div&gt;
+
+
+&lt;h2&gt;Know Your Math&lt;/h2&gt;
+
+
+&lt;p&gt;Because this tut is about generating sines I have to say what a sine
+actually is. Sine is the cleanest type of sound possible. It&amp;rsquo;s also
+the outcome of universally known &lt;em&gt;sin&lt;/em&gt; function.&lt;/p&gt;
+
+&lt;!-- (save (function-plot #(sin (* 2 % Math/PI)) 0 1 :step-size 0.005
+:y-label &quot;&quot; :x-label &quot;&quot; ) &quot;sin-plain.png&quot; :width 600 :height 160) --&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;images/sin-plain.png&quot; alt=&quot;@&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Someone said that every sound can be torn to several sines. So once we
+can generate one sine we can synthesize any sound. In this tut we&amp;rsquo;ll
+generate just one at a time ;) .&lt;/p&gt;
+
+&lt;p&gt;Every sine played over time has it&amp;rsquo;s frequency &lt;em&gt;f&lt;/em&gt;. It&amp;rsquo;s measured just
+like sample rate, in Hz. Frequency is a weird number, because it&amp;rsquo;s
+just inverted period (also called &lt;em&gt;term&lt;/em&gt; and abbreviated &lt;em&gt;T&lt;/em&gt;: time
+after it repeats itself):&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center; font-style: italic;&quot;&gt;
+f = 1 / T&lt;br /&gt;
+T = 1 / f
+&lt;/p&gt;
+
+
+&lt;p&gt;It means that sine of 1 Hz frequency have 1 s period and sine of 2 Hz
+frequency have 0.5 s period and so on.&lt;/p&gt;
+
+&lt;!-- (save (doto (function-plot #(sin (* 2 % Math/PI)) 0 1 :step-size
+0.005 :y-label &quot;&quot; :x-label &quot;Time [s]&quot; :legend true :series-label &quot;f =
+1 Hz&quot;) (add-function #(sin (* 4 % Math/PI)) 0 1 :series-label &quot;f = 2
+Hz&quot;)) &quot;sin-two.png&quot; :width 600 :height 200) --&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;images/sin-two.png&quot; alt=&quot;@&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Period is important because we will generate data only for one pass of
+a sine and play it in a loop (without any &lt;code&gt;loop&lt;/code&gt; involved ;) ).&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;4&lt;/div&gt;
+
+
+&lt;h2&gt;Some Code At Last!&lt;/h2&gt;
+
+
+&lt;p&gt;Now we&amp;rsquo;ll jump right into code. As a basis of generating sine
+we&amp;rsquo;ll use &lt;code&gt;Math/sin&lt;/code&gt; function. It generates sine for period of 2&lt;em&gt;&amp;pi;&lt;/em&gt;
+so we have to scale it to desired period.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sine&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sample-rate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;/ &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;samples&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;* &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sample-rate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;;1&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;factor&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;/ &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;* &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Math/PI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;samples&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;2&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;Math/sin&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;* &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;;3&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;range &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;samples&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;sine&lt;/code&gt; function creates a collection of numbers which are values of
+speaker position over time (successive samples). Explanation for
+numbered lines:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Amount of samples depends directly on term and sample rate. Sample
+rate tells how many samples correspond to 1 sec. So if we take a
+product of term and sample rate we will get the amount of samples
+for this frequency.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;To scale 2&lt;em&gt;&amp;pi;&lt;/em&gt; period to our sample count we will multiply every
+number from &lt;code&gt;(range samples)&lt;/code&gt; by &lt;code&gt;factor&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Actual collection generation using &lt;code&gt;Math/sin&lt;/code&gt; function.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Every number in returned collection will be in [-1..1] range. We can
+check that by just invoking &lt;code&gt;sine&lt;/code&gt; (tip: test only with large values
+of frequencies because small frequencies results in very long
+sequences):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;nv&quot;&gt;user&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sine&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;48000&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.6087614290087207&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.9659258262890683&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.9238795325112867&lt;/span&gt;
+ &lt;span class=&quot;mf&quot;&gt;0.49999999999999994&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;-0.13052619222005177&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;-0.7071067811865475&lt;/span&gt;
+ &lt;span class=&quot;mf&quot;&gt;-0.9914448613738104&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;-0.8660254037844386&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;-0.38268343236508956&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Now we get the idea of generating a sine. The rest of this tutorial is
+actually just technical stuff, but they&amp;rsquo;re essential to get things
+working.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;5&lt;/div&gt;
+
+
+&lt;h2&gt;Audio Formats&lt;/h2&gt;
+
+
+&lt;p&gt;To tell the sound system what we want to play we need to agree on some
+kind of contract on how our sound data will be formatted. This
+contract (or &lt;em&gt;protocol&lt;/em&gt; if you will) is called an &lt;em&gt;audio
+format&lt;/em&gt;. We&amp;rsquo;ll just focus on most used format nowadays.&lt;/p&gt;
+
+&lt;p&gt;An audio format in Java is represented by object of &lt;code&gt;AudioFormat&lt;/code&gt;
+class (which lives in
+&lt;a href=&quot;http://download.oracle.com/javase/7/docs/api/index.html?javax/sound/sampled/package-summary.html&quot;&gt;javax.sound.sampled&lt;/a&gt;,
+we&amp;rsquo;ll need some more classes from there, just keep that in mind).
+Objects of this class serve only as metadata so we&amp;rsquo;ll create one,
+keep it somewhere and pass it around.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;import &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;javax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sampled&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;AudioFormat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;AudioFormat$Encoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;popular-format&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AudioFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;AudioFormat$Encoding/PCM_SIGNED&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;1: format&lt;/span&gt;
+                &lt;span class=&quot;mi&quot;&gt;48000&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;   sample rate&lt;/span&gt;
+                &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;   bits per sample (2 bytes)&lt;/span&gt;
+                &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;;   channels: stereo!&lt;/span&gt;
+                &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;;2: frame size 2*16bits [bytes]&lt;/span&gt;
+                &lt;span class=&quot;mi&quot;&gt;48000&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;3: frame rate&lt;/span&gt;
+                &lt;span class=&quot;nv&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;4: little endian&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Again, I&amp;rsquo;ll explain the numbered lines:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;PCM_SIGNED&lt;/code&gt; is a linear signed and uncompressed format, which
+means that each sample will be a signed integer.&lt;/p&gt;
+
+&lt;p&gt;(&lt;code&gt;AudioFormat$Encoding/PCM_SIGNED&lt;/code&gt; means &lt;code&gt;PCM_SIGNED&lt;/code&gt; static
+variable in &lt;code&gt;Encoding&lt;/code&gt; class which is inner class in
+&lt;code&gt;AudioFormat&lt;/code&gt;.)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Frame is a complete unit of data for each moment in time (data for
+all channels). So it&amp;rsquo;s size in our uncompressed format is just a
+number of bytes for every sample multiplied by number of channels.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Frame rate can be different from sample rate but it doesn&amp;rsquo;t make
+sense this time.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;When we have more bytes than one for a sample, order in which we
+read them matters. It&amp;rsquo;s so-called
+&lt;a href=&quot;http://en.wikipedia.org/wiki/Endianness&quot;&gt;&lt;em&gt;endianness&lt;/em&gt;&lt;/a&gt;. Big
+endian is reading bytes in forward direction, little endian is
+reading them backwards. My computer is little endian and I&amp;rsquo;m
+sympathizing with him.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;6&lt;/div&gt;
+
+
+&lt;h2&gt;How To Actually Play Something?&lt;/h2&gt;
+
+
+&lt;p&gt;To make our speakers move we need a &lt;em&gt;medium&lt;/em&gt; (as in &lt;em&gt;mediation&lt;/em&gt;) that
+will tell speakers what to do for us. This medium is called a &lt;em&gt;line&lt;/em&gt;
+in other places by analogy with lines in mixers. It can be acquired
+from &lt;a href=&quot;http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/AudioSystem.html&quot;&gt;AudioSystem&lt;/a&gt; class using &lt;code&gt;getLine&lt;/code&gt; method. There&amp;rsquo;s a &lt;a href=&quot;http://download.oracle.com/javase/tutorial/sound/accessing.html&quot;&gt;more
+elaborate explanation&lt;/a&gt; on mixers and lines so I won&amp;rsquo;t get into much detail.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;import &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;javax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sound&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sampled&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;AudioSystem&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;DataLine$Info&lt;/span&gt;
+                              &lt;span class=&quot;nv&quot;&gt;SourceDataLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;open-line&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;audio-format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;doto &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AudioSystem/getLine&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DataLine$Info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;SourceDataLine&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;audio-format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;audio-format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&amp;ldquo;Getting a line&amp;rdquo; is actually querying Java&amp;rsquo;s audio system about line
+that complies to our needs. Query is an instance of
+&lt;a href=&quot;http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/DataLine.Info.html&quot;&gt;DataLine.Info&lt;/a&gt;
+class. &lt;code&gt;SourceDataLine&lt;/code&gt; says that we require a line that we can write
+to. Names of &lt;code&gt;SourceDataLine&lt;/code&gt; and &lt;code&gt;TargetDataLine&lt;/code&gt; correspond to how
+audio system sees it so they mean &amp;ldquo;source&amp;rdquo; and &amp;ldquo;target&amp;rdquo; not for our
+program but for audio system. Other parameter to &lt;code&gt;DataLine.Info&lt;/code&gt;
+constructor is an audio format.&lt;/p&gt;
+
+&lt;p&gt;Next thing after getting a line is opening it and allowing data to
+flow through it. This is done by &lt;code&gt;open&lt;/code&gt; and &lt;code&gt;start&lt;/code&gt; methods
+respectively.&lt;/p&gt;
+
+&lt;p&gt;Then, playing a sound is done by invoking method &lt;a href=&quot;http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/SourceDataLine.html#write(byte[],%20int,%20int)&quot;&gt;write(byte[] b, int off, int len)&lt;/a&gt; which writes &lt;code&gt;len&lt;/code&gt; bytes from &lt;code&gt;b&lt;/code&gt; starting at index &lt;code&gt;off&lt;/code&gt;. Writing will block until all bytes from &lt;code&gt;b&lt;/code&gt; are flushed to sound system buffers.&lt;/p&gt;
+
+&lt;p&gt;Phew, now we know where we need to get: we&amp;rsquo;ll generate that byte array for
+particular line.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;7&lt;/div&gt;
+
+
+&lt;h2&gt;According To Contract&amp;hellip;&lt;/h2&gt;
+
+
+&lt;p&gt;Our sine is not quite ready to push it to speakers yet. We need to
+satisfy audio format that we defined earlier. To do that we will:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Scale values of sine&lt;/strong&gt; to maximum and minimum values possible for
+our sample size. We have 16 bits at our disposal which means we
+have circa +/&amp;ndash; 2&lt;sup&gt;15&lt;/sup&gt; range (one bit is stolen for sign).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Tear each sample&lt;/strong&gt; to bytes according to chosen &lt;em&gt;endianness&lt;/em&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Multiply each sample&lt;/strong&gt; to conform number of channels.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Pack whole sine&lt;/strong&gt; to byte array.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;div class=&quot;subsection_number h3&quot;&gt;7.1&lt;/div&gt;
+
+
+&lt;h3&gt;Scaling&lt;/h3&gt;
+
+
+&lt;p&gt;When coming out from &lt;code&gt;sine&lt;/code&gt; function our samples have floating-point
+values from -1 to 1. We need to scale them to signed integers with
+values from -2&lt;sup&gt;samplesize-1&lt;/sup&gt; to
+2&lt;sup&gt;samplesize-1&lt;/sup&gt;-1. So just mulplying by amplitude of
+2&lt;sup&gt;samplesize-1&lt;/sup&gt; will do the trick. Actual amplitude will be
+delivered by &lt;code&gt;amplitude&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;amplitude&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sample-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Math/pow&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;- &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sample-size&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I subtract 1.1 (not 1) from sample size to avoid &lt;em&gt;dangerous&lt;/em&gt;
+inaccuracy when multiplying two floating-point numbers.&lt;/p&gt;
+
+&lt;p&gt;Actual scaling will be done in &lt;code&gt;quantize&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;quantize&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;amplitude&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;* &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;amplitude&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;subsection_number h3&quot;&gt;7.2&lt;/div&gt;
+
+
+&lt;h3&gt;Fragmentation To Bytes&lt;/h3&gt;
+
+
+&lt;p&gt;I do reading integers backward and forward like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;little-endian&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;range &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&amp;gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;bit-shift-right &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;* &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;bit-and &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;unsigned-byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;big-endian&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;reverse &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;little-endian&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Where &lt;code&gt;unsigned-byte&lt;/code&gt; is needed to cheat JVM because JVM supports only
+signed bytes with values from -128 to 127 and we need signed bytes
+with values in 0..255 range. Blah. So we cheat like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;unsigned-byte&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;byte &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;127&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;- &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This is one thing that I won&amp;rsquo;t explain here :P. It&amp;rsquo;d be just too
+big. It&amp;rsquo;s based on how signed and unsigned numbers &lt;a href=&quot;http://en.wikipedia.org/wiki/Two%27s_complement&quot;&gt;look
+internally&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h3&quot;&gt;7.3&lt;/div&gt;
+
+
+&lt;h3&gt;Repeating Data For Each Channel&lt;/h3&gt;
+
+
+&lt;p&gt;OK. This will be very lame stereo. We&amp;rsquo;ll just repeat data for each
+channel and I do it like this: &lt;code&gt;(take frame-size (cycle bytes))&lt;/code&gt;. If
+you wanna you can modify that code (in fact, you should, wink wink,
+nudge nudge) and incorporate some fancy space-age surround effect.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h3&quot;&gt;7.4&lt;/div&gt;
+
+
+&lt;h3&gt;Gathering It All Together&lt;/h3&gt;
+
+
+&lt;p&gt;Whole pipeline is mirrored in &lt;code&gt;sine-bytes&lt;/code&gt; function with each of these
+steps represented by mapping a function on a collection returned by
+it&amp;rsquo;s predecessor:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sine-bytes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;format&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:keys&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sampleSizeInBits&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;frameSize&lt;/span&gt;
+                &lt;span class=&quot;nv&quot;&gt;sampleRate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;bigEndian&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;bean &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;sample-size&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;/ &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sampleSizeInBits&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;ampl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;amplitude&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sample-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;tear&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;bigEndian&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;big-endian&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;little-endian&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;-&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sine&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sampleRate&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;partial &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;quantize&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ampl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;1&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;partial &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tear&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sample-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;2&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cycle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                      &lt;span class=&quot;c1&quot;&gt;;3&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;partial &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;take&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;frameSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;;3&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;apply &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                   &lt;span class=&quot;c1&quot;&gt;;A&lt;/span&gt;
+         &lt;span class=&quot;nv&quot;&gt;byte-array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;                    &lt;span class=&quot;c1&quot;&gt;;4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Numbers in comments corresponds to points mentioned before. Line &amp;lsquo;A&amp;rsquo;
+is responsible for flattening the list of lists to a single
+list. Output of &lt;code&gt;sine-bytes&lt;/code&gt; is what a &lt;em&gt;line&lt;/em&gt; needs.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;8&lt;/div&gt;
+
+
+&lt;h2&gt;Agent&lt;/h2&gt;
+
+
+&lt;p&gt;I&amp;rsquo;ve promised that there will be no &lt;code&gt;loop&lt;/code&gt; so here it is: whole playing
+thingy will be handled by an agent. State of our agent will look like
+this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:line&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;write&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;to&lt;/span&gt;
+ &lt;span class=&quot;nv&quot;&gt;:playing&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;are&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;we&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;are&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;playing&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;not&lt;/span&gt;
+ &lt;span class=&quot;nv&quot;&gt;:data&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;byte&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;array&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sound&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Setting sine data of desired &lt;code&gt;freq&lt;/code&gt; will be done by &lt;code&gt;recalc-data&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;recalc-data&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:keys&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;assoc &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:data&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sine-bytes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getFormat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;For most of the time of agent&amp;rsquo;s life, &lt;code&gt;play-data&lt;/code&gt; will run (actually
+making the noise):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;play-data&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:keys&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;playing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;when &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;and &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;playing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;write&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;count &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;1&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;send-off &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;play-data&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;2&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;play-data&lt;/code&gt; will write whole &lt;code&gt;data&lt;/code&gt; to the &lt;code&gt;line&lt;/code&gt; [1], and send itself
+to agent to play it again [2] (here&amp;rsquo;s how there&amp;rsquo;s no &lt;code&gt;loop&lt;/code&gt; but there&amp;rsquo;s a
+loop). Turns out, agents are nice way to model such continuous I/O
+asynchronously. We&amp;rsquo;ll start and pause playing by these fns:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;pause&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;send &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;assoc&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:playing&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;doto &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;@agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;stop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;flush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;play&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;:line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;@agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;send &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;assoc&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:playing&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;send-off &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;play-data&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;pause&lt;/code&gt; is &lt;code&gt;stop&lt;/code&gt;ping the line to pause immediatly when
+called. Without this, pause would take effect after whole buffer is
+played. &lt;code&gt;flush&lt;/code&gt; is invoked to flush anything that&amp;rsquo;s left in sound
+system buffers.&lt;/p&gt;
+
+&lt;p&gt;I use &lt;code&gt;send-off&lt;/code&gt; to &lt;code&gt;play-data&lt;/code&gt; because it&amp;rsquo;s a blocking operation.&lt;/p&gt;
+
+&lt;p&gt;Two final fns will automate creating fresh agent and changing
+frequency on the fly:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;change-freq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;doto &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;pause&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;send &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;recalc-data&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;play&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;line-agent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;agent &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;send &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;recalc-data&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;freq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;play&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;9&lt;/div&gt;
+
+
+&lt;h2&gt;Testing Section Without Any Interesting Title&lt;/h2&gt;
+
+
+&lt;p&gt;Now we can test it. Lets create a line agent playing some nice bass
+tone.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;nv&quot;&gt;user&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;line-agent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;open-line&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;popular-format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If you don&amp;rsquo;t have a subwoofer or good headphones you&amp;rsquo;d like to
+increase the frequency to hear anything:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;nv&quot;&gt;user&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;change-freq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Also, we can test pausing and replaying the sound.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;nv&quot;&gt;user&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;pause&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;user&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;play&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If there&amp;rsquo;s nothing coming out from speakers or some exception happened
+try changing audio format, my guesses would be toggling endianness and
+changing both rates to 44100.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;10&lt;/div&gt;
+
+
+&lt;h2&gt;Appendix A: Melody&lt;/h2&gt;
+
+
+&lt;p&gt;Maybe simple continuous sound is boring? Let&amp;rsquo;s play a melody! :)&lt;/p&gt;
+
+&lt;p&gt;The simplest notation for music that I came up with is just a pair of
+tone and duration. So a melody is just a sequence of those.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mountain-king&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;-2&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;First number of every pair is a distance in semitones from some base
+tone. The second is a duration of note relative to some base duration.&lt;/p&gt;
+
+&lt;p&gt;Function &lt;code&gt;tone-freq&lt;/code&gt; will translate tones to raw frequencies. For the
+value 99 it&amp;rsquo;s 440 Hz which happens to be &lt;a href=&quot;http://en.wikipedia.org/wiki/A440_%28pitch_standard%29&quot;&gt;so-called &lt;em&gt;pitch
+standard&lt;/em&gt;&lt;/a&gt;.
+To get a note an octave higher or lower just add/subtract 11.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tone-freq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&amp;gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Math/pow&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;/ &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;* &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;440&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;/ &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;512&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I won&amp;rsquo;t get into details here&amp;hellip; It&amp;rsquo;s just scaling values so it&amp;rsquo;s
+comfortable to use.&lt;/p&gt;
+
+&lt;p&gt;Using &lt;code&gt;Thread/sleep&lt;/code&gt; is maybe the lamest timing
+technique you can get on JVM:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;defn &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;play-melody&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;base-tone&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;base-duration&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;melody&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;doseq &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tone&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;melody&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;change-freq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;tone-freq&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+ &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;base-tone&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Thread/sleep&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;* &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;base-duration&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;pause&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Now, lets just play it (the awful clipping needs to be addressed in
+the nearest possible future):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;nv&quot;&gt;user&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;play-melody&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;70&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mountain-king&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If it&amp;rsquo;s too low, try increasing &lt;code&gt;base-tone&lt;/code&gt;. If it&amp;rsquo;s to slow, try
+decreasing &lt;code&gt;base-duration&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s all. I&amp;rsquo;ve put the code here:
+&lt;a href=&quot;https://gist.github.com/1034374&quot;&gt;https://gist.github.com/1034374&lt;/a&gt;. Tell me what you think.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>WebGLOL</title>
+    <link href="http://longstandingbug.com/webglol.html" />
+    <updated>2011-05-22T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/webglol.html</id>
+    <content type="html">&lt;p&gt;I deviated form my Clojure stuff for a while and made something
+completely different.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m learning OpenGL recently. I&amp;rsquo;ve made this silly animation once in
+Java and wanted to see what it takes to port it to CoffeeScript and
+WebGL.&lt;/p&gt;
+
+&lt;h2&gt;Don&amp;rsquo;t Even Wonder If That Means Anything ;&amp;mdash;)&lt;/h2&gt;
+
+&lt;p&gt;&lt;canvas id=&quot;robot_canvas&quot; width=540 height=270 style=&quot;border: 1px solid black;&quot;&gt;&lt;/canvas&gt;&lt;/p&gt;
+
+&lt;script src=&quot;media/glMatrix-0.9.5.min.js&quot;&gt;&lt;/script&gt;
+
+
+&lt;script src=&quot;media/RequestAnimationFrame.js&quot;&gt;&lt;/script&gt;
+
+
+&lt;script id=&quot;shader-fs&quot; type=&quot;x-shader/x-fragment&quot;&gt;
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+
+    uniform vec4 vColor;
+
+    void main(void) {
+        gl_FragColor = vColor;
+    }
+&lt;/script&gt;
+
+
+&lt;script id=&quot;shader-vs&quot; type=&quot;x-shader/x-vertex&quot;&gt;
+    attribute vec3 aVertexPosition;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    }
+&lt;/script&gt;
+
+
+&lt;script src=&quot;media/robots.coffee&quot; type=&quot;text/coffeescript&quot;&gt;&lt;/script&gt;
+
+
+&lt;script src=&quot;media/coffee-script.js&quot;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;If you see a rectangle only it means you have to
+&lt;a href=&quot;http://get.webgl.org&quot;&gt;get WebGL-enabled browser&lt;/a&gt;. It probably won&amp;rsquo;t
+show up in feed readers because they usually block scripts. If you
+don&amp;rsquo;t have time to grab a browser, here you have a video of Java
+version (recording is crappy, I&amp;rsquo;m new to this also):&lt;/p&gt;
+
+&lt;object width=&quot;425&quot; height=&quot;344&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/Epncu2iq0EU?hl=pl&amp;fs=1&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/Epncu2iq0EU?hl=pl&amp;fs=1&quot; type=&quot;application/x-shockwave-flash&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; width=&quot;425&quot; height=&quot;344&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+
+
+&lt;p&gt;You can see the source code just by viewing source of this page or
+&lt;a href=&quot;https://github.com/santamon/OpenGLOL/tree/master/webgl&quot;&gt;on GitHub&lt;/a&gt;
+(files
+&lt;a href=&quot;https://github.com/santamon/OpenGLOL/blob/master/webgl/robots.html&quot;&gt;robots.html&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/santamon/OpenGLOL/blob/master/webgl/robots.coffee&quot;&gt;robots.coffee&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2&gt;Thoughts&lt;/h2&gt;
+
+&lt;p&gt;I have to say that WebGL is hard. There&amp;rsquo;s a lot you have to know
+before you draw anything. It&amp;rsquo;s bearable thanks to such great resources
+as &lt;a href=&quot;http://learningwebgl.com/blog/?page_id=1217&quot;&gt;Learning WebGL&lt;/a&gt;. I&amp;rsquo;ve
+done that animation only after 3 lessons so pace of this tutorial is
+really good. One more great thing about it is that examples are using
+very minimal set of external libraries so it&amp;rsquo;s kind of close to the
+metal. That animation was made with only addition of CoffeeScript. If
+you don&amp;rsquo;t want to write everything by hand there&amp;rsquo;s
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;Three.js&lt;/a&gt; library.&lt;/p&gt;
+
+&lt;p&gt;I also gave CoffeeScript a try and it was worth it. I like that very
+succinct syntax &amp;mdash; my favorite is anonymous function: it&amp;rsquo;s just &lt;code&gt;-&amp;gt;&lt;/code&gt;
+(compared to JavaScript&amp;rsquo;s &lt;code&gt;function(){}&lt;/code&gt;). Some functional programming
+stuff like
+&lt;a href=&quot;http://jashkenas.github.com/coffee-script/#loops&quot;&gt;list comprehensions&lt;/a&gt;
+and
+&lt;a href=&quot;http://jashkenas.github.com/coffee-script/#destructuring&quot;&gt;destructuring lists&lt;/a&gt;
+are very welcome too. I don&amp;rsquo;t know much of JavaScript so I can&amp;rsquo;t tell
+how much writing in CoffeeScript was easier but at least it was more
+enjoyable :) .&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://jashkenas.github.com/coffee-script/&quot;&gt;CoffeeScript site&lt;/a&gt; make
+learning it easy. There&amp;rsquo;s even a real-time translator to JavaScript so
+you can play with language in the browser. What&amp;rsquo;s mentioned
+&lt;a href=&quot;http://jashkenas.github.com/coffee-script/#scripts&quot;&gt;almost at the very bottom of document&lt;/a&gt;
+is that you don&amp;rsquo;t have to compile &lt;code&gt;*.coffee&lt;/code&gt; to &lt;code&gt;*.js&lt;/code&gt; files
+offline. They can be compiled in the browser. Just include
+&lt;a href=&quot;http://jashkenas.github.com/coffee-script/extras/coffee-script.js&quot;&gt;&lt;code&gt;coffee-script.js&lt;/code&gt;&lt;/a&gt;
+and tag you scripts with &lt;code&gt;type=&quot;text/coffeescript&quot;&lt;/code&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Reintroducing GUI FTW! and Progress Report</title>
+    <link href="http://longstandingbug.com/reintroducing-guiftw.html" />
+    <updated>2011-05-16T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/reintroducing-guiftw.html</id>
+    <content type="html">&lt;p&gt;I meant this post to be a simple translation of
+&lt;a href=&quot;niech-sie-stanie-gui-ftw.html&quot;&gt;this&lt;/a&gt; but some things changed that are
+worth mentioning.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;GUI FTW!&lt;/strong&gt; is a &lt;em&gt;declarative&lt;/em&gt; GUI library. I&amp;rsquo;ve borrowed concepts
+from the Web (the good parts). It&amp;rsquo;s kind of little internal DSL for
+GUI&amp;rsquo;s. You&amp;rsquo;ll stop manually creating boring repetitive code like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;doto &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;JFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setA&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setB&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;B&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;addXxxListener&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Instead all the boilerplate will be generated by GUI FTW! and you&amp;rsquo;ll
+never need to look at code like that again.&lt;/p&gt;
+
+&lt;p&gt;The before-mentioned &lt;strong&gt;good parts&lt;/strong&gt; of the Web include:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;a &lt;b&gt;GUI structure tree&lt;/b&gt; (say, like HTML but in Clojure),
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JFrame&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;*id&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:main-window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JButton&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;*id&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:super-button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Cascade Style Sheets&lt;/b&gt; (say, like CSS but in Clojure),
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:main-window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:title&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Window FTW!&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:visible&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:super-button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:text&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Make something happen!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;hooking functions into events&lt;/b&gt; (say, like JavaScript but in Clojure).
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:super-button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:action++performed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fn &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;The bad parts would be using XML and JavaScript literally ;) .
+Actually, the CSS part look and works like original CSS. It just
+doesn&amp;rsquo;t have those fancy selectors yet.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;1&lt;/div&gt;
+
+
+&lt;h2&gt;SWT FTW! (and swing too&amp;hellip;)&lt;/h2&gt;
+
+
+
+
+&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;[1] Well, for toolkits that follow the same pattern
+that SWT and Swing do.&lt;/p&gt;
+
+&lt;p&gt;[2] Notice that
+&lt;a href=&quot;https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/src/guiftw/swt.clj#L13&quot;&gt;swt&lt;/a&gt;
+is just a wrapper around &lt;code&gt;parse-gui&lt;/code&gt; and &lt;code&gt;swt-create&lt;/code&gt;).&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;GUI FTW works with SWT! It&amp;rsquo;s because it&amp;rsquo;s an &lt;strong&gt;abstract&lt;/strong&gt;
+library. Neither Swing nor SWT stuff are hard-coded. And GUI FTW needs
+only one function to be implemented to support another toolkit. [1] And those functions are
+simple as
+&lt;a href=&quot;https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/src/guiftw/swt.clj#L8&quot;&gt;swt-create&lt;/a&gt;. [2]&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;2&lt;/div&gt;
+
+
+&lt;h2&gt;Reusability&lt;/h2&gt;
+
+
+&lt;p&gt;What&amp;rsquo;s created with GUI FTW! is always reusable: you&amp;rsquo;ll get a function
+to instantiate your GUI as many times as you want to. Also, style
+sheets are list of function-like objects that applies some properties
+to objects. You can mix different GUI&amp;rsquo;s with different style sheets at
+runtime freely. This paragraph is here in case of thought that
+everything is written using macros flew across someone&amp;rsquo;s mind ;)
+. Actually, I&amp;rsquo;ve tried to minimize use of macros.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;3&lt;/div&gt;
+
+
+&lt;h2&gt;More?&lt;/h2&gt;
+
+
+&lt;p&gt;I&amp;rsquo;ve setup a wiki on GitHub and even wrote a tutorial for GUI
+FTW!. Here&amp;rsquo;s a couple of links you&amp;rsquo;d likely be interested in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/santamon/GUIFTW&quot;&gt;Project Page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/santamon/GUIFTW/wiki&quot;&gt;Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/santamon/GUIFTW/wiki/Overview&quot;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/santamon/GUIFTW/wiki/One-Tutorial-For-All&quot;&gt;One &lt;strong&gt;Tutorial&lt;/strong&gt; For All&lt;/a&gt; (including Swing &lt;em&gt;and&lt;/em&gt; SWT)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://longstandingbug.com/GUIFTW&quot;&gt;Online Docs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;4&lt;/div&gt;
+
+
+&lt;h2&gt;What&amp;rsquo;s New?&lt;/h2&gt;
+
+
+&lt;p&gt;Since the
+&lt;a href=&quot;niech-sie-stanie-gui-ftw.html&quot;&gt;original announcement in Polish&lt;/a&gt; I&amp;rsquo;ve
+added couple of things, most important runtime state handling, support
+for custom &amp;ldquo;special properties&amp;rdquo; and for custom
+&amp;ldquo;&lt;a href=&quot;https://github.com/santamon/GUIFTW/issues/1&quot;&gt;adders&lt;/a&gt;&amp;rdquo; (Swing only).&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h3&quot;&gt;4.1&lt;/div&gt;
+
+
+&lt;h3&gt;State in Sane Manner&lt;/h3&gt;
+
+
+&lt;p&gt;After creating a widget you&amp;rsquo;ll get a map wrapped with atom which I call
+&amp;ldquo;GUI state&amp;rdquo;. It contains data about identifiers, groups, and root of
+the widget tree. Any other additional data can be added by user. Every
+event handler fn will get that state as first argument. You can query
+state like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;@state&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:ids&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:asdf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;;; get object with id :asdf&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;@state&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:groups&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:qwer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;; get list of objects in group :qwer&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;@state&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;;; get root, usually the window&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;When creating widgets you either pass state explicitly or a new one
+is created for you. You can also decide which parts of window share
+state and which doesn&amp;rsquo;t.&lt;/p&gt;
+
+&lt;p&gt;For more info check out last part of
+&lt;a href=&quot;https://github.com/santamon/GUIFTW/wiki/Overview&quot;&gt;Overview&lt;/a&gt; on wiki.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h3&quot;&gt;4.2&lt;/div&gt;
+
+
+&lt;h3&gt;Custom &amp;ldquo;Adders&amp;rdquo;&lt;/h3&gt;
+
+
+&lt;p&gt;I knew that the day will come that I get hit by some Swing or SWT
+-specific quirk. So I got an
+&lt;a href=&quot;https://github.com/santamon/GUIFTW/issues/1&quot;&gt;issue&lt;/a&gt; :) (Thanks to the
+Reporter, by the way).&lt;/p&gt;
+
+&lt;p&gt;Everything is sweet and honey in Swing when you can use method &lt;code&gt;add&lt;/code&gt;
+to add object to its parent. But there are some cases when Swing
+designers broke that pattern, most notably the
+&lt;a href=&quot;http://download.oracle.com/javase/6/docs/api/javax/swing/JTabbedPane.html&quot;&gt;JTabbedPane&lt;/a&gt;
+when you have to use &lt;code&gt;addTab&lt;/code&gt; method. So now (only in Swing, SWT has
+different &amp;ldquo;parenting&amp;rdquo; scheme) you can set &lt;code&gt;:*adder&lt;/code&gt; property to change
+default behavior. Adder is just a function that takes 4 arguments
+&lt;code&gt;[parent parent-style child child-style]&lt;/code&gt; and does whatever is
+needed. For &lt;code&gt;JTabbedPane&lt;/code&gt; it would be:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fn &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;parent-style&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;child&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;child-style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;addTab&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&amp;gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;child-style&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:specials&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:*tab-title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;child&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;There&amp;rsquo;s also a case of
+&lt;a href=&quot;http://download.oracle.com/javase/6/docs/api/javax/swing/JScrollPane.html&quot;&gt;JScrollPane&lt;/a&gt;
+where the &lt;code&gt;setViewportView&lt;/code&gt; method should be used. When you want to
+have scroll controls on &lt;code&gt;JTextArea&lt;/code&gt;, you have to wrap a &lt;code&gt;JScrollPane&lt;/code&gt;
+around it. So it sounds like putting text area into scroll pane. So
+for this scenario we&amp;rsquo;d write:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JScrollPane&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:*adder&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fn &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;child&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setViewportView&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;child&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JTextArea&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;instead of &lt;code&gt;[JScrollPane [:viewport-view (JTextArea.)]]&lt;/code&gt; which breaks
+flow of the tree (and you can&amp;rsquo;t use other goodness of GUI FTW! for the
+text area object like styles or grouping).&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s a &lt;a href=&quot;https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/custom_adders.clj&quot;&gt;fancy example&lt;/a&gt; using those two.&lt;/p&gt;
+
+&lt;div class=&quot;subsection_number h2&quot;&gt;5&lt;/div&gt;
+
+
+&lt;h2&gt;Why Bother the Programmer?&lt;/h2&gt;
+
+
+
+
+&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;[3] Good luck with that, I live on 10th floor :P.&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If you look at my
+&lt;a href=&quot;https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/TODO.md&quot;&gt;TODO&lt;/a&gt;
+list you will see that I plan to put those quirks in special style
+sheet in &lt;code&gt;guiftw.swing&lt;/code&gt;. I also consider using this style sheet by
+default in Swing. If you know any &lt;strong&gt;other cases&lt;/strong&gt; that should be
+included, &lt;em&gt;please&lt;/em&gt; let me know, either by
+&lt;a href=&quot;https://github.com/santamon/GUIFTW/issues&quot;&gt;creating an issue&lt;/a&gt;,
+&lt;a href=&quot;http://longstandingbug.com/info.html&quot;&gt;mailing me&lt;/a&gt; or throwing a brick
+at my window. [3]&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Restarting in English Mode</title>
+    <link href="http://longstandingbug.com/restarting-in-english-mode.html" />
+    <updated>2011-05-07T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/restarting-in-english-mode.html</id>
+    <content type="html">&lt;p&gt;It&amp;rsquo;s time to admit that starting blog about something in it&amp;rsquo;s early
+days (like Clojure is) in Polish was a failure. In past (almost) year
+I&amp;rsquo;ve developed belief that community should keep together tight.
+Creating content in Polish doesn&amp;rsquo;t make sense when all Clojurians use
+English to exchange their knowledge. It&amp;rsquo;s like intersecting two very
+small sets (Polish &amp;amp; Clojure) &amp;mdash; intersection elements count is very·very small.&lt;/p&gt;
+
+&lt;p&gt;I probably write creepy English. But I don&amp;rsquo;t care more than I&amp;rsquo;m
+convinced that the more I write the better I write. It&amp;rsquo;s funny (and
+you don&amp;rsquo;t have to believe me) that I often think in English (in my
+creepy version). It happens usually when I&amp;rsquo;m swearing and programming
+and those two activities usually happen simultaneously ;).&lt;/p&gt;
+
+&lt;p&gt;I don&amp;rsquo;t mean that I&amp;rsquo;ll stop to write in Polish (jak na przykład
+teraz). I&amp;rsquo;m just inverting proportions and English will be
+default. I&amp;rsquo;ll translate some of Polish contents (such as I&amp;rsquo;ll
+reintroduce GUI FTW! to the World).&lt;/p&gt;
+
+&lt;h2&gt;Dr Jekyll and His Drugs to Rescue&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ve abandoned my &lt;a href=&quot;http://github.com/santamon/makeblog&quot;&gt;Makeblog&lt;/a&gt;
+project and use &lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;Jekyll&lt;/a&gt;
+instead. Makeblog worked just fine for me but I just don&amp;rsquo;t have time
+to develop it more (I&amp;rsquo;d rather put these hours to GUI FTW!
+project). Jekyll is very well put application. It&amp;rsquo;s elegant, have
+server and auto modes (so changes in sources are compiled on the fly),
+and what&amp;rsquo;s also important: it integrates with GitHub pages well (so I
+keep only sources in my repo). It uses nice
+&lt;a href=&quot;http://www.liquidmarkup.org/&quot;&gt;Liquid&lt;/a&gt; template engine, one of pros is
+that you can use it not only in layouts but also in posts.&lt;/p&gt;
+
+&lt;p&gt;This change can possibly broke atom feed so I&amp;rsquo;m sorry if you got
+spammed by my old posts.&lt;/p&gt;
+
+&lt;p&gt;So here it is: Long-standing Bug in English. Let&amp;rsquo;s see what will
+happen :) .&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Zdarzenia w GUI FTW!</title>
+    <link href="http://longstandingbug.com/zdarzenia-guiftw.html" />
+    <updated>2011-04-04T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/zdarzenia-guiftw.html</id>
+    <content type="html">&lt;p&gt;Tradycyjnie w Swingu bądź SWT żeby obsłużyć zdarzenie musimy utworzyć
+nową implementację jakiegoś interfejsu, np. &lt;code&gt;MouseListener&lt;/code&gt; a potem
+go zarejestrować w obiekcie, którego zdarzenia nas interesują.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addMouseListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MouseListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mouseClicked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MouseEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//... obsługa zdarzenia&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mouseEntered&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MouseEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//... obsługa zdarzenia&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mouseExited&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MouseEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//... obsługa zdarzenia&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mousePressed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MouseEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//... obsługa zdarzenia&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mouseReleased&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MouseEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//... obsługa zdarzenia&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Jeśli obchodzi nas tylko jedno zdarzenie, wygodnie jest dziedziczyć po
+klasie &lt;code&gt;MouseAdapter&lt;/code&gt;, która implementuje wszystkie metody jako puste,
+wystarczy więc zaimplementować jedną metodę:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;button&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addMouseListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MouseAdapter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mouseClicked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MouseEvent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//... obsługa zdarzenia&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Jak widać, trzeba się sporo opisać zanim dotrze się do miejsca, gdzie
+umieści się właściwy kod, nawet w wersji z adapterem. Jeśli jest
+możliwe napisanie kodu krótszego i przynajmniej tak samo dobrze
+wyrażającego co chcemy osiągnąć to moim zdaniem warto.&lt;/p&gt;
+
+&lt;h2&gt;Jak to wygląda w GUI FTW!?&lt;/h2&gt;
+
+&lt;p&gt;Obsługę zdarzeń wrzucamy do arkuszy stylów. Wygląda to tak jak każda
+inna właściwość (tekst, kolor, itd.) poza tym, że nazwą właściwości
+jest specyfikacja zdarzenia a wartością jest funkcja która je obsłuży.
+Dzięki temu zyskujemy również na wszystkich zaletach arkuszy stylów,
+np. można obsłużyć zdarzenia z wielu obiektów na raz.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;stylesheet&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:cos&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:drugie-cos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:text&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Coś!&amp;quot;&lt;/span&gt;
+                                 &lt;span class=&quot;nv&quot;&gt;&amp;lt;spec-zdarzenia&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&amp;lt;funkcja&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;h3&gt;Specyfikacja zdarzenia&lt;/h3&gt;
+
+&lt;p&gt;GUI FTW! musi znać dwie rzeczy: nazwę interfejsu &lt;code&gt;*Listener&lt;/code&gt; i jedną
+metodę do zaimplementowania &amp;mdash; nazwę zdarzenia. Trzeba to podać w
+takiej formie:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;nv&quot;&gt;&amp;lt;nazwa&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;interfejsu&amp;gt;+&amp;lt;nazwa&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;metody&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Czyli np. &lt;code&gt;mouse+mouse-clicked&lt;/code&gt; albo
+&lt;code&gt;action+action-performed&lt;/code&gt;. Odpada dzięki temu spora część zbędnego
+kodu z pierwszego przykładu. Widać coś jeszcze: np. w
+&lt;code&gt;mouse+mouse-clicked&lt;/code&gt; słowo &lt;code&gt;mouse&lt;/code&gt; powtarza się. Ponieważ występuje
+to dość często dodałem skrót: jeśli napiszemy &lt;code&gt;++&lt;/code&gt; zamiast &lt;code&gt;+&lt;/code&gt; możemy
+pozbyć się zbędnego słowa.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;nv&quot;&gt;mouse++clicked&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mouse+mouse-clicked&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;MouseListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mouseClicked&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;h4&gt;Dlaczego nie uniwersalne &lt;code&gt;on-click&lt;/code&gt; albo &lt;code&gt;on-mouse-over&lt;/code&gt;?&lt;/h4&gt;
+
+&lt;p&gt;Takie rozwiązanie na pewno byłoby intuicyjne dla osób
+początkujących. Nie widzę jednak sensu gdy &lt;code&gt;mouse++clicked&lt;/code&gt; jest
+wystarczająco wymowne. Poza tym powodowałoby zwiększenie kodu w GUI
+FTW! specyficznego dla bibliotek, które obsługuje (w tym momencie
+Swing i SWT).&lt;/p&gt;
+
+&lt;p&gt;Dzięki temu, że GUI FTW! wymaga podania nazwy interfejsu i metody,
+możliwa jest obsługa zdarzeń wymyślonych przez programistę na poziomie
+równym z tymi wbudowanymi w Swing bądź SWT.&lt;/p&gt;
+
+&lt;h3&gt;Funkcja obsługująca&lt;/h3&gt;
+
+&lt;p&gt;W tym momencie funkcja obsługująca zdarzenie ma jeden argument:
+zdarzenie, które wystąpiło. Może to być zarówno funkcja anonimowa jak
+i nazwa funkcji zdefiniowanej w innym miejscu.&lt;/p&gt;
+
+&lt;h2&gt;Przykład&lt;/h2&gt;
+
+&lt;p&gt;Rozwinę lekko przykład z poprzedniego wpisu (utrzymując poziom
+hellołłorldowy). Dla przypomnienia struktura interfejsu:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;window&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;swing&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JFrame&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;*id&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:okno-ftw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JButton&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;*id&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:przycisk-omg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Do arkusza styli dodamy obsługę zdarzenia:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sheet&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;stylesheet&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:okno-ftw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:title&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;GUI FTW!&amp;quot;&lt;/span&gt;
+               &lt;span class=&quot;nv&quot;&gt;:size&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;^unroll&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;300&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+               &lt;span class=&quot;nv&quot;&gt;:visible&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:przycisk-omg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:text&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;To jest przycisk!&amp;quot;&lt;/span&gt;
+                   &lt;span class=&quot;nv&quot;&gt;:mouse++clicked&lt;/span&gt;
+                   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fn &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;JOptionPane/showMessageDialog&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;GUI FTW!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;images/gui-ftw-pierwsza-akcja.png&quot; alt=&quot;Prosty przykład podpięcia akcji pod przycisk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Pełny kod tego przykładu znajduje się &lt;a href=&quot;https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/basic.clj&quot;&gt;tutaj&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Niech się stanie GUI FTW!</title>
+    <link href="http://longstandingbug.com/niech-sie-stanie-gui-ftw.html" />
+    <updated>2011-03-20T00:00:00+01:00</updated>
+    <id>http://longstandingbug.com/niech-sie-stanie-gui-ftw.html</id>
+    <content type="html">&lt;p&gt;Ponieważ bardzo lubię programowanie deklaratywne brakowało mi od dawna
+czegoś deklaratywnego do tworzenia GUI. Kod tworzący GUI jest zawsze
+bardzo nudny i powtarzalny: &amp;ldquo;stwórz obiekt, ustaw jego tekst, ikonę,
+dodaj akcję na klik (wcześniej stwórz obiekt implementujący
+odpowiedniego listenera), ew. stwórz obiekty-dzieci, bla bla bla&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Projektanci stron internetowych od początku mają do dyspozycji HTML i
+CSS, które są jak najbardziej deklaratywne w swojej naturze. Dodatkowo
+treść określa się osobno od tego jak ma wyglądać. Model ten zaczyna
+wychodzić poza przeglądarki, np. XAML w .NET albo pliki layoutów w
+Androidzie. Wszystkie znane mi do tej pory tego przykłady opierają się
+na XML-u i dodatkowym programie generującym kod w trakcie kompilacji.&lt;/p&gt;
+
+&lt;p&gt;Ostatnio pracuję nad podobną biblioteką dla Clojure. Są jednak dwie
+główne różnice:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Tak jak dla programistów Javy naturalnym językiem do opisu danych
+jest XML tak dla programistów Clojure tym językiem jest Clojure.&lt;/li&gt;
+&lt;li&gt;Moja biblioteka jest jedynie biblioteką, nie wymaga dodatkowych
+programów generujących (powiedzmy) kod Javy z XML-a.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Ad 1. Składnia Clojure to tylko struktury danych: listy, wektory i
+mapy o &lt;em&gt;wybornej&lt;/em&gt; składni. Grzechem byłoby używać w takiej sytuacji
+XML-a. Całe parsowanie robi za mnie Clojure więc mogę martwić się już
+tylko znaczeniem tego co siedzi w środku. Zarówno drzewo GUI (analogia
+do HTML) jak i style (CSS) definiowane są za pomocą kodu w Clojure.&lt;/p&gt;
+
+&lt;p&gt;Ad 2. Dzięki magicznym technikom metaprogramowania (makrom) mogę
+wchodzić w drogę kompilatorowi Clojure i generować kod tuż przed
+kompilacją zamiast generować kod programem i dopiero potem wywoływać
+kompilator. Dlatego całą funkcjonalność można spakować do pliku jar i
+używać jak każdej innej biblioteki. Ułatwia to także programowanie
+interaktywne z użyciem REPL.&lt;/p&gt;
+
+&lt;h2&gt;Co, gdzie, jak?&lt;/h2&gt;
+
+&lt;p&gt;Teraz nieco więcej o samej bibliotece. Nazwałem ją &lt;strong&gt;GUI FTW!&lt;/strong&gt; a pobrać
+ją można stąd: &lt;a href=&quot;http://github.com/santamon/GUIFTW&quot;&gt;http://github.com/santamon/GUIFTW&lt;/a&gt;. Jest dostępna
+także na &lt;a href=&quot;http://clojars.org/guiftw&quot;&gt;Clojars&lt;/a&gt; więc wystarczy dodać
+&lt;code&gt;[guiftw &quot;0.1.0-SNAPSHOT&quot;]&lt;/code&gt; do zależności projektu aby jej
+użyć. Polecam poeksperymentować z przykładami w katalogu
+&lt;a href=&quot;http://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples&quot;&gt;src/guiftw/examples&lt;/a&gt;,
+które są również mocno obkomentowane w formie tutoriala.&lt;/p&gt;
+
+&lt;p&gt;GUI FTW! nie jest kolejnym toolkitem obok SWT i Swinga &amp;mdash; jest
+deklaratywną nakładką na nie. Tzn. GUI FTW! można używać do tworzenia
+interfejsów używając jednego albo drugiego pod spodem. Do tego zostało
+napisane na tyle abstrakcyjnie, że można łatwo dopisać obsługę
+kolejnego toolkitu. Ułatwi to przesiadkę programistom Javy, którzy
+znają jedno albo drugie. Poza tym, pisanie kolejnego toolkitu nie jest
+po prostu celem tego projektu.&lt;/p&gt;
+
+&lt;h2&gt;Banalny przykład&lt;/h2&gt;
+
+&lt;p&gt;Strukturą GUI jest drzewo, którego węzeł składa się z nazwy
+klasy, listy właściwości oraz z jego węzłów-dzieci.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;window&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;swing&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JFrame&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:title&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;GUI FTW!&amp;quot;&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;:visible&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JButton&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:text&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;To jest przycisk!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Wewnątrz listy cech można używać dowolnych nazw, które mają swoje
+settery w danej klasie. Np. &lt;code&gt;:title&lt;/code&gt; tłumaczone jest na wywołanie
+metody &lt;code&gt;setTitle&lt;/code&gt;, &lt;code&gt;:default-close-operation&lt;/code&gt; na
+&lt;code&gt;setDefaultCloseOperation&lt;/code&gt; itd.&lt;/p&gt;
+
+&lt;p&gt;Aby zdefiniować style osobno musimy nadać elementom identyfikatory:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JFrame&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;*id&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:okno-ftw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;JButton&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;*id&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;:przycisk-omg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;a osobno w tzw. arkuszu stylów zdefiniować cechy obiektów:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sheet&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;stylesheet&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:okno-ftw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:title&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;GUI FTW!&amp;quot;&lt;/span&gt;
+               &lt;span class=&quot;nv&quot;&gt;:size&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;^unroll&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;300&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+               &lt;span class=&quot;nv&quot;&gt;:visible&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:przycisk-omg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:text&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;To jest przycisk!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Składnia styli składa się z par list: najpierw lista identyfikatorów,
+druga lista jest listą właściwości jak poprzednio. &lt;code&gt;^unroll&lt;/code&gt; jest
+potrzebne dla setterów, które mają więcej niż jeden parametr. Lista
+poprzedzona &lt;code&gt;^unroll&lt;/code&gt; zostanie rozwinięta na wszystkie jego parametry
+zamiast wywołać setter z listą jako parametrem. Czyli otrzymamy
+odpowiednik &lt;code&gt;setSize(300, 200)&lt;/code&gt; zamiast &lt;code&gt;setSize((300, 200))&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Makro &lt;code&gt;swing&lt;/code&gt; zwraca funkcję, która utworzy chciane GUI, więc &lt;code&gt;window&lt;/code&gt;
+będzie funkcją. Parametrami tej funkcji jest ew. obiekt nadrzędny
+(jeśli nie tworzylibyśmy okna tylko jakiś podrzędny element, może być
+nil) oraz dowolna ilość arkuszy styli. Utworzenie okna będzie więc
+wyglądało tak:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img src=&quot;images/gui-ftw-pierwsze-okno.png&quot; alt=&quot;Pierwsze okno&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Arkuszy może być więcej, możemy także podać inny komplet. Możemy też
+utworzyć wiele okien wywołując powtórnie tę funkcję. Zwrócony zostanie
+element na korzeniu drzewa.&lt;/p&gt;
+
+&lt;p&gt;Analogiczny przykład w SWT użyłby klas specyficznych dla SWT i przede
+wszystkim makra &lt;code&gt;swt&lt;/code&gt; zamiast &lt;code&gt;swing&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Co dalej&lt;/h2&gt;
+
+&lt;p&gt;Zacząłem pisać dokumentację. Jest dostępna w kodzie bądź przez &lt;code&gt;doc&lt;/code&gt; w
+REPL-u. Przydałaby się też dokumentacja on-line w stylu &lt;a href=&quot;http://clojure.github.com/clojure/&quot;&gt;tej dla samego Clojure&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;W tym momencie można stworzyć GUI, ostylować go i podpiąć zdarzenia (o
+czym będzie następny wpis). Brakuje całej części &amp;ldquo;stanowej&amp;rdquo;, w
+szczególności wyciąganie z drzewa interesujących nas elementów. Mam
+również pomysł, by podpinać wartości (np. tekst pola tekstowego)
+dwustronnie pod clojure'owe atomy, refy, agentów itp. Pozwoliłoby to
+na spięcie GUI i np. pamięci transakcyjnej.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Idea i Iluzja łeb w web</title>
+    <link href="http://longstandingbug.com/idea-iluzja.html" />
+    <updated>2010-10-16T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/idea-iluzja.html</id>
+    <content type="html">&lt;p&gt;Co najbardziej lubię w Makeblogu, to składnia plików wejściowych. Na dobrą
+sprawę mógłbym ich nie parsować wcale. Same w sobie mają odpowiedni wygląd.
+Myślę, że gdybym pisał przeglądarkę tekstową zamieniałbym strony z HTML-a na coś
+podobnego ;).&lt;/p&gt;
+
+&lt;p&gt;To co mam na myśli, zpikselowane:&lt;/p&gt;
+
+&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;Z lewej strony źródło wpisu, z prawej efekt.&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;images/idea-iluzja.png&quot;&gt;&lt;img src=&quot;images/idea-iluzjam.jpg&quot; alt=&quot;idea i iluzja&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Choć ciągle w fazie rozwojowej, Makeblog w tym momencie realizuje większość
+funkcji, które założyłem. Następnym krokiem będzie dokumentacja.
+Nie widzę innego wyjścia jak generowanie jej Makeblogiem we własnej osobie.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Błąd młodego parsownika</title>
+    <link href="http://longstandingbug.com/blad-mlodego-parsownika.html" />
+    <updated>2010-09-03T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/blad-mlodego-parsownika.html</id>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Parsownik&lt;/strong&gt; &amp;mdash; &lt;em&gt;osoba pisząca parsery.&lt;br /&gt;(Termin zawdzięczam
+  mojemubratu.)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze jest to, że
+zacząłem pisać następny wpis już następnego dnia po wystartowaniu
+bloga. Cały wpis powstał bez sprawdzania czy kompiluje się ładnie do
+HTML-a. Po ukończeniu skompilował się, niestety źle. Bardzo
+źle. Tagi przeplatały się w nieprawidłowy sposób, np. gwiazdka gdzieś
+wcześniej w którymś paragrafie i gwiazdka gdzieś dalej w wypunktowaniu
+powodowały otoczenie to tagiem &lt;code&gt;&amp;lt;b&amp;gt;&lt;/code&gt;. Co dawało np. takie wyjście:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;... &lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt; ... &lt;span class=&quot;nt&quot;&gt;&amp;lt;b&amp;gt;&lt;/span&gt; ... &lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&lt;/span&gt; ... &lt;span class=&quot;nt&quot;&gt;&amp;lt;/b&amp;gt;&lt;/span&gt; ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Mój parser działał ogólnie tak, że miał listę par: wyrażenie regularne
++ funkcja, która wywoływana była na tekście do którego zostało
+dopasowane to wyrażenie. Aby zapobiec złemu przeplataniu się
+tagów wyrażenia ozdobników (takich jak pogrubienie, pochylenie,
+podkreślenie; do tego używam pojedynczych znaków, np:
+&lt;code&gt;/asdf/&lt;/code&gt; → &lt;code&gt;&amp;lt;em&amp;gt;asdf&amp;lt;/em&amp;gt;&lt;/code&gt;)
+stały się bardzo skomplikowane. Mam na myśli coś takiego
+(&lt;code&gt;@&lt;/code&gt; to odpowiednik dla znacznika &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;&lt;span class=&quot;s&quot;&gt;r&amp;quot;(?&amp;lt;!&amp;lt;|\w|[@])\@(?=\S)([^@]+)(?&amp;lt;=\S)\@(?=\W)&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Nie jestem specjalistą od wyrażeń regularnych ale użycie ich wydawało
+mi się bardzo obiecujące. Szczególnie łatwo było na początku ;).&lt;/p&gt;
+
+&lt;p&gt;Przedstawione podejście miało poważne wady:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;za każdym razem przetwarzany był cały tekst,&lt;/li&gt;
+&lt;li&gt;wyrażenia widziały go jako sam tekst a nie jako strukturę,&lt;/li&gt;
+&lt;li&gt;w praktyce dopuszczalne było przeplatanie się znaczników HTML j/w.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Ogólnie całość sprawiała wrażenie jakby trzymała się na rzęsach :P.
+Ciągłe dopasowywanie regexpów mogło się szybko skończyć kodem
+spaghetti&amp;hellip; Jednym słowem&amp;hellip;&lt;/p&gt;
+
+&lt;h2&gt;Porażka :D.&lt;/h2&gt;
+
+&lt;p&gt;Mogłem spodziewać się tego po przeczytaniu
+&lt;a href=&quot;http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454&quot;&gt;tego wątku na Stack Overflow&lt;/a&gt;.
+Dotyczył on parsowania HTML-a więc najpierw pomyślałem, że moja
+wymarzona składnia nie jest aż tak trudna do przetworzenia.&lt;/p&gt;
+
+&lt;p&gt;Wróciłem do Stack Overflow jak mój parser zaczął nawalać&amp;hellip;&lt;/p&gt;
+
+&lt;h2&gt;Pyparsing&lt;/h2&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Have you tried using an XML parser instead?&lt;br /&gt;
+&amp;mdash; &lt;a href=&quot;http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454&quot;&gt;Will&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Wow. To mi dało myślenia. Oczywiście nie chodziło o użycie parsera XML-a
+ale śladem &amp;ldquo;gotowych, dobrze sprawdzonych rozwiązań&amp;rdquo; trafiłem na
+&lt;a href=&quot;http://pyparsing.wikispaces.com/&quot;&gt;pyparsing&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Pyparsing jest (dla mnie, laika z tego tematu :P ) parserem dowolnie
+zdefiniowanej gramatyki. Od np. &lt;a href=&quot;http://www.antlr.org/&quot;&gt;ANTLR-a&lt;/a&gt; różni się
+tym, że gramatykę definiuje się za pomocą wyrażeń w Pythonie (używając
+zwykłych operatorów takich jak &lt;code&gt;+&lt;/code&gt; czy &lt;code&gt;|&lt;/code&gt;)
+zamiast tradycyjnego &lt;a href=&quot;http://pl.wikipedia.org/wiki/Notacja_EBNF&quot;&gt;EBNF&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Idealnie dla mnie. Wystarczyło zrozumieć filozofię działania,
+przeczytać
+&lt;a href=&quot;http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html&quot;&gt;krótką i przystępną instrukcję&lt;/a&gt;
+oraz czasem zajrzeć do
+&lt;a href=&quot;http://packages.python.org/pyparsing/&quot;&gt;dokumentacji API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Prosty przykład&lt;/h3&gt;
+
+&lt;p&gt;Skoro jesteśmy przy moich &lt;strong&gt;pogrubieniach&lt;/strong&gt; za pomocą gwiazdki i
+&lt;em&gt;pochyleniach&lt;/em&gt; za pomocą ukośnika, proponuję prosty, rekurencyjny przykład.&lt;/p&gt;
+
+&lt;p&gt;Najpierw wersja nierekurencyjna:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# -*- coding: utf-8 -*-&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pyparsing&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pprint&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pprint&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;undecorated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OneOrMore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# tłumaczy się samo przez się&lt;/span&gt;
+                         &lt;span class=&quot;n&quot;&gt;Word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# słowo (przynajmniej 1 znak) złożone z:&lt;/span&gt;
+                               &lt;span class=&quot;n&quot;&gt;alphanums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# litery i cyfry&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;bold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;*&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;undecorated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;*&amp;quot;&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# prawda,&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;italic&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;/&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;undecorated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;/&amp;quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# że proste? :)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# metoda parseString() służy do... parsowania napisów&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pprint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bold&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parseString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;*asdf*&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pprint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;italic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parseString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/qwer/&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Wynikiem tego będzie:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;asdf&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;qwer&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Jak widać, pyparsing dzieli łańcuch na kawałki określone w gramatyce
+(tokeny). Domyślnie omija też ew. białe znaki pomiędzy nimi.&lt;/p&gt;
+
+&lt;p&gt;Rekurencyjny przykład będzie nieco dłuższy. Ponieważ Python nie pozwala
+na używanie niezdefiniowanych symboli pyparsing załatwia to
+klasą &lt;code&gt;Forward&lt;/code&gt;, która umożliwia najpierw zadeklarowanie elementu
+a później podanie jego definicji za pomocą operatora &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# -*- coding: utf-8 -*-&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pyparsing&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pprint&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pprint&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;undecorated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OneOrMore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alphanums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;bold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Forward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;italic&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Forward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;expression&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OneOrMore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;undecorated&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;italic&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Domyślnie wszystkie elementy odnalezione przez pyparsing&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# zwracane są jako jednowymiarowa lista, Group stworzy&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# listę zagnieżdżoną dla tego dopasowania&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;bold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;*&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expression&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;*&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;italic&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expression&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;pprint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expression&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parseString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;czysty tekst&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;/krzywo/ *grubo*&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;/*krzywo grubo*/ */grubo krzywo/*&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;*grubo /krzywo i jeszcze raz *grubo*/*&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;asList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Tym razem wyjście wygląda tak:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;czysty&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;tekst&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# czysty tekst&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;krzywo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;# /krzywo/&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;grubo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;      &lt;span class=&quot;c&quot;&gt;# *grubo*&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;krzywo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;grubo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# /*krzywo grubo*/&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;grubo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;krzywo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# */grubo krzywo/*&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;grubo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;krzywo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;i&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;jeszcze&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;raz&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;grubo&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;&amp;#39;*&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Ostatni kawałek jest szczególnie ciekawy. Zostawiam go
+do samodzielnego przeanalizowania :P. Dla mnie to była eureka,
+która pozwoliła mi dalej popchnąć projekt :)&lt;/p&gt;
+
+&lt;p&gt;Oba przykłady umieszczone są w &lt;a href=&quot;olt/input/blad-mlodego-parsownika.py&quot;&gt;jednym pliku&lt;/a&gt;.
+Plik ten posiada jeszcze jeden cukierek dla osób wnikliwych ;).
+Przedstawiony przykład jest uproszczeniem analogicznego kodu
+z mojego &lt;a href=&quot;http://github.com/santamon/makeblog/blob/master/txt-to-html/txt-to-html.py&quot;&gt;parsera&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Takie drzewko jak w ostatnim listingu możemy już dowolnie przetworzyć
+manipulując listami, albo użyć metody &lt;code&gt;setParseAction(fn)&lt;/code&gt; na każdym
+zdefiniowanym elemencie gramatyki, gdzie &lt;code&gt;fn&lt;/code&gt; to funkcja.
+Jeśli &lt;code&gt;fn&lt;/code&gt; zwróci jakąś wartość to element w drzewie zostanie
+zastąpiony tą wartością.&lt;/p&gt;
+
+&lt;h2&gt;Podsumowanie&lt;/h2&gt;
+
+&lt;p&gt;Nowy parser pozbawiony jest wad poprzedniego, przede wszystkim:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;działa,&lt;/li&gt;
+&lt;li&gt;jest bardziej przewidywalny,&lt;/li&gt;
+&lt;li&gt;kod jest bardziej przejrzysty,&lt;/li&gt;
+&lt;li&gt;jest łatwiej rozszerzalny.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Polecam przyjrzeć się &lt;a href=&quot;http://pyparsing.wikispaces.com/&quot;&gt;pyparsing&lt;/a&gt;
+jeśli mamy potrzebę/chęć przetworzenia jakiegoś tekstu i piszemy w
+Pythonie. Jeszcze raz podaję adres do
+&lt;a href=&quot;http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html&quot;&gt;samouczka&lt;/a&gt;
+oraz do &lt;a href=&quot;http://packages.python.org/pyparsing/&quot;&gt;dokumentacji API&lt;/a&gt;.
+Pyparsing ma bardzo fajną licencję
+(&lt;a href=&quot;http://www.opensource.org/licenses/mit-license.php&quot;&gt;MIT&lt;/a&gt;), &amp;ldquo;róbta co
+chceta ale pochwalcie się od kogo ściągaliście&amp;rdquo; :P ) i jest dość
+popularne, co znaczy, że powinna być dostępna w Twojej Ulubionej
+Dystrybucji ;).&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Intro</title>
+    <link href="http://longstandingbug.com/intro.html" />
+    <updated>2010-08-16T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/intro.html</id>
+    <content type="html">&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;Ten wpis traktuje o pierwszym designie, który ma niewiele wspólnego z obecnym&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Witam serdecznie. O blogu, który by się tak nazywał, działał i wyglądał myślałem
+od jakiegoś czasu. Będę pisał o własnych zainteresowaniach,
+skupiając się zapewne w głównej mierze na języku &lt;a href=&quot;http://clojure.org&quot;&gt;Clojure&lt;/a&gt;.
+Mam dwa pomysły na pracę mgr, których, dopóki nie dorosną, nie zdradzę.&lt;/p&gt;
+
+&lt;p&gt;Wygląd strony jest minimalistyczny; mam nadzieję, że jeśli nie przypadnie
+komuś do gustu to przynajmniej nie będzie przeszkadzał w dostępie do treści.&lt;/p&gt;
+
+&lt;h2&gt;Makeblog&lt;/h2&gt;
+
+&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;Od pewnego czasu blog używa &lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;Jekylla&lt;/a&gt; zamiast Makebloga.&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Na potrzeby bloga napisałem kilka skryptów do generowania stron off-line.
+Kilka zalet takiego rozwiązania (porównując np. z Wordpressem):
+&amp;ndash; strony ładują się szybciej, nie ma odwołań do bazy danych,
+&amp;ndash; mogę użyć dowolnego edytora do edycji stron/wpisów,
+&amp;ndash; całą treść trzymam u siebie na dysku, zmiana hostingu jest dzięki temu uproszczona.&lt;/p&gt;
+
+&lt;p&gt;W tym momencie strona hostowana jest na
+&lt;a href=&quot;http://github.com/santamon/santamon.github.com&quot;&gt;GitHubie&lt;/a&gt;, co mi
+bardzo odpowiada: synchronizacja treści przez gita, cud-miód :).&lt;/p&gt;
+
+&lt;p&gt;Makeblog używa składni podobnej do &lt;a href=&quot;http://orgmode.org&quot;&gt;&lt;code&gt;org-mode&lt;/code&gt;&amp;lsquo;a&lt;/a&gt;.
+Dzięki temu mogę pisać wpisy w czystym tekście, polecam zobaczyć
+&lt;a href=&quot;http://github.com/santamon/santamon.github.com/blob/master/input/intro.txt&quot;&gt;plik źródłowy tego wpisu&lt;/a&gt;
+oraz plik
+&lt;a href=&quot;http://github.com/santamon/makeblog/blob/master/input/Syntax.txt&quot;&gt;Syntax&lt;/a&gt;,
+którego używałem do testowania parsera.
+&lt;a href=&quot;http://github.com/santamon/santamon.github.com/blob/master/templates/article.html&quot;&gt;Schematy stron&lt;/a&gt;
+używają bardzo prostej składni (podmiany z &lt;code&gt;$&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h2&gt;Skąd taka nazwa?&lt;/h2&gt;
+
+&lt;p&gt;Proste: Makeblog używa programu &lt;strong&gt;make&lt;/strong&gt; do śledzenia, które pliki mają być
+zaktualizowane. Skrypty do parsowania tekstu i indeksowania są napisane
+w Pythonie. Dlaczego nie w Clojure? Może więcej o Makeblogu w następnym
+wpisie.&lt;/p&gt;
+
+&lt;p&gt;Projekt jest hostowany na GitHubie: &lt;a href=&quot;http://github.com/santamon/makeblog&quot;&gt;http://github.com/santamon/makeblog&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Braki i niedoróbki&lt;/h2&gt;
+
+&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;Problemy te nie dotyczą aktualnego wyglądu strony, która używa standardowych czcionek.&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Póki co zauważyłem problemy z renderowaniem czcionek pod Windowsem
+(gdy używa się ClearType, pod Safari z renderowaniem &amp;ldquo;makowym&amp;rdquo; wygląda
+b. dobrze).  Dlatego na Viście i 7 zostaną użyte kroje systemowe (nowe
+kroje wprowadzone z Vistą, nie ma ich w innych OS-ach, więc na
+Linuksie zostaną użyte te zagnieżdżone). Na XP jeszcze nie wiem co
+zrobić. Zobaczymy po testach (nie mam komputera z XP pod ręką
+ostatnio).&lt;/p&gt;
+
+&lt;p&gt;Brakuje kilku istotnych łebdwazerowych funkcji, czyli tagów i RSS-a lub Atoma.
+Jest w moim TODO ;).&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>Efekty uboczne programowania</title>
+    <link href="http://longstandingbug.com/efekty-uboczne-programowania.html" />
+    <updated>2010-01-07T00:00:00+01:00</updated>
+    <id>http://longstandingbug.com/efekty-uboczne-programowania.html</id>
+    <content type="html">&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;Wpis archiwalny z &lt;a href=&quot;http://gaco.wordpress.com&quot;&gt;mojej starej strony&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Pliki png w pełnej rozdzielczości mają po 2-4,5 MB.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;images/abstract1.png&quot;&gt;&lt;img src=&quot;images/abstract1m.jpg&quot; alt=&quot;Abstrakcja 1&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;images/abstract2.png&quot;&gt;&lt;img src=&quot;images/abstract2m.jpg&quot; alt=&quot;Abstrakcja 2&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;didascalia&quot;&gt;&lt;p&gt;Efekt niedokończonej optymalizacji odświeżania obrazu&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;images/scan-lines.png&quot;&gt;&lt;img src=&quot;images/scan-linesm.jpg&quot; alt=&quot;Scan Lines&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <title>One Makefile To Rule Them All</title>
+    <link href="http://longstandingbug.com/one-makefile-to-rule-them-all.html" />
+    <updated>2009-06-07T00:00:00+02:00</updated>
+    <id>http://longstandingbug.com/one-makefile-to-rule-them-all.html</id>
+    <content type="html">&lt;p&gt;Wpis archiwalny z &lt;a href=&quot;http://gaco.wordpress.com&quot;&gt;mojej starej strony&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;One Makefile to rule them all, One Makefile to find them,&lt;br /&gt;
+One Makefile to bring them all and in the batch compile them&lt;br /&gt;
+In the Land of Unix where the Shells lie.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Kiedyś szukałem sposobu, by dodając nowe pliki *.cpp do projektu
+(każdy z nich był osobnym programem) nie trzeba było modyfikować
+Makefile'a i dałem sobie spokój w pewnym momencie.  Szukałem niezbyt
+gorliwie jak się okazuje, bo podpowiedź była
+&lt;a href=&quot;http://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html&quot;&gt;w manualu do GNU Make'a&lt;/a&gt;.
+Ten Makefile skompiluje wszystkie pliki *.cpp jako osobne programy do
+podkatalogu bin.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;makefile&quot;&gt;&lt;span class=&quot;nv&quot;&gt;cele&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;patsubst %.cpp,bin/%,&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;wildcard *.cpp&lt;span class=&quot;k&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;komp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;g++ -Wall -O2
+
+asdf: &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cele&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cele&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; : bin/% : %.cpp
+    &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;komp&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$&amp;amp;&lt;/span&gt;lt; -o &lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;
+
+clean:
+    rm &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cele&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Żeby pakowało binarki bezpośrednio do katalogu ze źródłami trzeba usunąć 2x &lt;code&gt;bin/&lt;/code&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  
+
+
+
+</feed>

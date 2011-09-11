@@ -1,5 +1,0 @@
-Wyświetlanie podpikselowe
-
-index: false
-
-ASDF

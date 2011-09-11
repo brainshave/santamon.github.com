@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
+    <link rel="stylesheet" href="media/main.css" />
+
+    <title>Sound Synthesis & Playback in Clojure</title>
+    <!-- work around IE (8?) not handling properly unknown tags -->
+    <!-- suggested here: http://diveintohtml5.org/semantics.html -->
+    <script>
+      document.createElement("article");
+      document.createElement("nav");
+      document.createElement("aside");
+      document.createElement("footer");
+      document.createElement("time");
+    </script>
+  </head>
+  <body>
+    <div id="main_container">
+      <div id="left_container">
+        <header>
+          <a href="index.html" id="logo"><img src="media/header.svg" /></a>
+        </header>
+        <article id="content">
+  <time>2011-06-20</time>
+  <h1>Sound Synthesis & Playback in Clojure</h1>
+  
+
+<p>I&rsquo;ve been playing with sound in Clojure lately so I thought I&rsquo;d
+document what I&rsquo;ve learned.</p>
+
+<p>This tutorial covers generating simple, clean sounds of desired
+frequency (sines) and accessing Java Sound API (it&rsquo;s not that scary,
+really). We&rsquo;ll start with nothing and at the end, we&rsquo;ll even play some
+melody with synthesized sounds :) (no instruments, pre-recorded
+samples or whatsoever).</p>
+
+<p>Entry level: <em>know where your repl is</em></p>
+
+<div class="subsection_number h2">1</div>
+
+
+<h2>Fast Facts About Sound</h2>
+
+
+<p>Making some noise is in fact moving particles of air a speaker does
+that. And we will move the speaker. From perspective of a programmer
+playing some sound is changing speaker&rsquo;s position over time. Because
+on computers nothing is continuous, we can manage it&rsquo;s position in
+concrete moments only. These <em>moments</em> come at constant rate. So we
+can imagine that playing a sound is actually feeding our speaker with
+it&rsquo;s position values regularly.</p>
+
+<p>About those <strong>moments</strong>: Speaker can move back and forth. It&rsquo;s
+position is relative to some starting position to which we will refer
+as position <em>zero</em>. Moving speaker forward is increasing it&rsquo;s position
+and moving backward is decreasing it&rsquo;s position (actually, it can be
+the other way around but this time we shouldn&rsquo;t care). So, the
+speaker&rsquo;s position is a number and it&rsquo;s called a <em>sample</em>.</p>
+
+<div class="subsection_number h2">2</div>
+
+
+<h2>Technicalia of Sound</h2>
+
+
+<p>Sample has fixed size and it&rsquo;s usually 16 bits. Sample size is
+limiting our minimum and maximum value. We don&rsquo;t have to bother about
+what these values are (it&rsquo;ll be handled automatically).</p>
+
+<p>Pace at which samples come to a sound system is usually 48000 Hz (Hz
+[Hertz] means &ldquo;ticks/samples per second&rdquo;) or 44100 Hz (&ldquo;Audio CD&rdquo;
+quality) and it&rsquo;s called <em>sample rate</em>. Yes, we need to feed our
+speaker <strong>that</strong> fast ;).</p>
+
+<div class="subsection_number h2">3</div>
+
+
+<h2>Know Your Math</h2>
+
+
+<p>Because this tut is about generating sines I have to say what a sine
+actually is. Sine is the cleanest type of sound possible. It&rsquo;s also
+the outcome of universally known <em>sin</em> function.</p>
+
+<!-- (save (function-plot #(sin (* 2 % Math/PI)) 0 1 :step-size 0.005
+:y-label "" :x-label "" ) "sin-plain.png" :width 600 :height 160) -->
+
+
+<p><img src="images/sin-plain.png" alt="@" /></p>
+
+<p>Someone said that every sound can be torn to several sines. So once we
+can generate one sine we can synthesize any sound. In this tut we&rsquo;ll
+generate just one at a time ;) .</p>
+
+<p>Every sine played over time has it&rsquo;s frequency <em>f</em>. It&rsquo;s measured just
+like sample rate, in Hz. Frequency is a weird number, because it&rsquo;s
+just inverted period (also called <em>term</em> and abbreviated <em>T</em>: time
+after it repeats itself):</p>
+
+<p style="text-align: center; font-style: italic;">
+f = 1 / T<br />
+T = 1 / f
+</p>
+
+
+<p>It means that sine of 1 Hz frequency have 1 s period and sine of 2 Hz
+frequency have 0.5 s period and so on.</p>
+
+<!-- (save (doto (function-plot #(sin (* 2 % Math/PI)) 0 1 :step-size
+0.005 :y-label "" :x-label "Time [s]" :legend true :series-label "f =
+1 Hz") (add-function #(sin (* 4 % Math/PI)) 0 1 :series-label "f = 2
+Hz")) "sin-two.png" :width 600 :height 200) -->
+
+
+<p><img src="images/sin-two.png" alt="@" /></p>
+
+<p>Period is important because we will generate data only for one pass of
+a sine and play it in a loop (without any <code>loop</code> involved ;) ).</p>
+
+<div class="subsection_number h2">4</div>
+
+
+<h2>Some Code At Last!</h2>
+
+
+<p>Now we&rsquo;ll jump right into code. As a basis of generating sine
+we&rsquo;ll use <code>Math/sin</code> function. It generates sine for period of 2<em>&pi;</em>
+so we have to scale it to desired period.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">sine</span> <span class="p">[</span><span class="nv">sample-rate</span> <span class="nv">freq</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">term</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">1</span> <span class="nv">freq</span><span class="p">)</span>
+        <span class="nv">samples</span> <span class="p">(</span><span class="nb">* </span><span class="nv">term</span> <span class="nv">sample-rate</span><span class="p">)</span>      <span class="c1">;1</span>
+        <span class="nv">factor</span> <span class="p">(</span><span class="nb">/ </span><span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="nv">Math/PI</span><span class="p">)</span> <span class="nv">samples</span><span class="p">)]</span> <span class="c1">;2</span>
+    <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nv">Math/sin</span> <span class="p">(</span><span class="nb">* </span><span class="nv">%</span> <span class="nv">factor</span><span class="p">))</span>         <span class="c1">;3</span>
+         <span class="p">(</span><span class="nb">range </span><span class="nv">samples</span><span class="p">))))</span>
+</code></pre>
+</div>
+
+
+<p><code>sine</code> function creates a collection of numbers which are values of
+speaker position over time (successive samples). Explanation for
+numbered lines:</p>
+
+<ol>
+<li><p>Amount of samples depends directly on term and sample rate. Sample
+rate tells how many samples correspond to 1 sec. So if we take a
+product of term and sample rate we will get the amount of samples
+for this frequency.</p></li>
+<li><p>To scale 2<em>&pi;</em> period to our sample count we will multiply every
+number from <code>(range samples)</code> by <code>factor</code>.</p></li>
+<li><p>Actual collection generation using <code>Math/sin</code> function.</p></li>
+</ol>
+
+
+<p>Every number in returned collection will be in [-1..1] range. We can
+check that by just invoking <code>sine</code> (tip: test only with large values
+of frequencies because small frequencies results in very long
+sequences):</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="nv">user&gt;</span> <span class="p">(</span><span class="nf">sine</span> <span class="mi">48000</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">0.0</span> <span class="mf">0.6087614290087207</span> <span class="mf">0.9659258262890683</span> <span class="mf">0.9238795325112867</span>
+ <span class="mf">0.49999999999999994</span> <span class="mf">-0.13052619222005177</span> <span class="mf">-0.7071067811865475</span>
+ <span class="mf">-0.9914448613738104</span> <span class="mf">-0.8660254037844386</span> <span class="mf">-0.38268343236508956</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+<p>Now we get the idea of generating a sine. The rest of this tutorial is
+actually just technical stuff, but they&rsquo;re essential to get things
+working.</p>
+
+<div class="subsection_number h2">5</div>
+
+
+<h2>Audio Formats</h2>
+
+
+<p>To tell the sound system what we want to play we need to agree on some
+kind of contract on how our sound data will be formatted. This
+contract (or <em>protocol</em> if you will) is called an <em>audio
+format</em>. We&rsquo;ll just focus on most used format nowadays.</p>
+
+<p>An audio format in Java is represented by object of <code>AudioFormat</code>
+class (which lives in
+<a href="http://download.oracle.com/javase/7/docs/api/index.html?javax/sound/sampled/package-summary.html">javax.sound.sampled</a>,
+we&rsquo;ll need some more classes from there, just keep that in mind).
+Objects of this class serve only as metadata so we&rsquo;ll create one,
+keep it somewhere and pass it around.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="nb">import </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">javax</span><span class="o">.</span><span class="nv">sound</span><span class="o">.</span><span class="nv">sampled</span> <span class="nv">AudioFormat</span> <span class="nv">AudioFormat$Encoding</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">popular-format</span>
+  <span class="p">(</span><span class="nf">AudioFormat</span><span class="o">.</span> <span class="nv">AudioFormat$Encoding/PCM_SIGNED</span> <span class="c1">;1: format</span>
+                <span class="mi">48000</span> <span class="c1">;   sample rate</span>
+                <span class="mi">16</span>    <span class="c1">;   bits per sample (2 bytes)</span>
+                <span class="mi">2</span>     <span class="c1">;   channels: stereo!</span>
+                <span class="mi">4</span>     <span class="c1">;2: frame size 2*16bits [bytes]</span>
+                <span class="mi">48000</span> <span class="c1">;3: frame rate</span>
+                <span class="nv">false</span> <span class="c1">;4: little endian</span>
+                <span class="p">))</span>
+</code></pre>
+</div>
+
+
+<p>Again, I&rsquo;ll explain the numbered lines:</p>
+
+<ol>
+<li><p><code>PCM_SIGNED</code> is a linear signed and uncompressed format, which
+means that each sample will be a signed integer.</p>
+
+<p>(<code>AudioFormat$Encoding/PCM_SIGNED</code> means <code>PCM_SIGNED</code> static
+variable in <code>Encoding</code> class which is inner class in
+<code>AudioFormat</code>.)</p></li>
+<li><p>Frame is a complete unit of data for each moment in time (data for
+all channels). So it&rsquo;s size in our uncompressed format is just a
+number of bytes for every sample multiplied by number of channels.</p></li>
+<li><p>Frame rate can be different from sample rate but it doesn&rsquo;t make
+sense this time.</p></li>
+<li><p>When we have more bytes than one for a sample, order in which we
+read them matters. It&rsquo;s so-called
+<a href="http://en.wikipedia.org/wiki/Endianness"><em>endianness</em></a>. Big
+endian is reading bytes in forward direction, little endian is
+reading them backwards. My computer is little endian and I&rsquo;m
+sympathizing with him.</p></li>
+</ol>
+
+
+<div class="subsection_number h2">6</div>
+
+
+<h2>How To Actually Play Something?</h2>
+
+
+<p>To make our speakers move we need a <em>medium</em> (as in <em>mediation</em>) that
+will tell speakers what to do for us. This medium is called a <em>line</em>
+in other places by analogy with lines in mixers. It can be acquired
+from <a href="http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/AudioSystem.html">AudioSystem</a> class using <code>getLine</code> method. There&rsquo;s a <a href="http://download.oracle.com/javase/tutorial/sound/accessing.html">more
+elaborate explanation</a> on mixers and lines so I won&rsquo;t get into much detail.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="nb">import </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">javax</span><span class="o">.</span><span class="nv">sound</span><span class="o">.</span><span class="nv">sampled</span> <span class="nv">AudioSystem</span> <span class="nv">DataLine$Info</span>
+                              <span class="nv">SourceDataLine</span><span class="p">))</span>
+<span class="p">(</span><span class="k">defn </span><span class="nv">open-line</span> <span class="p">[</span><span class="nv">audio-format</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">doto </span><span class="p">(</span><span class="nf">AudioSystem/getLine</span>
+         <span class="p">(</span><span class="nf">DataLine$Info</span><span class="o">.</span> <span class="nv">SourceDataLine</span> <span class="nv">audio-format</span><span class="p">))</span>
+    <span class="p">(</span><span class="o">.</span><span class="nv">open</span> <span class="nv">audio-format</span><span class="p">)</span>
+    <span class="p">(</span><span class="o">.</span><span class="nv">start</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+
+<p>&ldquo;Getting a line&rdquo; is actually querying Java&rsquo;s audio system about line
+that complies to our needs. Query is an instance of
+<a href="http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/DataLine.Info.html">DataLine.Info</a>
+class. <code>SourceDataLine</code> says that we require a line that we can write
+to. Names of <code>SourceDataLine</code> and <code>TargetDataLine</code> correspond to how
+audio system sees it so they mean &ldquo;source&rdquo; and &ldquo;target&rdquo; not for our
+program but for audio system. Other parameter to <code>DataLine.Info</code>
+constructor is an audio format.</p>
+
+<p>Next thing after getting a line is opening it and allowing data to
+flow through it. This is done by <code>open</code> and <code>start</code> methods
+respectively.</p>
+
+<p>Then, playing a sound is done by invoking method <a href="http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/SourceDataLine.html#write(byte[],%20int,%20int)">write(byte[] b, int off, int len)</a> which writes <code>len</code> bytes from <code>b</code> starting at index <code>off</code>. Writing will block until all bytes from <code>b</code> are flushed to sound system buffers.</p>
+
+<p>Phew, now we know where we need to get: we&rsquo;ll generate that byte array for
+particular line.</p>
+
+<div class="subsection_number h2">7</div>
+
+
+<h2>According To Contract&hellip;</h2>
+
+
+<p>Our sine is not quite ready to push it to speakers yet. We need to
+satisfy audio format that we defined earlier. To do that we will:</p>
+
+<ol>
+<li><p><strong>Scale values of sine</strong> to maximum and minimum values possible for
+our sample size. We have 16 bits at our disposal which means we
+have circa +/&ndash; 2<sup>15</sup> range (one bit is stolen for sign).</p></li>
+<li><p><strong>Tear each sample</strong> to bytes according to chosen <em>endianness</em>.</p></li>
+<li><p><strong>Multiply each sample</strong> to conform number of channels.</p></li>
+<li><p><strong>Pack whole sine</strong> to byte array.</p></li>
+</ol>
+
+
+<div class="subsection_number h3">7.1</div>
+
+
+<h3>Scaling</h3>
+
+
+<p>When coming out from <code>sine</code> function our samples have floating-point
+values from -1 to 1. We need to scale them to signed integers with
+values from -2<sup>samplesize-1</sup> to
+2<sup>samplesize-1</sup>-1. So just mulplying by amplitude of
+2<sup>samplesize-1</sup> will do the trick. Actual amplitude will be
+delivered by <code>amplitude</code> function:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">amplitude</span> <span class="p">[</span><span class="nv">sample-size</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">Math/pow</span> <span class="mi">2</span> <span class="p">(</span><span class="nb">- </span><span class="nv">sample-size</span> <span class="mf">1.1</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+
+<p>I subtract 1.1 (not 1) from sample size to avoid <em>dangerous</em>
+inaccuracy when multiplying two floating-point numbers.</p>
+
+<p>Actual scaling will be done in <code>quantize</code> function:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">quantize</span> <span class="p">[</span><span class="nv">amplitude</span> <span class="nv">value</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">int </span><span class="p">(</span><span class="nb">* </span><span class="nv">amplitude</span> <span class="nv">value</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+
+
+
+<div class="subsection_number h3">7.2</div>
+
+
+<h3>Fragmentation To Bytes</h3>
+
+
+<p>I do reading integers backward and forward like this:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">little-endian</span> <span class="p">[</span><span class="nv">size</span> <span class="nv">x</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">for </span><span class="p">[</span><span class="nv">b</span> <span class="p">(</span><span class="nb">range </span><span class="nv">size</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nb">bit-shift-right </span><span class="nv">x</span> <span class="p">(</span><span class="nb">* </span><span class="mi">8</span> <span class="nv">b</span><span class="p">))</span>
+        <span class="p">(</span><span class="nb">bit-and </span><span class="mi">255</span><span class="p">)</span>
+        <span class="nv">unsigned-byte</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">defn </span><span class="nv">big-endian</span> <span class="p">[</span><span class="nv">size</span> <span class="nv">x</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">reverse </span><span class="p">(</span><span class="nf">little-endian</span> <span class="nv">size</span> <span class="nv">x</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+
+<p>Where <code>unsigned-byte</code> is needed to cheat JVM because JVM supports only
+signed bytes with values from -128 to 127 and we need signed bytes
+with values in 0..255 range. Blah. So we cheat like this:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">unsigned-byte</span> <span class="p">[</span><span class="nv">x</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">byte </span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">x</span> <span class="mi">127</span><span class="p">)</span> <span class="p">(</span><span class="nb">- </span><span class="nv">x</span> <span class="mi">256</span><span class="p">)</span> <span class="nv">x</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+
+<p>This is one thing that I won&rsquo;t explain here :P. It&rsquo;d be just too
+big. It&rsquo;s based on how signed and unsigned numbers <a href="http://en.wikipedia.org/wiki/Two%27s_complement">look
+internally</a>.</p>
+
+<div class="subsection_number h3">7.3</div>
+
+
+<h3>Repeating Data For Each Channel</h3>
+
+
+<p>OK. This will be very lame stereo. We&rsquo;ll just repeat data for each
+channel and I do it like this: <code>(take frame-size (cycle bytes))</code>. If
+you wanna you can modify that code (in fact, you should, wink wink,
+nudge nudge) and incorporate some fancy space-age surround effect.</p>
+
+<div class="subsection_number h3">7.4</div>
+
+
+<h3>Gathering It All Together</h3>
+
+
+<p>Whole pipeline is mirrored in <code>sine-bytes</code> function with each of these
+steps represented by mapping a function on a collection returned by
+it&rsquo;s predecessor:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">sine-bytes</span> <span class="p">[</span><span class="nv">format</span> <span class="nv">freq</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[{</span><span class="nv">:keys</span> <span class="p">[</span><span class="nv">sampleSizeInBits</span> <span class="nv">frameSize</span>
+                <span class="nv">sampleRate</span> <span class="nv">bigEndian</span><span class="p">]}</span> <span class="p">(</span><span class="nb">bean </span><span class="nv">format</span><span class="p">)</span>
+        <span class="nv">sample-size</span> <span class="p">(</span><span class="nb">/ </span><span class="nv">sampleSizeInBits</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="nv">ampl</span> <span class="p">(</span><span class="nf">amplitude</span> <span class="nv">sample-size</span><span class="p">)</span>
+        <span class="nv">tear</span> <span class="p">(</span><span class="k">if </span><span class="nv">bigEndian</span> <span class="nv">big-endian</span> <span class="nv">little-endian</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">-&gt;&gt;</span> <span class="p">(</span><span class="nf">sine</span> <span class="nv">sampleRate</span> <span class="nv">freq</span><span class="p">)</span>
+         <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="nb">partial </span><span class="nv">quantize</span> <span class="nv">ampl</span><span class="p">))</span>    <span class="c1">;1</span>
+         <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="nb">partial </span><span class="nv">tear</span> <span class="nv">sample-size</span><span class="p">))</span> <span class="c1">;2</span>
+         <span class="p">(</span><span class="nb">map </span><span class="nv">cycle</span><span class="p">)</span>                      <span class="c1">;3</span>
+         <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="nb">partial </span><span class="nv">take</span> <span class="nv">frameSize</span><span class="p">))</span>   <span class="c1">;3</span>
+         <span class="p">(</span><span class="nb">apply </span><span class="nv">concat</span><span class="p">)</span>                   <span class="c1">;A</span>
+         <span class="nv">byte-array</span><span class="p">)))</span>                    <span class="c1">;4</span>
+</code></pre>
+</div>
+
+
+<p>Numbers in comments corresponds to points mentioned before. Line &lsquo;A&rsquo;
+is responsible for flattening the list of lists to a single
+list. Output of <code>sine-bytes</code> is what a <em>line</em> needs.</p>
+
+<div class="subsection_number h2">8</div>
+
+
+<h2>Agent</h2>
+
+
+<p>I&rsquo;ve promised that there will be no <code>loop</code> so here it is: whole playing
+thingy will be handled by an agent. State of our agent will look like
+this:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">{</span><span class="nv">:line</span>    <span class="nv">line</span> <span class="nv">to</span> <span class="nv">write</span> <span class="nv">to</span>
+ <span class="nv">:playing</span> <span class="nv">are</span> <span class="nv">we</span> <span class="nv">are</span> <span class="nv">playing</span> <span class="nv">or</span> <span class="nv">not</span>
+ <span class="nv">:data</span>    <span class="nv">byte</span> <span class="nv">array</span> <span class="nv">with</span> <span class="nv">sound</span> <span class="nv">data</span><span class="p">}</span>
+</code></pre>
+</div>
+
+
+<p>Setting sine data of desired <code>freq</code> will be done by <code>recalc-data</code>:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">recalc-data</span> <span class="p">[{</span><span class="nv">:keys</span> <span class="p">[</span><span class="nv">line</span><span class="p">]</span> <span class="nv">:as</span> <span class="nv">state</span><span class="p">}</span> <span class="nv">freq</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">assoc </span><span class="nv">state</span> <span class="nv">:data</span> <span class="p">(</span><span class="nf">sine-bytes</span> <span class="p">(</span><span class="o">.</span><span class="nv">getFormat</span> <span class="nv">line</span><span class="p">)</span> <span class="nv">freq</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+
+<p>For most of the time of agent&rsquo;s life, <code>play-data</code> will run (actually
+making the noise):</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">play-data</span> <span class="p">[{</span><span class="nv">:keys</span> <span class="p">[</span><span class="nv">line</span> <span class="nv">data</span> <span class="nv">playing</span><span class="p">]</span> <span class="nv">:as</span> <span class="nv">state</span><span class="p">}</span> <span class="nv">agent</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">and </span><span class="nv">line</span> <span class="nv">data</span> <span class="nv">playing</span><span class="p">)</span>
+    <span class="p">(</span><span class="o">.</span><span class="nv">write</span> <span class="nv">line</span> <span class="nv">data</span> <span class="mi">0</span> <span class="p">(</span><span class="nb">count </span><span class="nv">data</span><span class="p">))</span> <span class="c1">;1</span>
+    <span class="p">(</span><span class="nb">send-off </span><span class="nv">agent</span> <span class="nv">play-data</span> <span class="nv">agent</span><span class="p">))</span> <span class="c1">;2</span>
+  <span class="nv">state</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+<p><code>play-data</code> will write whole <code>data</code> to the <code>line</code> [1], and send itself
+to agent to play it again [2] (here&rsquo;s how there&rsquo;s no <code>loop</code> but there&rsquo;s a
+loop). Turns out, agents are nice way to model such continuous I/O
+asynchronously. We&rsquo;ll start and pause playing by these fns:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">pause</span> <span class="p">[</span><span class="nv">agent</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">send </span><span class="nv">agent</span> <span class="nv">assoc</span> <span class="nv">:playing</span> <span class="nv">false</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">doto </span><span class="p">(</span><span class="nf">:line</span> <span class="nv">@agent</span><span class="p">)</span>
+    <span class="o">.</span><span class="nv">stop</span> <span class="o">.</span><span class="nv">flush</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">defn </span><span class="nv">play</span> <span class="p">[</span><span class="nv">agent</span><span class="p">]</span>
+  <span class="p">(</span><span class="o">.</span><span class="nv">start</span> <span class="p">(</span><span class="nf">:line</span> <span class="nv">@agent</span><span class="p">))</span>
+  <span class="p">(</span><span class="nb">send </span><span class="nv">agent</span> <span class="nv">assoc</span> <span class="nv">:playing</span> <span class="nv">true</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">send-off </span><span class="nv">agent</span> <span class="nv">play-data</span> <span class="nv">agent</span><span class="p">))</span>
+</code></pre>
+</div>
+
+
+<p><code>pause</code> is <code>stop</code>ping the line to pause immediatly when
+called. Without this, pause would take effect after whole buffer is
+played. <code>flush</code> is invoked to flush anything that&rsquo;s left in sound
+system buffers.</p>
+
+<p>I use <code>send-off</code> to <code>play-data</code> because it&rsquo;s a blocking operation.</p>
+
+<p>Two final fns will automate creating fresh agent and changing
+frequency on the fly:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">change-freq</span> <span class="p">[</span><span class="nv">agent</span> <span class="nv">freq</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">doto </span><span class="nv">agent</span>
+    <span class="nv">pause</span>
+    <span class="p">(</span><span class="nb">send </span><span class="nv">recalc-data</span> <span class="nv">freq</span><span class="p">)</span>
+    <span class="nv">play</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">defn </span><span class="nv">line-agent</span> <span class="p">[</span><span class="nv">line</span> <span class="nv">freq</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">agent</span> <span class="p">(</span><span class="nb">agent </span><span class="p">{</span><span class="nv">:line</span> <span class="nv">line</span><span class="p">})]</span>
+    <span class="p">(</span><span class="nb">send </span><span class="nv">agent</span> <span class="nv">recalc-data</span> <span class="nv">freq</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">play</span> <span class="nv">agent</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+
+
+
+<div class="subsection_number h2">9</div>
+
+
+<h2>Testing Section Without Any Interesting Title</h2>
+
+
+<p>Now we can test it. Lets create a line agent playing some nice bass
+tone.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="nv">user&gt;</span> <span class="p">(</span><span class="k">def </span><span class="nv">a</span> <span class="p">(</span><span class="nf">line-agent</span> <span class="p">(</span><span class="nf">open-line</span> <span class="nv">popular-format</span><span class="p">)</span> <span class="mi">60</span><span class="p">))</span>
+</code></pre>
+</div>
+
+
+<p>If you don&rsquo;t have a subwoofer or good headphones you&rsquo;d like to
+increase the frequency to hear anything:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="nv">user&gt;</span> <span class="p">(</span><span class="nf">change-freq</span> <span class="nv">a</span> <span class="mi">200</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+<p>Also, we can test pausing and replaying the sound.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="nv">user&gt;</span> <span class="p">(</span><span class="nf">pause</span> <span class="nv">a</span><span class="p">)</span>
+<span class="nv">user&gt;</span> <span class="p">(</span><span class="nf">play</span> <span class="nv">a</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+<p>If there&rsquo;s nothing coming out from speakers or some exception happened
+try changing audio format, my guesses would be toggling endianness and
+changing both rates to 44100.</p>
+
+<div class="subsection_number h2">10</div>
+
+
+<h2>Appendix A: Melody</h2>
+
+
+<p>Maybe simple continuous sound is boring? Let&rsquo;s play a melody! :)</p>
+
+<p>The simplest notation for music that I came up with is just a pair of
+tone and duration. So a melody is just a sequence of those.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">mountain-king</span>
+  <span class="p">[[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">3</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">5</span> <span class="mi">1</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">7</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">3</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">7</span> <span class="mi">2</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">6</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">6</span> <span class="mi">2</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">5</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">5</span> <span class="mi">2</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">0</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">2</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">3</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">5</span> <span class="mi">1</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">7</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">3</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">7</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">12</span> <span class="mi">1</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">10</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">7</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">3</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="mi">7</span> <span class="mi">1</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">10</span> <span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="mi">-2</span> <span class="mi">2</span><span class="p">]])</span>
+</code></pre>
+</div>
+
+
+<p>First number of every pair is a distance in semitones from some base
+tone. The second is a duration of note relative to some base duration.</p>
+
+<p>Function <code>tone-freq</code> will translate tones to raw frequencies. For the
+value 99 it&rsquo;s 440 Hz which happens to be <a href="http://en.wikipedia.org/wiki/A440_%28pitch_standard%29">so-called <em>pitch
+standard</em></a>.
+To get a note an octave higher or lower just add/subtract 11.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">tone-freq</span> <span class="p">[</span><span class="nv">x</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">-&gt; </span><span class="p">(</span><span class="nf">Math/pow</span> <span class="mi">2</span> <span class="p">(</span><span class="nb">/ </span><span class="nv">x</span> <span class="mi">11</span><span class="p">))</span> <span class="p">(</span><span class="nb">* </span><span class="mi">440</span><span class="p">)</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">512</span><span class="p">)))</span>
+</code></pre>
+</div>
+
+
+<p>I won&rsquo;t get into details here&hellip; It&rsquo;s just scaling values so it&rsquo;s
+comfortable to use.</p>
+
+<p>Using <code>Thread/sleep</code> is maybe the lamest timing
+technique you can get on JVM:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">defn </span><span class="nv">play-melody</span> <span class="p">[</span><span class="nv">agent</span> <span class="nv">base-tone</span> <span class="nv">base-duration</span> <span class="nv">melody</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">doseq </span><span class="p">[[</span><span class="nv">tone</span> <span class="nv">duration</span><span class="p">]</span> <span class="nv">melody</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">change-freq</span> <span class="nv">agent</span> <span class="p">(</span><span class="nf">tone-freq</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">base-tone</span> <span class="nv">tone</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nf">Thread/sleep</span> <span class="p">(</span><span class="nb">* </span><span class="nv">base-duration</span> <span class="nv">duration</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nf">pause</span> <span class="nv">agent</span><span class="p">))</span>
+</code></pre>
+</div>
+
+
+<p>Now, lets just play it (the awful clipping needs to be addressed in
+the nearest possible future):</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="nv">user&gt;</span> <span class="p">(</span><span class="nf">play-melody</span> <span class="nv">a</span> <span class="mi">70</span> <span class="mi">400</span> <span class="nv">mountain-king</span><span class="p">)</span>
+</code></pre>
+</div>
+
+
+<p>If it&rsquo;s too low, try increasing <code>base-tone</code>. If it&rsquo;s to slow, try
+decreasing <code>base-duration</code>.</p>
+
+<p>That&rsquo;s all. I&rsquo;ve put the code here:
+<a href="https://gist.github.com/1034374">https://gist.github.com/1034374</a>. Tell me what you think.</p>
+
+
+
+<div>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'longstandingbug'; // required: replace example with your forum shortname
+
+  // The following are highly recommended additional parameters. Remove the slashes in front to use.
+  
+  
+  
+  var disqus_identifier = 'sound-synthesis.html';
+  var disqus_url = 'http://longstandingbug.com/sound-synthesis.html';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+
+</article>
+
+      </div>
+      <div id="right_container">
+        <nav id="meta_menu">
+          <a href="index.html">Home</a><br />
+          <a href="atom.xml">Atom</a><br />
+          <a href="info.html">Author</a><br />
+          <a href="http://twitter.com/szywon">Twitter</a><br />
+          <a href="http://github.com/santamon">GitHub</a>
+        </nav>
+        <nav id="projects_menu">
+          <p>Projects:</p>
+          <a href="http://github.com/santamon/GUIFTW">GUI FTW!</a><br />
+          <a href="http://github.com/santamon/slideshow-bob">Slideshow Bob</a>
+        </nav>
+        <nav id="catogries_menu">
+          <p>Categories:</p>
+          <a href="clojure-category.html">Clojure</a><br />
+          <a href="gui-ftw-category.html">GUI</a><br />
+          <a href="javascript-category.html">JavaScript</a>
+        </nav>
+        <nav id="links_menu">
+          <p>Links:</p>
+          <a href="http://radek.pycka.com">Radek Pycka</a><br />
+          <a href="http://blog.charmas.pl">Michał Charmas</a><br />
+          <a href="http://konradhalas.blogspot.com/">Konrad Hałas</a><br />
+          <a href="http://infoq.com">InfoQ</a>
+        </nav>
+        <nav id="archive_menu">
+          <p>Archive:</p>
+          
+          
+
+
+
+
+<label for="September_2011">September 2011</label>
+<input id="September_2011" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2011-09-11">
+    11
+</time> <a href="/whys-behind-new-design.html">The Whys Behind This New Freaky Design</a></li>
+
+
+
+
+</ul>
+<label for="June_2011">June 2011</label>
+<input id="June_2011" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2011-06-20">
+    20
+</time> <a href="/sound-synthesis.html">Sound Synthesis & Playback in Clojure</a></li>
+
+
+
+
+</ul>
+<label for="May_2011">May 2011</label>
+<input id="May_2011" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2011-05-22">
+    22
+</time> <a href="/webglol.html">WebGLOL</a></li>
+
+
+
+
+
+
+<li><time datetime="2011-05-16">
+    16
+</time> <a href="/reintroducing-guiftw.html">Reintroducing GUI FTW! and Progress Report</a></li>
+
+
+
+
+
+
+<li><time datetime="2011-05-07">
+    7
+    
+</time> <a href="/restarting-in-english-mode.html">Restarting in English Mode</a></li>
+
+
+
+
+</ul>
+<label for="April_2011">April 2011</label>
+<input id="April_2011" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2011-04-04">
+    4
+    
+</time> <a href="/zdarzenia-guiftw.html">Zdarzenia w GUI FTW!</a></li>
+
+
+
+
+</ul>
+<label for="March_2011">March 2011</label>
+<input id="March_2011" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2011-03-20">
+    20
+</time> <a href="/niech-sie-stanie-gui-ftw.html">Niech się stanie GUI FTW!</a></li>
+
+
+
+
+</ul>
+<label for="October_2010">October 2010</label>
+<input id="October_2010" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2010-10-16">
+    16
+</time> <a href="/idea-iluzja.html">Idea i Iluzja łeb w web</a></li>
+
+
+
+
+</ul>
+<label for="September_2010">September 2010</label>
+<input id="September_2010" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2010-09-03">
+    3
+    
+</time> <a href="/blad-mlodego-parsownika.html">Błąd młodego parsownika</a></li>
+
+
+
+
+</ul>
+<label for="August_2010">August 2010</label>
+<input id="August_2010" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2010-08-16">
+    16
+</time> <a href="/intro.html">Intro</a></li>
+
+
+
+
+</ul>
+<label for="January_2010">January 2010</label>
+<input id="January_2010" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2010-01-07">
+    7
+    
+</time> <a href="/efekty-uboczne-programowania.html">Efekty uboczne programowania</a></li>
+
+
+
+
+</ul>
+<label for="June_2009">June 2009</label>
+<input id="June_2009" type="checkbox" />
+<ul>
+
+
+
+<li><time datetime="2009-06-07">
+    7
+    
+</time> <a href="/one-makefile-to-rule-them-all.html">One Makefile To Rule Them All</a></li>
+
+
+</ul>
+
+
+        </nav>
+      </div>
+    </div>
+    <footer><div>Copywrong 2011 Szymon Witamborski</div></footer>
+    <script src="media/hyphenator.js"></script>
+    <!-- google analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-23922729-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

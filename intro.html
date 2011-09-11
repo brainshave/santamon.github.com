@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en-gb">
+<html lang="pl">
   <head>
     <meta charset="utf-8" />
     <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
     <link rel="stylesheet" href="media/main.css" />
 
-    <title>Writings with Clojure in it</title>
+    <title>Intro</title>
     <!-- work around IE (8?) not handling properly unknown tags -->
     <!-- suggested here: http://diveintohtml5.org/semantics.html -->
     <script>
@@ -22,17 +22,102 @@
         <header>
           <a href="index.html" id="logo"><img src="media/header.svg" /></a>
         </header>
-        <nav id="content">
+        <article id="content">
+  <time>2010-08-16</time>
+  <h1>Intro</h1>
+  
 
-<ul>
-
-<li><time>2011-06-20</time>
-  <a href="/sound-synthesis.html" class="h3">Sound Synthesis & Playback in Clojure</a></li>
-
-</ul>
+<div class="didascalia"><p>Ten wpis traktuje o pierwszym designie, który ma niewiele wspólnego z obecnym</p>
+</div>
 
 
-</nav>
+<p>Witam serdecznie. O blogu, który by się tak nazywał, działał i wyglądał myślałem
+od jakiegoś czasu. Będę pisał o własnych zainteresowaniach,
+skupiając się zapewne w głównej mierze na języku <a href="http://clojure.org">Clojure</a>.
+Mam dwa pomysły na pracę mgr, których, dopóki nie dorosną, nie zdradzę.</p>
+
+<p>Wygląd strony jest minimalistyczny; mam nadzieję, że jeśli nie przypadnie
+komuś do gustu to przynajmniej nie będzie przeszkadzał w dostępie do treści.</p>
+
+<h2>Makeblog</h2>
+
+<div class="didascalia"><p>Od pewnego czasu blog używa <a href="https://github.com/mojombo/jekyll">Jekylla</a> zamiast Makebloga.</p>
+</div>
+
+
+<p>Na potrzeby bloga napisałem kilka skryptów do generowania stron off-line.
+Kilka zalet takiego rozwiązania (porównując np. z Wordpressem):
+&ndash; strony ładują się szybciej, nie ma odwołań do bazy danych,
+&ndash; mogę użyć dowolnego edytora do edycji stron/wpisów,
+&ndash; całą treść trzymam u siebie na dysku, zmiana hostingu jest dzięki temu uproszczona.</p>
+
+<p>W tym momencie strona hostowana jest na
+<a href="http://github.com/santamon/santamon.github.com">GitHubie</a>, co mi
+bardzo odpowiada: synchronizacja treści przez gita, cud-miód :).</p>
+
+<p>Makeblog używa składni podobnej do <a href="http://orgmode.org"><code>org-mode</code>&lsquo;a</a>.
+Dzięki temu mogę pisać wpisy w czystym tekście, polecam zobaczyć
+<a href="http://github.com/santamon/santamon.github.com/blob/master/input/intro.txt">plik źródłowy tego wpisu</a>
+oraz plik
+<a href="http://github.com/santamon/makeblog/blob/master/input/Syntax.txt">Syntax</a>,
+którego używałem do testowania parsera.
+<a href="http://github.com/santamon/santamon.github.com/blob/master/templates/article.html">Schematy stron</a>
+używają bardzo prostej składni (podmiany z <code>$</code>).</p>
+
+<h2>Skąd taka nazwa?</h2>
+
+<p>Proste: Makeblog używa programu <strong>make</strong> do śledzenia, które pliki mają być
+zaktualizowane. Skrypty do parsowania tekstu i indeksowania są napisane
+w Pythonie. Dlaczego nie w Clojure? Może więcej o Makeblogu w następnym
+wpisie.</p>
+
+<p>Projekt jest hostowany na GitHubie: <a href="http://github.com/santamon/makeblog">http://github.com/santamon/makeblog</a>.</p>
+
+<h2>Braki i niedoróbki</h2>
+
+<div class="didascalia"><p>Problemy te nie dotyczą aktualnego wyglądu strony, która używa standardowych czcionek.</p>
+</div>
+
+
+<p>Póki co zauważyłem problemy z renderowaniem czcionek pod Windowsem
+(gdy używa się ClearType, pod Safari z renderowaniem &ldquo;makowym&rdquo; wygląda
+b. dobrze).  Dlatego na Viście i 7 zostaną użyte kroje systemowe (nowe
+kroje wprowadzone z Vistą, nie ma ich w innych OS-ach, więc na
+Linuksie zostaną użyte te zagnieżdżone). Na XP jeszcze nie wiem co
+zrobić. Zobaczymy po testach (nie mam komputera z XP pod ręką
+ostatnio).</p>
+
+<p>Brakuje kilku istotnych łebdwazerowych funkcji, czyli tagów i RSS-a lub Atoma.
+Jest w moim TODO ;).</p>
+
+
+
+<div>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'longstandingbug'; // required: replace example with your forum shortname
+
+  // The following are highly recommended additional parameters. Remove the slashes in front to use.
+  
+  
+  
+  var disqus_identifier = 'intro.html';
+  var disqus_url = 'http://longstandingbug.com/intro.html';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+
+</article>
 
       </div>
       <div id="right_container">

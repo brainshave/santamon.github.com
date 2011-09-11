@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en-gb">
+<html lang="pl">
   <head>
     <meta charset="utf-8" />
     <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
     <link rel="stylesheet" href="media/main.css" />
 
-    <title>Writings with Clojure in it</title>
+    <title>One Makefile To Rule Them All</title>
     <!-- work around IE (8?) not handling properly unknown tags -->
     <!-- suggested here: http://diveintohtml5.org/semantics.html -->
     <script>
@@ -22,17 +22,70 @@
         <header>
           <a href="index.html" id="logo"><img src="media/header.svg" /></a>
         </header>
-        <nav id="content">
+        <article id="content">
+  <time>2009-06-07</time>
+  <h1>One Makefile To Rule Them All</h1>
+  
 
-<ul>
+<p>Wpis archiwalny z <a href="http://gaco.wordpress.com">mojej starej strony</a>.</p>
 
-<li><time>2011-06-20</time>
-  <a href="/sound-synthesis.html" class="h3">Sound Synthesis & Playback in Clojure</a></li>
+<blockquote><p>One Makefile to rule them all, One Makefile to find them,<br />
+One Makefile to bring them all and in the batch compile them<br />
+In the Land of Unix where the Shells lie.</p></blockquote>
 
-</ul>
+<p>Kiedyś szukałem sposobu, by dodając nowe pliki *.cpp do projektu
+(każdy z nich był osobnym programem) nie trzeba było modyfikować
+Makefile'a i dałem sobie spokój w pewnym momencie.  Szukałem niezbyt
+gorliwie jak się okazuje, bo podpowiedź była
+<a href="http://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html">w manualu do GNU Make'a</a>.
+Ten Makefile skompiluje wszystkie pliki *.cpp jako osobne programy do
+podkatalogu bin.</p>
+
+<div class="highlight"><pre><code class="makefile"><span class="nv">cele</span> <span class="o">:=</span> <span class="k">$(</span>patsubst %.cpp,bin/%,<span class="k">$(</span>wildcard *.cpp<span class="k">))</span>
+
+<span class="nv">komp</span><span class="o">=</span>g++ -Wall -O2
+
+asdf: <span class="k">$(</span>cele<span class="k">)</span>
+
+<span class="k">$(</span>cele<span class="k">)</span> : bin/% : %.cpp
+    <span class="k">$(</span>komp<span class="k">)</span> <span class="nv">$&amp;</span>lt; -o <span class="nv">$@</span>
+
+clean:
+    rm <span class="k">$(</span>cele<span class="k">)</span>
+</code></pre>
+</div>
 
 
-</nav>
+<p>Żeby pakowało binarki bezpośrednio do katalogu ze źródłami trzeba usunąć 2x <code>bin/</code>.</p>
+
+
+
+<div>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'longstandingbug'; // required: replace example with your forum shortname
+
+  // The following are highly recommended additional parameters. Remove the slashes in front to use.
+  
+  
+  
+  var disqus_identifier = 'one-makefile-to-rule-them-all.html';
+  var disqus_url = 'http://longstandingbug.com/one-makefile-to-rule-them-all.html';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+
+</article>
 
       </div>
       <div id="right_container">
