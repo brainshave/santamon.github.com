@@ -12,8 +12,11 @@ podobnego ;).
 
 To co mam na myśli, zpikselowane:
 
-![zrzut ekranu](images/idea-iluzja.png) <br />
-*Z lewej strony źródło wpisu, z prawej efekt.*
+{% sidenote %}
+Z lewej strony źródło wpisu, z prawej efekt.
+{% endsidenote %}
+
+[![idea i iluzja](images/idea-iluzjam.jpg)](images/idea-iluzja.png)
 
 Choć ciągle w fazie rozwojowej, Makeblog w tym momencie realizuje większość
 funkcji, które założyłem. Następnym krokiem będzie dokumentacja.

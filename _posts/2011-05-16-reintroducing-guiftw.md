@@ -52,7 +52,7 @@ The bad parts would be using XML and JavaScript literally ;) .
 Actually, the CSS part look and works like original CSS. It just
 doesn't have those fancy selectors yet.
 
-### SWT FTW! (and swing too...)
+{% section SWT FTW! (and swing too...) %}
 
 GUI FTW works with SWT! It's because it's an **abstract**
 library. Neither Swing nor SWT stuff are hard-coded. And GUI FTW needs
@@ -61,7 +61,7 @@ href="#foot1" id="foot1back">1</a></sup>. And those functions are
 simple as
 [swt-create](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/src/guiftw/swt.clj#L8)<sup><a href="#foot2" id="foot2back">2</a></sup>.
 
-### Reusability
+{% section Reusability %}
 
 What's created with GUI FTW! is always reusable: you'll get a function
 to instantiate your GUI as many times as you want to. Also, style
@@ -71,7 +71,7 @@ runtime freely. This paragraph is here in case of thought that
 everything is written using macros flew across someone's mind ;)
 . Actually, I've tried to minimize use of macros.
 
-### More?
+{% section More? %}
 
 I've setup a wiki on GitHub and even wrote a tutorial for GUI
 FTW!. Here's a couple of links you'd likely be interested in:
@@ -82,7 +82,7 @@ FTW!. Here's a couple of links you'd likely be interested in:
 - [One **Tutorial** For All](https://github.com/santamon/GUIFTW/wiki/One-Tutorial-For-All) (including Swing *and* SWT)
 - [Online Docs](http://longstandingbug.com/GUIFTW)
 
-## What's New?
+{% section What's New? %}
 
 Since the
 [original announcement in Polish](niech-sie-stanie-gui-ftw.html) I've
@@ -90,7 +90,7 @@ added couple of things, most important runtime state handling, support
 for custom "special properties" and for custom
 "[adders](https://github.com/santamon/GUIFTW/issues/1)" (Swing only).
 
-### State in Sane Manner
+{% subsection State in Sane Manner %}
 
 After creating a widget you'll get a map wrapped with atom which I call
 "GUI state". It contains data about identifiers, groups, and root of
@@ -111,7 +111,7 @@ state and which doesn't.
 For more info check out last part of
 [Overview](https://github.com/santamon/GUIFTW/wiki/Overview) on wiki.
 
-### Custom "Adders"
+{% subsection Custom "Adders" %}
 
 I knew that the day will come that I get hit by some Swing or SWT
 -specific quirk. So I got an
@@ -152,7 +152,7 @@ text area object like styles or grouping).
 
 There's a [fancy example](https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/custom_adders.clj) using those two.
 
-### Why Bother the Programmer?
+{% section Why Bother the Programmer? %}
 
 If you look at my
 [TODO](https://github.com/santamon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/TODO.md)

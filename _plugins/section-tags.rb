@@ -30,7 +30,7 @@ module LSB
 
       @header = RDiscount.new((1..@level).collect{|_| "#"}.join + " " + text, :smart)
 
-      @@level += 1
+      @@level = @level
     end
 
     def render(context)

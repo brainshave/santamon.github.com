@@ -213,12 +213,23 @@ footer {
 footer > div {
     margin: 0 250px 0 170px;
 }
-/*footer > span {
-    display: table-cell;
-    padding: 0 10px;
+
+/* pygments */
+
+.highlight .p, .highlight .o {
+    color: #888;
 }
 
-footer > .left {
-    width: 140px;
-    text-align: right;
-}*/
+.highlight .k {
+    color: #666;
+    font-weight: bold;
+}
+
+.highlight .kt, .highlight .kd {
+    color: #333;
+    font-style: italic;
+}
+
+.highlight .nb, .highlight .nf {
+    font-weight: bold;
+}
