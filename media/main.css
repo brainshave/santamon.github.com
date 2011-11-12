@@ -63,7 +63,7 @@ p { text-align: justify; }
 p, li { line-height: 22px; }
 li { margin-left: 25px; }
 pre { white-space: pre-wrap; }
-code { font-family: Consolas, Monaco, 'Droid Sans Mono', 'Lucida Console', 'DejaVu Sans Mono', monospace; }
+code { font-family: Consolas, Monaco, 'Courier New', monospace; }
 
 blockquote {
     font-style: italic;

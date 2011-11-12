@@ -1,8 +1,8 @@
 title: Long-standing Bug
 url: http://longstandingbug.com
-date_format: %Y-%m-%d
+date_format: "%Y-%m-%d"
 
-permalink: /:title.html
+permalink: ./:title.html
 markdown: rdiscount
 rdiscount:
   extensions: [smart]
