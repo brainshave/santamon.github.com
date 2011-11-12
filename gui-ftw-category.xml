@@ -4,7 +4,7 @@
   <title>Long-standing Bug</title>
   <link href="http://longstandingbug.com/gui-ftw-category.xml" rel="self" />
   <link href="http://longstandingbug.com" />
-  <updated>2011-09-23T20:00:28+02:00</updated>
+  <updated>2011-11-12T14:13:43+01:00</updated>
   <id>http://longstandingbug.com/gui-ftw-category.xml</id>
   <author>
     <name>Szymon Witamborski</name>
@@ -50,6 +50,7 @@ never need to look at code like that again.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
+
 &lt;/li&gt;
 &lt;li&gt;&lt;b&gt;Cascade Style Sheets&lt;/b&gt; (say, like CSS but in Clojure),
 
@@ -59,6 +60,7 @@ never need to look at code like that again.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
+
 &lt;/li&gt;
 &lt;li&gt;&lt;b&gt;hooking functions into events&lt;/b&gt; (say, like JavaScript but in Clojure).
 
@@ -66,6 +68,7 @@ never need to look at code like that again.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;clojure&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:super-button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;:action++performed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fn &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
 
 &lt;/li&gt;
 &lt;/ol&gt;
