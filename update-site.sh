@@ -6,4 +6,5 @@ cp -r _site/* $target
 cd $target
 git add .
 git commit -am "Site update from src branch."
+git pull
 git push
