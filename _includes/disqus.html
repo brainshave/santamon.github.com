@@ -12,7 +12,7 @@
   {% assign url = page.url %}
   {% endif %}
   var disqus_identifier = '{{ url | remove_first:'/' }}';
-  var disqus_url = '{{ site.url }}{{ url }}';
+  var disqus_url = '{{ site.url }}/{{ url }}';
 
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
