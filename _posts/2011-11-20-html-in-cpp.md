@@ -23,7 +23,7 @@ Node html
 cout << html;
 {% endhighlight %}
 
-and get that:
+and getting that:
 
 {% highlight html %}
 <html lang="pl">
