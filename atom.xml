@@ -4,7 +4,7 @@
   <title>Long-standing Bug</title>
   <link href="http://longstandingbug.com/atom.xml" rel="self" />
   <link href="http://longstandingbug.com" />
-  <updated>2011-11-20T23:37:37+01:00</updated>
+  <updated>2011-11-20T23:41:13+01:00</updated>
   <id>http://longstandingbug.com/atom.xml</id>
   <author>
     <name>Szymon Witamborski</name>
@@ -39,7 +39,7 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;and get that:&lt;/p&gt;
+&lt;p&gt;and getting that:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;pl&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
