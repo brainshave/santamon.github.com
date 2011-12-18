@@ -1,1 +1,0 @@
-Simon's blog, uses [[https://github.com/mojombo/jekyll][Jekyll]].
