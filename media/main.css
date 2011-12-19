@@ -42,11 +42,11 @@ p { text-align: justify; line-height: 1.3em; }
     body {  max-width: 850px; margin: 50px auto 0; font-size: 22px; }
     article { margin: 0 15px; }
     #tags { margin: 5px 0 0 50%; display: none; }
-    
+
     /* headings */
     h1, h2, h3, h4, h5, h6 { font-family: 'Abril Fatface', cursive; font-weight: normal; }
     h1 > code, h2 > code, h3 > code, h4 > code, h5 > code, h6 > code { font-weight: bold; }
-    
+
     /* article heading */
     article > section > * { margin-left: 180px; padding: 0; }
     article > .metainfo { display: block; float: right; clear: right; width: 120px; margin: 0 0 10px 10px; padding: 0 0 0 10px; border-left: 1px solid black;
@@ -58,10 +58,11 @@ p { text-align: justify; line-height: 1.3em; }
     /* article body */
     /* blockquote { margin: 0 0 0 180px; padding: 0 10px; border-radius: 5px; box-shadow: 1px 1px 3px #777; } */
 
-    .introduction { font-family: 'Playfair Display', serif; /* font-size: 1.07em; line-height: 1.5em;*/ }
-    blockquote { font-style: italic; font-size: 1.1em; }
+    .introduction > *, blockquote > * { font-family: 'Playfair Display', serif;  }
+    blockquote { font-style: italic; }
+    #rest > blockquote { font-size: 1.1em; }
     .introduction { border-bottom: 1px dotted #aaa; }
-    
+
     li { line-height: 1.2em; }
     code { font-family: 'Anonymous Pro', Consolas, Inconsolata, Monaco, monospace; }
     pre { font-size: 20px;  }
