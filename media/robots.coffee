@@ -345,7 +345,7 @@ tick = ->
 
 maximizeOnClick = (element) ->
   fullscreen = false
-  obstacles = document.querySelectorAll('object, #comments')
+  obstacles = document.querySelectorAll('object, #comments, #main_navigation')
   element.onclick = ->
     if not fullscreen
       element.className = 'fullscreen'

@@ -10,15 +10,6 @@
     <link href="media/main.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <header id="main_navigation">
-      <nav id="jumpers">
-        Jump to: <a href="#">Top</a>{{^nocomments}}, <a href="#comments">Comments</a>{{/nocomments}}
-      </nav>
-      <nav id="home">
-	      <img src="media/bug.png" style="vertical-align: top;" /> Long-standing Bug:
-	      <a href="index.html" id="articles_link">All Articles</a>, <a href="info.html">About</a>, <a href="atom.xml">RSS</a>
-      </nav>
-    </header>
     <article>
       <nav class="metainfo">
         {{#date}}<time>{{year0}}-{{month0}}-{{day0}}</time>{{/date}}
@@ -50,8 +41,17 @@
     </section>
     {{/nocomments}}
     
+    <header id="main_navigation">
+      <nav id="jumpers">
+        Jump to: <a href="#">Top</a>{{^nocomments}}, <a href="#comments">Comments</a>{{/nocomments}}
+      </nav>
+      <nav id="home">
+	      <img src="media/bug.png" style="vertical-align: top;" /> Long-standing Bug:
+	      <a href="index.html" id="articles_link">All Articles</a>, <a href="info.html">About</a>, <a href="atom.xml">RSS</a>
+      </nav>
+    </header>
+
     <footer id="main_footer">
-      <nav id="return_to_top"><a href="#">↑ Top</a></nav>
       <div id="copywrong">
 	      &copy; Copywrong 2011 Szymon Witamborski
       </div>
