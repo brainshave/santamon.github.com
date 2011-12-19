@@ -43,7 +43,7 @@ p { text-align: justify; line-height: 1.3em; }
     article { margin: 0 15px; }
 
     #main_navigation { position: fixed; width: 850px; top: 0; background: rgba(255, 255, 255, 0.95) }
-    #tags { margin: 5px 0 0 50%; }
+    #tags { margin: 5px 0 0 50%; display: none; }
     
     /* headings */
     h1, h2, h3, h4, h5, h6 { font-family: 'Abril Fatface', cursive; font-weight: normal; }

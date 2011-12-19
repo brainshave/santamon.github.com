@@ -1,4 +1,4 @@
-(function() {
+(function () {
   function createCookie(name,value,days) {
 	  if (days) {
 		  var date = new Date();
@@ -31,7 +31,7 @@
         hideshow(node[i], state);
       }
     } else if (node.style) {
-      node.style.display = state ? '' : 'none';
+      node.style.display = state ? 'block' : 'none';
     }
   };
   
