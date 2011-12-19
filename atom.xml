@@ -828,11 +828,7 @@ Dystrybucji ;).&lt;/p&gt;
     <updated>2010-08-16T00:00:00+00:00</updated>
     <id>http://longstandingbug.com/intro.html</id>
     <content type="html">
-      &lt;p class=&quot;sidenote&quot;&gt;
-Ten wpis traktuje o pierwszym designie, który ma niewiele wspólnego z obecnym
-&lt;/p&gt;
-
- &lt;p&gt;Witam serdecznie. O blogu, który by się tak nazywał, działał i wyglądał myślałem
+      &lt;p&gt;Witam serdecznie. O blogu, który by się tak nazywał, działał i wyglądał myślałem
 od jakiegoś czasu. Będę pisał o własnych zainteresowaniach,
 skupiając się zapewne w głównej mierze na języku &lt;a href=&quot;http://clojure.org&quot;&gt;Clojure&lt;/a&gt;.
 Mam dwa pomysły na pracę mgr, których, dopóki nie dorosną, nie zdradzę.&lt;/p&gt;  &lt;p&gt;Wygląd strony jest minimalistyczny; mam nadzieję, że jeśli nie przypadnie

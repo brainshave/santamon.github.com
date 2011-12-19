@@ -5,10 +5,6 @@ tags: [Makeblog, make]
 
 &&&
 
-<p class="sidenote">
-Ten wpis traktuje o pierwszym designie, który ma niewiele wspólnego z obecnym
-</p>
-
 Witam serdecznie. O blogu, który by się tak nazywał, działał i wyglądał myślałem
 od jakiegoś czasu. Będę pisał o własnych zainteresowaniach,
 skupiając się zapewne w głównej mierze na języku [Clojure](http://clojure.org).
