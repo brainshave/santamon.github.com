@@ -1,0 +1,1 @@
+Szymon Witamborski's site. Uses [Makeblog](http://github.com/santamon/makeblog) to compile.
