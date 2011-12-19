@@ -5,7 +5,7 @@ nocomments: true
 
 mail: santamon ![at](images/darwin.png) gmail . com
 
-I work for [DDKF](http://ddkf.pl) I push stuff to [GitHub](http://github.com/santamon) and sometimes to [![at](images/darwin.png)szywon](http://twitter.com/szywon).
+I work for [DDKF](http://ddkf.pl), I push stuff to [GitHub](http://github.com/santamon) and sometimes to [![at](images/darwin.png)szywon](http://twitter.com/szywon).
 
 &&&
 
