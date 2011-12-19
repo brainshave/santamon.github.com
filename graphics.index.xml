@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Long-standing Bug</title>
+  <link href="http://longstandingbug.com/atom.xml" rel="self" />
+  <link href="http://longstandingbug.com" />
+  <updated>2010-01-07T00:00:00+00:00</updated>
+  <id>http://longstandingbug.com/atom.xml</id>
+  <author>
+    <name>Szymon Witamborski</name>
+    <email>santamon@gmail.com</email>
+  </author>
+
+  
+  <entry>
+    <title>Efekty uboczne programowania</title>
+    <link href="http://longstandingbug.com/efekty-uboczne-programowania.html" />
+    <updated>2010-01-07T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/efekty-uboczne-programowania.html</id>
+    <content type="html">
+      
+      &lt;p class=&quot;sidenote&quot;&gt;
+Wpis archiwalny z &lt;a href=&quot;http://gaco.wordpress.com&quot;&gt;mojej starej strony&lt;/a&gt;.
+&lt;/p&gt;
+
+ &lt;p&gt;Pliki png w pełnej rozdzielczości mają po 2-4,5 MB.&lt;/p&gt;  &lt;p&gt;&lt;a href=&quot;images/abstract1.png&quot;&gt;&lt;img src=&quot;images/abstract1m.jpg&quot; alt=&quot;Abstrakcja 1&quot;&gt;&lt;/a&gt;&lt;/p&gt;  &lt;p&gt;&lt;a href=&quot;images/abstract2.png&quot;&gt;&lt;img src=&quot;images/abstract2m.jpg&quot; alt=&quot;Abstrakcja 2&quot;&gt;&lt;/a&gt;&lt;/p&gt;  &lt;p class=&quot;sidenote&quot;&gt;
+Efekt niedokończonej optymalizacji odświeżania obrazu
+&lt;/p&gt;
+
+ &lt;p&gt;&lt;a href=&quot;images/scan-lines.png&quot;&gt;&lt;img src=&quot;images/scan-linesm.jpg&quot; alt=&quot;Scan Lines&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    </content>
+  </entry>
+  
+  
+</feed>

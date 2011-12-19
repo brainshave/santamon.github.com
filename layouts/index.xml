@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Long-standing Bug</title>
+  <link href="http://longstandingbug.com/atom.xml" rel="self" />
+  <link href="http://longstandingbug.com" />
+  <updated>{{#date}}{{str}}{{/date}}T00:00:00+00:00</updated>
+  <id>http://longstandingbug.com/atom.xml</id>
+  <author>
+    <name>Szymon Witamborski</name>
+    <email>santamon@gmail.com</email>
+  </author>
+
+  {{#posts}}
+  <entry>
+    <title>{{title}}</title>
+    <link href="http://longstandingbug.com/{{html}}" />
+    <updated>{{#date}}{{str}}{{/date}}T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/{{html}}</id>
+    <content type="html">
+      {{intro}}
+      {{body}}
+    </content>
+  </entry>
+  {{/posts}}
+  
+</feed>

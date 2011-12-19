@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Niech się stanie GUI FTW! - Long-standing Bug</title>
+    <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic|Neuton:400,700,400italic|Abril+Fatface|Anonymous+Pro:400,700&subset=latin,latin-ext"
+	        rel="stylesheet" type="text/css" media="(min-width: 640px)" />
+    <link href="media/main.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <header id="main_navigation">
+      <nav id="jumpers">
+        Jump to: <a href="#">Top</a>, <a href="#comments">Comments</a>
+      </nav>
+      <nav id="home">
+	      <img src="media/bug.png" style="vertical-align: top;" /> Long-standing Bug:
+	      <a href="index.html" id="articles_link">All Articles</a>, <a href="info.html">About</a>, <a href="atom.xml">RSS</a>
+      </nav>
+    </header>
+    <article>
+      <nav class="metainfo">
+        <time>2011-03-20</time>
+        
+        <a href="Clojure.index.html">Clojure</a>
+        
+        <a href="GUI_FTW.index.html">GUI FTW</a>
+        
+      </nav>
+      
+      <h1>Niech się stanie GUI FTW!</h1>
+
+      
+      <section class="introduction">
+	      <p>Ponieważ uwielbiam programowanie deklaratywne brakowało mi od dawna
+czegoś deklaratywnego do tworzenia GUI. Kod tworzący GUI jest zawsze
+bardzo nudny i powtarzalny: &quot;stwórz obiekt, ustaw jego tekst, ikonę,
+dodaj akcję na klik (wcześniej stwórz obiekt implementujący
+odpowiedniego listenera), ew. stwórz obiekty-dzieci, bla bla bla&quot;.</p>
+      </section>
+      
+
+      <section id="rest">
+        <p>Projektanci stron internetowych od początku mają do dyspozycji HTML i
+CSS, które są jak najbardziej deklaratywne w swojej naturze. Dodatkowo
+treść określa się osobno od tego jak ma wyglądać. Model ten zaczyna
+wychodzić poza przeglądarki, np. XAML w .NET albo pliki layoutów w
+Androidzie. Wszystkie znane mi do tej pory tego przykłady opierają się
+na XML-u i dodatkowym programie generującym kod w trakcie kompilacji.</p>  <p>Ostatnio pracuję nad podobną biblioteką dla Clojure. Są jednak dwie
+główne różnice:</p>  <ol><li>Tak jak dla programistów Javy naturalnym językiem do opisu danych
+jest XML tak dla programistów Clojure tym językiem jest Clojure.</li><li>Moja biblioteka jest jedynie biblioteką, nie wymaga dodatkowych
+programów generujących (powiedzmy) kod Javy z XML-a. </li></ol> <p>Ad 1. Składnia Clojure to tylko struktury danych: listy, wektory i
+mapy o <em>wybornej</em> składni. Grzechem byłoby używać w takiej sytuacji
+XML-a. Całe parsowanie robi za mnie Clojure więc mogę martwić się już
+tylko znaczeniem tego co siedzi w środku. Zarówno drzewo GUI (analogia
+do HTML) jak i style (CSS) definiowane są za pomocą kodu w Clojure.</p>  <p>Ad 2. Dzięki magicznym technikom metaprogramowania (makrom) mogę
+wchodzić w drogę kompilatorowi Clojure i generować kod tuż przed
+kompilacją zamiast generować kod programem i dopiero potem wywoływać
+kompilator. Dlatego całą funkcjonalność można spakować do pliku jar i
+używać jak każdej innej biblioteki. Ułatwia to także programowanie
+interaktywne z użyciem REPL.</p>  <h2>Co, gdzie, jak?</h2> <p>Teraz nieco więcej o samej bibliotece. Nazwałem ją <strong>GUI FTW!</strong> a pobrać
+ją można stąd: <a href="http://github.com/santamon/GUIFTW">http://github.com/santamon/GUIFTW</a>. Jest dostępna
+także na <a href="http://clojars.org/guiftw">Clojars</a> więc wystarczy dodać
+<code>[guiftw &quot;0.1.0-SNAPSHOT&quot;]</code> do zależności projektu aby jej
+użyć. Polecam poeksperymentować z przykładami w katalogu
+<a href="http://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples">src/guiftw/examples</a>,
+które są również mocno obkomentowane w formie tutoriala.</p>  <p>GUI FTW! nie jest kolejnym toolkitem obok SWT i Swinga -- jest
+deklaratywną nakładką na nie. Tzn. GUI FTW! można używać do tworzenia
+interfejsów używając jednego albo drugiego pod spodem. Do tego zostało
+napisane na tyle abstrakcyjnie, że można łatwo dopisać obsługę
+kolejnego toolkitu. Ułatwi to przesiadkę programistom Javy, którzy
+znają jedno albo drugie. Poza tym, pisanie kolejnego toolkitu nie jest
+po prostu celem tego projektu.</p>  <h2>Banalny przykład</h2> <p>Strukturą GUI jest drzewo, którego węzeł składa się z nazwy
+klasy, listy właściwości oraz z jego węzłów-dzieci.</p>  <pre><code>(def window
+ (swing
+   [JFrame [:title &quot;GUI FTW!&quot;
+            :visible true]
+    [JButton [:text &quot;To jest przycisk!&quot;]]]))</code></pre> <p>Wewnątrz listy cech można używać dowolnych nazw, które mają swoje
+settery w danej klasie. Np. <code>:title</code> tłumaczone jest na wywołanie
+metody <code>setTitle</code>, <code>:default-close-operation</code> na
+<code>setDefaultCloseOperation</code> itd.</p>  <p>Aby zdefiniować style osobno musimy nadać elementom identyfikatory:</p>  <pre><code>[JFrame [*id :okno-ftw]
+ [JButton [*id :przycisk-omg]]]</code></pre> <p>a osobno w tzw. arkuszu stylów zdefiniować cechy obiektów:</p>  <pre><code>(def sheet
+ (stylesheet
+  [:okno-ftw] [:title &quot;GUI FTW!&quot;
+               :size ^unroll (300 200)
+               :visible true]
+  [:przycisk-omg] [:text &quot;To jest przycisk!&quot;]))</code></pre> <p>Składnia styli składa się z par list: najpierw lista identyfikatorów,
+druga lista jest listą właściwości jak poprzednio. <code>^unroll</code> jest
+potrzebne dla setterów, które mają więcej niż jeden parametr. Lista
+poprzedzona <code>^unroll</code> zostanie rozwinięta na wszystkie jego parametry
+zamiast wywołać setter z listą jako parametrem. Czyli otrzymamy
+odpowiednik <code>setSize(300, 200)</code> zamiast <code>setSize((300, 200))</code>.</p>  <p>Makro <code>swing</code> zwraca funkcję, która utworzy chciane GUI, więc <code>window</code>
+będzie funkcją. Parametrami tej funkcji jest ew. obiekt nadrzędny
+(jeśli nie tworzylibyśmy okna tylko jakiś podrzędny element, może być
+nil) oraz dowolna ilość arkuszy styli. Utworzenie okna będzie więc
+wyglądało tak:</p>  <pre><code>(window nil sheet)</code></pre> <p><img src="images/gui-ftw-pierwsze-okno.png" alt="Pierwsze okno"></p>  <p>Arkuszy może być więcej, możemy także podać inny komplet. Możemy też
+utworzyć wiele okien wywołując powtórnie tę funkcję. Zwrócony zostanie
+element na korzeniu drzewa.</p>  <p>Analogiczny przykład w SWT użyłby klas specyficznych dla SWT i przede
+wszystkim makra <code>swt</code> zamiast <code>swing</code>.</p>  <h2>Co dalej</h2> <p>Zacząłem pisać dokumentację. Jest dostępna w kodzie bądź przez <code>doc</code> w
+REPL-u. Przydałaby się też dokumentacja on-line w stylu <a href="http://clojure.github.com/clojure/">tej dla samego Clojure</a>.</p>  <p>W tym momencie można stworzyć GUI, ostylować go i podpiąć zdarzenia (o
+czym będzie następny wpis). Brakuje całej części &quot;stanowej&quot;, w
+szczególności wyciąganie z drzewa interesujących nas elementów. Mam
+również pomysł, by podpinać wartości (np. tekst pola tekstowego)
+dwustronnie pod clojure&apos;owe atomy, refy, agentów itp. Pozwoliłoby to
+na spięcie GUI i np. pamięci transakcyjnej.</p>
+      </section>
+      
+    </article>
+    
+    
+    <section id="comments">
+      <div id="disqus_thread"></div>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+    
+    
+    <footer id="main_footer">
+      <nav id="return_to_top"><a href="#">↑ Top</a></nav>
+      <div id="copywrong">
+	      &copy; Copywrong 2011 Szymon Witamborski
+      </div>
+    </footer>
+    <script src="media/hyphenator.js"></script>
+    
+    <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var disqus_shortname = 'longstandingbug'; // required: replace example with your forum shortname
+
+      // The following are highly recommended additional parameters. Remove the slashes in front to use.
+      
+      var disqus_identifier = 'niech-sie-stanie-gui-ftw.html';
+      var disqus_url = 'http://longstandingbug.com/niech-sie-stanie-gui-ftw.html';
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    
+    <!-- google analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-23922729-1']);
+      _gaq.push(['_trackPageview']);
+      
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>
+

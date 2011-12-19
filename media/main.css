@@ -1,0 +1,69 @@
+body { font-family: 'Neuton', Georgia, 'Droid Serif', times, serif; overflow-y: scroll; }
+a { color: #080; text-decoration: none; }
+a:active, a:hover { text-shadow: 1px 1px 2px #5f5; text-decoration: underline; }
+a:active { color: #090; }
+a:visited { color: #050; }
+
+/* navigation */
+#main_navigation, #main_footer { font-size: 16px; font-family: Arial, sans-serif; padding: 3px 0;}
+#main_navigation { border-bottom: 1px solid black; }
+#main_footer, #comments { border-top: 1px solid black; }
+#commens { min-height: 400px; }
+#previous, #return_to_top { float: left; }
+#main_footer { text-align: center; }
+#next, #hiders, #jumpers { float: right; }
+#tags { text-align: right; }
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.17em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.83em; }
+h6 { font-size: 0.67em; }
+
+p { text-align: justify; line-height: 1.3em; }
+.sidenote { font-family: 'Playfair Display', serif; font-size: 0.7em; }
+
+.fullscreen { position: fixed; left: 0; top: 0; border: 0; margin: 0; padding: 0; width: 100%; height: 100%; background: black; }
+.fullscreen > * { width: 100%; }
+
+@media (min-width: 480px) {
+    .sidenote { clear: left; float: left; margin: 5px 20px 0 0;  width: 160px; text-align: right; }
+    h2, h3, h4, h5, h6 { clear: both; }
+}
+
+/* for screens not larger than 480px */
+@media (max-width: 480px) {
+    #home, #copywrong { clear: both; }
+    #return_to_top { float: inherit; }
+}
+
+@media (min-width: 640px) {
+    body {  max-width: 850px; margin: 50px auto 0; font-size: 22px; }
+    article { margin: 0 15px; }
+
+    #main_navigation { position: fixed; width: 850px; top: 0; background: rgba(255, 255, 255, 0.95) }
+    #tags { margin: 5px 0 0 50%; display: none; }
+    
+    /* headings */
+    h1, h2, h3, h4, h5, h6 { font-family: 'Abril Fatface', cursive; font-weight: normal; }
+    h1 > code, h2 > code, h3 > code, h4 > code, h5 > code, h6 > code { font-weight: bold; }
+    
+    /* article heading */
+    article > section > * { margin-left: 180px; padding: 0; }
+    article > .metainfo { display: block; float: right; clear: right; width: 120px; margin: 0 0 10px 10px; padding: 0 0 0 10px; border-left: 1px solid black;
+                          font-family: Arial, sans-serif; font-size: 0.7em; }
+    article > .metainfo > * { display: block; }
+    article > .introduction > * { margin-left: 0; }
+    article > section > h2 { margin-left: 120px; clear: both; }
+
+    /* article body */
+    /* blockquote { margin: 0 0 0 180px; padding: 0 10px; border-radius: 5px; box-shadow: 1px 1px 3px #777; } */
+
+    .introduction > *, blockquote > * { font-family: 'Playfair Display', serif; line-height: 1.5em; }
+    .introduction { border-bottom: 1px dotted #aaa; }
+    
+    li { line-height: 1.2em; }
+    code { font-family: 'Anonymous Pro', Consolas, Inconsolata, Monaco, monospace; }
+    pre { font-size: 20px;  }
+}

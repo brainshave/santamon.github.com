@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Long-standing Bug</title>
+  <link href="http://longstandingbug.com/atom.xml" rel="self" />
+  <link href="http://longstandingbug.com" />
+  <updated>2011-11-20T00:00:00+00:00</updated>
+  <id>http://longstandingbug.com/atom.xml</id>
+  <author>
+    <name>Szymon Witamborski</name>
+    <email>santamon@gmail.com</email>
+  </author>
+
+  
+  <entry>
+    <title>Embedded Declarative HTML in C++</title>
+    <link href="http://longstandingbug.com/html-in-cpp.html" />
+    <updated>2011-11-20T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/html-in-cpp.html</id>
+    <content type="html">
+      &lt;p&gt;How about writing that in C++:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;Node html
+{&amp;quot;html&amp;quot;, {{ &amp;quot;lang&amp;quot;, &amp;quot;pl&amp;quot; }}, { // tag with attributes
+  {&amp;quot;head&amp;quot;, { // tag without attributes
+    {&amp;quot;title&amp;quot;, {
+      &amp;quot;Page Title&amp;quot; // text node
+    }}
+  }},
+  {&amp;quot;body&amp;quot;, {{ &amp;quot;style&amp;quot;, &amp;quot;background-color: #fff;&amp;quot; }}, {
+    {&amp;quot;h1&amp;quot;, {&amp;quot;Page Title&amp;quot;}},
+    {&amp;quot;div&amp;quot;, {}} // empty tag
+  }}
+}};
+
+cout &amp;lt;&amp;lt; html;&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;and getting that:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;&amp;lt;html lang=&amp;quot;pl&amp;quot;&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;title&amp;gt;
+      Page Title
+    &amp;lt;/title&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;background-color: #fff;&amp;quot;&amp;gt;
+    &amp;lt;h1&amp;gt;
+      Page Title
+    &amp;lt;/h1&amp;gt;
+    &amp;lt;div /&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;p&gt;Clojure has the &lt;a href=&quot;https://github.com/weavejester/hiccup&quot;&gt;Hiccup&lt;/a&gt; and
+Groovy has it&amp;apos;s
+&lt;a href=&quot;http://groovy.codehaus.org/Creating+XML+using+Groovy%27s+MarkupBuilder&quot;&gt;builders&lt;/a&gt;
+for XML/HTML generation. I saw today a
+&lt;a href=&quot;http://www.infoq.com/presentations/The-Kotlin-Programming-Language&quot;&gt;presentation&lt;/a&gt;
+with an example of this in
+&lt;a href=&quot;http://confluence.jetbrains.net/display/Kotlin/Welcome&quot;&gt;Kotlin&lt;/a&gt;, with
+static typing...&lt;/p&gt;  &lt;p&gt;I wanted to see if something like this is possible in C++. It turned
+out that with help of some newest and freshest stuff in
+&lt;a href=&quot;http://en.wikipedia.org/wiki/C%2B%2B11&quot;&gt;C++11&lt;/a&gt; it was pretty
+straight-forward.&lt;/p&gt;  &lt;h2&gt;&lt;code&gt;std::initializer_list&lt;/code&gt;&lt;/h2&gt; &lt;p&gt;C++11 introduced the
+&lt;a href=&quot;http://en.wikipedia.org/wiki/C%2B%2B11#Initializer_lists&quot;&gt;&lt;code&gt;std::initializer_list&lt;/code&gt;&lt;/a&gt;
+type which is a neat enhancement to C&amp;apos;s intializer lists. C&amp;apos;s
+initializer lists are a way for creating arrays and structs:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;int array[] = { 1, 2, 3 };
+struct { float a, b; } number = { 0, -1 };
+&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;C++&amp;apos;s &lt;code&gt;std::initializer_list&lt;/code&gt; is a clever enhancement because it&amp;apos;s an
+runtime object which knows how many elements are in it and are created
+automatically by the compiler. It&amp;apos;s useful in functions and
+constructors when you want to pass some inlined data structures, for
+example a function:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;int sum(initializer_list&amp;lt;int&amp;gt; numbers) {
+  int s = 0;
+  // a proper foreach is also a C++11 feature
+  for (const int i : numbers) {
+    s += i;
+  }
+  return s;
+}
+&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;could be used like: &lt;code&gt;sum({1, 2, 3, 4});&lt;/code&gt;.&lt;/p&gt;  &lt;p&gt;New implementations of STL containers (such as &lt;code&gt;vector&lt;/code&gt;s) support that
+in constructors so you can fill them with data in construction time:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;vector&amp;lt;int&amp;gt; nums {1, 2, 3};
+&lt;/code&gt;&lt;/pre&gt; &lt;h2&gt;Proof&amp;apos;O&amp;apos;Concept&lt;/h2&gt; &lt;p&gt;In my humble proof of concept I just extended the use of
+&lt;code&gt;std::initializer_list&lt;/code&gt;. Each node in tree is either:&lt;/p&gt;  &lt;ul&gt;&lt;li&gt;a text node (constructor with one string arg)&lt;/li&gt;&lt;li&gt;a tag with attributes (each attribute is a pair of name and value) and children (nested nodes, so it&amp;apos;s recursive)&lt;/li&gt;&lt;li&gt;a tag without attributes but with children (if a tag is childless you have to pass an empty children list, otherwise it will be treated as a text node) &lt;/li&gt;&lt;/ul&gt; &lt;p&gt;For each variant there&amp;apos;s a different constructor. That&amp;apos;s pretty much
+it. I&amp;apos;ve pasted a complete &lt;a href=&quot;https://gist.github.com/1380325/&quot;&gt;gist&lt;/a&gt; at
+the end of this article. Probably the longest and least interesting
+part is the &lt;code&gt;render()&lt;/code&gt; method, but somewhat obligatory to see if the
+whole thing works at all.&lt;/p&gt;  &lt;p class=&quot;sidenote&quot;&gt;Without macros!&lt;/p&gt;
+
+ &lt;p&gt;In C++11, solution is straight-forward and maybe even handsome but I am
+most curious how it could be done in older versions of C++. I think
+that &lt;code&gt;initializer_list&lt;/code&gt;s and other new features of C++11 (lambdas!)
+made it possible to create more sophisticated internal DSLs than the
+one presented here. I actually believe it &lt;em&gt;is&lt;/em&gt; now possible to implement
+something like &lt;a href=&quot;http://github.com/santamon/GUIFTW&quot;&gt;GUI FTW&lt;/a&gt; in C++.&lt;/p&gt;  &lt;p class=&quot;sidenote&quot;&gt;The source code will probaly not be embedded in
+RSS reader. Read it on &lt;a href=&quot;http://longstandingbug.com/html-in-cpp.html&quot;&gt;my site&lt;/a&gt; or on
+&lt;a href=&quot;https://gist.github.com/1380325/&quot;&gt;gist.github.com&lt;/a&gt;.&lt;/p&gt;
+
+ &lt;script src=&quot;https://gist.github.com/1380325.js&quot;&gt;&lt;/script&gt;
+
+    </content>
+  </entry>
+  
+  <entry>
+    <title>One Makefile To Rule Them All</title>
+    <link href="http://longstandingbug.com/one-makefile-to-rule-them-all.html" />
+    <updated>2009-06-07T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/one-makefile-to-rule-them-all.html</id>
+    <content type="html">
+      &lt;blockquote&gt;&lt;p&gt; One Makefile to rule them all, One Makefile to find them,&lt;br /&gt;
+ One Makefile to bring them all and in the batch compile them&lt;br /&gt;
+ In the Land of Unix where the Shells lie.&lt;/p&gt;&lt;/blockquote&gt;
+      &lt;p class=&quot;sidenote&quot;&gt;Wpis archiwalny z &lt;a href=&quot;http://gaco.wordpress.com&quot;&gt;mojej starej strony&lt;/a&gt;.&lt;/p&gt;
+
+ &lt;p&gt;Kiedyś szukałem sposobu, by dodając nowe pliki *.cpp do projektu
+(każdy z nich był osobnym programem) nie trzeba było modyfikować
+Makefile&amp;apos;a i dałem sobie spokój w pewnym momencie.  Szukałem niezbyt
+gorliwie jak się okazuje, bo podpowiedź była
+&lt;a href=&quot;http://www.gnu.org/software/make/manual/html_node/Wildcard-Function.html&quot;&gt;w manualu do GNU Make&amp;apos;a&lt;/a&gt;.
+Ten Makefile skompiluje wszystkie pliki *.cpp jako osobne programy do
+podkatalogu bin.&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;cele := $(patsubst %.cpp,bin/%,$(wildcard *.cpp))
+
+komp=g++ -Wall -O2
+
+asdf: $(cele)
+
+$(cele) : bin/% : %.cpp
+  $(komp) $&amp;lt; -o $@
+
+clean:
+  rm $(cele)&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Żeby pakowało binarki bezpośrednio do katalogu ze źródłami trzeba usunąć 2x &lt;code&gt;bin/&lt;/code&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  
+  
+</feed>
