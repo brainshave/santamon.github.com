@@ -1,4 +1,4 @@
-title: Sound Synthesis & Playback in Clojure
+title: Sound Synthesis & Playback in Clojure
 date: 2011-06-20
 tags: [Clojure, sound]
 

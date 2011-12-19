@@ -13,7 +13,7 @@
 
   
   <entry>
-    <title>Sound Synthesis &amp; Playback in Clojure</title>
+    <title>Sound Synthesis &amp; Playback in Clojure</title>
     <link href="http://longstandingbug.com/sound-synthesis.html" />
     <updated>2011-06-20T00:00:00+00:00</updated>
     <id>http://longstandingbug.com/sound-synthesis.html</id>
@@ -245,7 +245,7 @@ decreasing &lt;code&gt;base-duration&lt;/code&gt;.&lt;/p&gt;  &lt;p&gt;That&amp;
   </entry>
   
   <entry>
-    <title>Reintroducing GUI FTW and Progress Report</title>
+    <title>Reintroducing GUI FTW &amp; Progress Report</title>
     <link href="http://longstandingbug.com/reintroducing-guiftw.html" />
     <updated>2011-05-16T00:00:00+00:00</updated>
     <id>http://longstandingbug.com/reintroducing-guiftw.html</id>
@@ -344,7 +344,7 @@ at my window. [3]&lt;/p&gt;
   </entry>
   
   <entry>
-    <title>Zdarzenia w GUI FTW</title>
+    <title>Zdarzenia w GUI FTW</title>
     <link href="http://longstandingbug.com/zdarzenia-guiftw.html" />
     <updated>2011-04-04T00:00:00+00:00</updated>
     <id>http://longstandingbug.com/zdarzenia-guiftw.html</id>

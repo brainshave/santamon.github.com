@@ -1,4 +1,4 @@
-title: Embedded Declarative HTML in C++
+title: Embedded Declarative HTML in C++
 date: 2011-11-20
 tags: [C++, HTML]
 &&&

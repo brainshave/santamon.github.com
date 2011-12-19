@@ -1,4 +1,4 @@
-body { font-family: 'Neuton', Georgia, 'Droid Serif', times, serif; overflow-y: scroll; }
+body { font-family: 'Neuton', Georgia, 'Droid Serif', times, serif; margin: 50px auto 0; overflow-y: scroll; }
 a { color: #080; text-decoration: none; }
 a:active, a:hover { text-shadow: 1px 1px 2px #5f5; text-decoration: underline; }
 a:active { color: #090; }
@@ -39,7 +39,7 @@ p { text-align: justify; line-height: 1.3em; }
 }
 
 @media (min-width: 640px) {
-    body {  max-width: 850px; margin: 50px auto 0; font-size: 22px; }
+    body {  max-width: 850px; font-size: 22px; }
     article { margin: 0 15px; }
     #tags { margin: 5px 0 0 50%; display: none; }
 

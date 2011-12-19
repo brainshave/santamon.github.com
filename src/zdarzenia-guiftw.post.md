@@ -1,4 +1,4 @@
-title: Zdarzenia w GUI FTW
+title: Zdarzenia w GUI FTW
 date: 2011-04-04
 lang: pl
 tags: [GUI FTW, Clojure, Java, event handling]

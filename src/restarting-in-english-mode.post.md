@@ -1,4 +1,4 @@
-title: Restarting in English Mode
+title: Restarting in English Mode
 date: 2011-05-07
 
 &&&

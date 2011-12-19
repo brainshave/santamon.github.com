@@ -1,4 +1,4 @@
-title: Reintroducing GUI FTW and Progress Report
+title: Reintroducing GUI FTW & Progress Report
 date: 2011-05-16
 tags: [GUI FTW, Clojure, event handling]
 
