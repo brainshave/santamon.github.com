@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Long-standing Bug</title>
+  <link href="http://longstandingbug.com/atom.xml" rel="self" />
+  <link href="http://longstandingbug.com" />
+  <updated>2011-04-04T00:00:00+00:00</updated>
+  <id>http://longstandingbug.com/atom.xml</id>
+  <author>
+    <name>Szymon Witamborski</name>
+    <email>santamon@gmail.com</email>
+  </author>
+
+  
+  <entry>
+    <title>Zdarzenia w GUI FTW</title>
+    <link href="http://longstandingbug.com/zdarzenia-guiftw.html" />
+    <updated>2011-04-04T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/zdarzenia-guiftw.html</id>
+    <content type="html">
+      &lt;p&gt;Tradycyjnie w Swingu bądź SWT żeby obsłużyć zdarzenie musimy utworzyć
+nową implementację jakiegoś interfejsu, np. &lt;code&gt;MouseListener&lt;/code&gt; a potem
+go zarejestrować w obiekcie, którego zdarzenia nas interesują:&lt;/p&gt;
+      &lt;pre&gt;&lt;code&gt;button.addMouseListener(new MouseListener() {
+    public void mouseClicked(MouseEvent event) {
+        //... obsługa zdarzenia
+    }
+    public void mouseEntered(MouseEvent event) {
+        //... obsługa zdarzenia
+    }
+    public void mouseExited(MouseEvent event) {
+        //... obsługa zdarzenia
+    }
+    public void mousePressed(MouseEvent event) {
+        //... obsługa zdarzenia
+    }
+    public void mouseReleased(MouseEvent event) {
+        //... obsługa zdarzenia
+    }
+});&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Jeśli obchodzi nas tylko jedno zdarzenie, wygodnie jest dziedziczyć po
+klasie &lt;code&gt;MouseAdapter&lt;/code&gt;, która implementuje wszystkie metody jako puste,
+wystarczy więc zaimplementować jedną metodę:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;button.addMouseListener(new MouseAdapter() {
+    public void mouseClicked(MouseEvent event) {
+        //... obsługa zdarzenia
+    }
+});&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Jak widać, trzeba się sporo opisać zanim dotrze się do miejsca, gdzie
+umieści się właściwy kod, nawet w wersji z adapterem. Jeśli jest
+możliwe napisanie kodu krótszego i przynajmniej tak samo dobrze
+wyrażającego co chcemy osiągnąć to moim zdaniem warto.&lt;/p&gt;  &lt;h2&gt;Jak to wygląda w GUI FTW!?&lt;/h2&gt; &lt;p&gt;Obsługę zdarzeń wrzucamy do arkuszy stylów. Wygląda to tak jak każda
+inna właściwość (tekst, kolor, itd.) poza tym, że nazwą właściwości
+jest specyfikacja zdarzenia a wartością jest funkcja która je obsłuży.
+Dzięki temu zyskujemy również na wszystkich zaletach arkuszy stylów,
+np. można obsłużyć zdarzenia z wielu obiektów na raz.&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;(stylesheet [[:cos :drugie-cos] [:text &amp;quot;Coś!&amp;quot;
+                                 &amp;lt;spec-zdarzenia&amp;gt; &amp;lt;funkcja&amp;gt;]])&lt;/code&gt;&lt;/pre&gt; &lt;h3&gt;Specyfikacja zdarzenia&lt;/h3&gt; &lt;p&gt;GUI FTW! musi znać dwie rzeczy: nazwę interfejsu &lt;code&gt;*Listener&lt;/code&gt; i jedną
+metodę do zaimplementowania -- nazwę zdarzenia. Trzeba to podać w
+takiej formie:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;&amp;lt;nazwa interfejsu&amp;gt;+&amp;lt;nazwa metody&amp;gt;&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Czyli np. &lt;code&gt;mouse+mouse-clicked&lt;/code&gt; albo
+&lt;code&gt;action+action-performed&lt;/code&gt;. Odpada dzięki temu spora część zbędnego
+kodu z pierwszego przykładu. Widać coś jeszcze: np. w
+&lt;code&gt;mouse+mouse-clicked&lt;/code&gt; słowo &lt;code&gt;mouse&lt;/code&gt; powtarza się. Ponieważ występuje
+to dość często dodałem skrót: jeśli napiszemy &lt;code&gt;++&lt;/code&gt; zamiast &lt;code&gt;+&lt;/code&gt; możemy
+pozbyć się zbędnego słowa.&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;mouse++clicked -&amp;gt; mouse+mouse-clicked -&amp;gt; MouseListener.mouseClicked&lt;/code&gt;&lt;/pre&gt; &lt;h4&gt;Dlaczego nie uniwersalne &lt;code&gt;on-click&lt;/code&gt; albo &lt;code&gt;on-mouse-over&lt;/code&gt;?&lt;/h4&gt; &lt;p&gt;Takie rozwiązanie na pewno byłoby intuicyjne dla osób
+początkujących. Nie widzę jednak sensu gdy &lt;code&gt;mouse++clicked&lt;/code&gt; jest
+wystarczająco wymowne. Poza tym powodowałoby zwiększenie kodu w GUI
+FTW! specyficznego dla bibliotek, które obsługuje (w tym momencie
+Swing i SWT).&lt;/p&gt;  &lt;p&gt;Dzięki temu, że GUI FTW! wymaga podania nazwy interfejsu i metody,
+możliwa jest obsługa zdarzeń wymyślonych przez programistę na poziomie
+równym z tymi wbudowanymi w Swing bądź SWT.&lt;/p&gt;  &lt;h3&gt;Funkcja obsługująca&lt;/h3&gt; &lt;p&gt;W tym momencie funkcja obsługująca zdarzenie ma jeden argument:
+zdarzenie, które wystąpiło. Może to być zarówno funkcja anonimowa jak
+i nazwa funkcji zdefiniowanej w innym miejscu.&lt;/p&gt;  &lt;h2&gt;Przykład&lt;/h2&gt; &lt;p&gt;Rozwinę lekko przykład z poprzedniego wpisu (utrzymując poziom
+hellołłorldowy). Dla przypomnienia struktura interfejsu:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;(def window
+  (swing
+    [JFrame [*id :okno-ftw]
+     [JButton [*id :przycisk-omg]]]))&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Do arkusza styli dodamy obsługę zdarzenia:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;(def sheet
+ (stylesheet
+  [:okno-ftw] [:title &amp;quot;GUI FTW!&amp;quot;
+               :size ^unroll (300 200)
+               :visible true]
+  [:przycisk-omg] [:text &amp;quot;To jest przycisk!&amp;quot;
+                   :mouse++clicked
+                   (fn [event]
+                    (JOptionPane/showMessageDialog nil &amp;quot;GUI FTW!&amp;quot;))]))&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;&lt;img src=&quot;images/gui-ftw-pierwsza-akcja.png&quot; alt=&quot;Prosty przykład podpięcia akcji pod przycisk&quot;&gt;&lt;/p&gt;  &lt;p&gt;Pełny kod tego przykładu znajduje się &lt;a href=&quot;https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/basic.clj&quot;&gt;tutaj&lt;/a&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  
+  <entry>
+    <title>Efekty uboczne programowania</title>
+    <link href="http://longstandingbug.com/efekty-uboczne-programowania.html" />
+    <updated>2010-01-07T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/efekty-uboczne-programowania.html</id>
+    <content type="html">
+      
+      &lt;p class=&quot;sidenote&quot;&gt;
+Wpis archiwalny z &lt;a href=&quot;http://gaco.wordpress.com&quot;&gt;mojej starej strony&lt;/a&gt;.
+&lt;/p&gt;
+
+ &lt;p&gt;Pliki png w pełnej rozdzielczości mają po 2-4,5 MB.&lt;/p&gt;  &lt;p&gt;&lt;a href=&quot;images/abstract1.png&quot;&gt;&lt;img src=&quot;images/abstract1m.jpg&quot; alt=&quot;Abstrakcja 1&quot;&gt;&lt;/a&gt;&lt;/p&gt;  &lt;p&gt;&lt;a href=&quot;images/abstract2.png&quot;&gt;&lt;img src=&quot;images/abstract2m.jpg&quot; alt=&quot;Abstrakcja 2&quot;&gt;&lt;/a&gt;&lt;/p&gt;  &lt;p class=&quot;sidenote&quot;&gt;
+Efekt niedokończonej optymalizacji odświeżania obrazu
+&lt;/p&gt;
+
+ &lt;p&gt;&lt;a href=&quot;images/scan-lines.png&quot;&gt;&lt;img src=&quot;images/scan-linesm.jpg&quot; alt=&quot;Scan Lines&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+    </content>
+  </entry>
+  
+  
+</feed>

@@ -122,8 +122,7 @@ initCircle = (r, density)->
     initBuffer(verts, 3, verts.length / 3)
 
 
-init = ->
-    canvas = document.getElementById('robot_canvas')
+init = (canvas) ->
     initGL(canvas)
     initShaders()
 
@@ -310,7 +309,7 @@ drawScene = ->
     mat4.identity(mvMatrix)
 
     # moving away from eye
-    mat4.translate(mvMatrix, [0.0,-2.8,-18.0])
+    mat4.translate(mvMatrix, [0.0,-2.5,-18.0])
     retellPosition()
     setColor(0,1,0)
 
@@ -344,6 +343,23 @@ tick = ->
     figure = botFigureInTime()
     drawScene()
 
+maximizeOnClick = (element) ->
+  fullscreen = false
+  obstacles = document.querySelectorAll('object, #comments')
+  element.onclick = ->
+    if not fullscreen
+      element.className = 'fullscreen'
+      for o in obstacles
+        o.style.display = 'none'
+    else
+      element.className = ''
+      for o in obstacles
+        o.style.display = ''
+    fullscreen = not fullscreen
+
+
 window.onload = ->
-    init()
-    tick()
+  canvas = document.getElementById('robot_canvas')
+  maximizeOnClick(canvas.parentNode)
+  init(canvas)
+  tick()

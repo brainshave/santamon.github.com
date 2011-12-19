@@ -1,6 +1,0 @@
-<ul>
-{% for post in archive %}
-<li><time>{{ post.date | date: site.date_format }}</time>
-  <a href="{{ post.url }}" class="h3">{{ post.title }}</a></li>
-{% endfor %}
-</ul>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Long-standing Bug</title>
+  <link href="http://longstandingbug.com/atom.xml" rel="self" />
+  <link href="http://longstandingbug.com" />
+  <updated>2010-09-03T00:00:00+00:00</updated>
+  <id>http://longstandingbug.com/atom.xml</id>
+  <author>
+    <name>Szymon Witamborski</name>
+    <email>santamon@gmail.com</email>
+  </author>
+
+  
+  <entry>
+    <title>Błąd młodego parsownika</title>
+    <link href="http://longstandingbug.com/blad-mlodego-parsownika.html" />
+    <updated>2010-09-03T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/blad-mlodego-parsownika.html</id>
+    <content type="html">
+      &lt;p&gt;&lt;strong&gt;Parsownik&lt;/strong&gt; -- &lt;em&gt;osoba pisząca parsery.&lt;br /&gt;
+(Termin zawdzięczam mojemu bratu.)&lt;/em&gt;&lt;/p&gt;
+      &lt;p&gt;Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze jest to, że
+zacząłem pisać następny wpis już następnego dnia po wystartowaniu
+bloga. Cały wpis powstał bez sprawdzania czy kompiluje się ładnie do
+HTML-a. Po ukończeniu skompilował się, niestety źle. Bardzo
+źle. Tagi przeplatały się w nieprawidłowy sposób, np. gwiazdka gdzieś
+wcześniej w którymś paragrafie i gwiazdka gdzieś dalej w wypunktowaniu
+powodowały otoczenie to tagiem &lt;code&gt;&amp;lt;b&amp;gt;&lt;/code&gt;. Co dawało np. takie wyjście:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;... &amp;lt;p&amp;gt; ... &amp;lt;b&amp;gt; ... &amp;lt;/p&amp;gt;
+&amp;lt;ul&amp;gt; &amp;lt;li&amp;gt; ... &amp;lt;/b&amp;gt; ...&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Mój parser działał ogólnie tak, że miał listę par: wyrażenie regularne + 
+funkcja, która wywoływana była na tekście do którego zostało
+dopasowane to wyrażenie. Aby zapobiec złemu przeplataniu się tagów
+wyrażenia ozdobników (takich jak pogrubienie, pochylenie,
+podkreślenie; do tego używam pojedynczych znaków, np: &lt;code&gt;/asdf/&lt;/code&gt; →
+&lt;code&gt;&amp;lt;em&amp;gt;asdf&amp;lt;/em&amp;gt;&lt;/code&gt;) stały się bardzo skomplikowane. Mam na myśli coś
+takiego (&lt;code&gt;@&lt;/code&gt; to odpowiednik dla znacznika &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt;):&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;r&amp;quot;(?&amp;lt;!&amp;lt;|\w|[@])\@(?=\S)([^@]+)(?&amp;lt;=\S)\@(?=\W)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Nie jestem specjalistą od wyrażeń regularnych ale użycie ich wydawało
+mi się bardzo obiecujące. Szczególnie łatwo było na początku ;).&lt;/p&gt;  &lt;p&gt;Przedstawione podejście miało poważne wady:&lt;/p&gt;  &lt;ol&gt;&lt;li&gt;za każdym razem przetwarzany był cały tekst,&lt;/li&gt;&lt;li&gt;wyrażenia widziały go jako sam tekst a nie jako strukturę,&lt;/li&gt;&lt;li&gt;w praktyce dopuszczalne było przeplatanie się znaczników HTML j/w. &lt;/li&gt;&lt;/ol&gt; &lt;p&gt;Ogólnie całość sprawiała wrażenie jakby trzymała się na rzęsach :P.
+Ciągłe dopasowywanie regexpów mogło się szybko skończyć kodem
+spaghetti... Jednym słowem...&lt;/p&gt;  &lt;h2&gt;Porażka :D.&lt;/h2&gt; &lt;p&gt;Mogłem spodziewać się tego po przeczytaniu
+&lt;a href=&quot;http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454&quot;&gt;tego wątku na Stack Overflow&lt;/a&gt;.
+Dotyczył on parsowania HTML-a więc najpierw pomyślałem, że moja
+wymarzona składnia nie jest aż tak trudna do przetworzenia.&lt;/p&gt;  &lt;p&gt;Wróciłem do Stack Overflow jak mój parser zaczął nawalać...&lt;/p&gt;  &lt;h2&gt;Pyparsing&lt;/h2&gt; &lt;blockquote&gt;&lt;p&gt; Have you tried using an XML parser instead?&lt;br /&gt;
+ -- &lt;a href=&quot;http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454&quot;&gt;Will&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;  &lt;p&gt;Wow. To mi dało myślenia. Oczywiście nie chodziło o użycie parsera XML-a
+ale śladem &amp;quot;gotowych, dobrze sprawdzonych rozwiązań&amp;quot; trafiłem na
+&lt;a href=&quot;http://pyparsing.wikispaces.com/&quot;&gt;pyparsing&lt;/a&gt;.&lt;/p&gt;  &lt;p&gt;Pyparsing jest (dla mnie, laika z tego tematu :P ) parserem dowolnie
+zdefiniowanej gramatyki. Od np. &lt;a href=&quot;http://www.antlr.org/&quot;&gt;ANTLR-a&lt;/a&gt; różni się
+tym, że gramatykę definiuje się za pomocą wyrażeń w Pythonie (używając
+zwykłych operatorów takich jak &lt;code&gt;+&lt;/code&gt; czy &lt;code&gt;|&lt;/code&gt;)
+zamiast tradycyjnego &lt;a href=&quot;http://pl.wikipedia.org/wiki/Notacja_EBNF&quot;&gt;EBNF&lt;/a&gt;.&lt;/p&gt;  &lt;p&gt;Idealnie dla mnie. Wystarczyło zrozumieć filozofię działania,
+przeczytać
+&lt;a href=&quot;http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html&quot;&gt;krótką i przystępną instrukcję&lt;/a&gt;
+oraz czasem zajrzeć do
+&lt;a href=&quot;http://packages.python.org/pyparsing/&quot;&gt;dokumentacji API&lt;/a&gt;.&lt;/p&gt;  &lt;h3&gt;Prosty przykład&lt;/h3&gt; &lt;p&gt;Skoro jesteśmy przy moich &lt;strong&gt;pogrubieniach&lt;/strong&gt; za pomocą gwiazdki i
+&lt;em&gt;pochyleniach&lt;/em&gt; za pomocą ukośnika, proponuję prosty, rekurencyjny przykład.&lt;/p&gt;  &lt;p&gt;Najpierw wersja nierekurencyjna:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;# -*- coding: utf-8 -*-
+from pyparsing import *
+from pprint import pprint
+
+undecorated = OneOrMore( # tłumaczy się samo przez się
+                         Word( # słowo (przynajmniej 1 znak) złożone z:
+                               alphanums)) # litery i cyfry
+
+bold = &amp;quot;*&amp;quot; + undecorated + &amp;quot;*&amp;quot;   # prawda,
+italic = &amp;quot;/&amp;quot; + undecorated + &amp;quot;/&amp;quot; # że proste? :)
+
+# metoda parseString() służy do... parsowania napisów
+pprint(bold.parseString(&amp;quot;*asdf*&amp;quot;).asList())
+pprint(italic.parseString(&amp;quot;/qwer/&amp;quot;).asList())&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Wynikiem tego będzie:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;[&amp;apos;*&amp;apos;, &amp;apos;asdf&amp;apos;, &amp;apos;*&amp;apos;]
+[&amp;apos;/&amp;apos;, &amp;apos;qwer&amp;apos;, &amp;apos;/&amp;apos;]&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Jak widać, pyparsing dzieli łańcuch na kawałki określone w gramatyce
+(tokeny). Domyślnie omija też ew. białe znaki pomiędzy nimi.&lt;/p&gt;  &lt;p&gt;Rekurencyjny przykład będzie nieco dłuższy. Ponieważ Python nie pozwala
+na używanie niezdefiniowanych symboli pyparsing załatwia to
+klasą &lt;code&gt;Forward&lt;/code&gt;, która umożliwia najpierw zadeklarowanie elementu
+a później podanie jego definicji za pomocą operatora &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;.&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;# -*- coding: utf-8 -*-
+from pyparsing import *
+from pprint import pprint
+
+undecorated = OneOrMore( Word(alphanums))
+
+bold = Forward()
+italic = Forward()
+
+expression = OneOrMore( undecorated | bold | italic )
+
+# Domyślnie wszystkie elementy odnalezione przez pyparsing
+# zwracane są jako jednowymiarowa lista, Group stworzy
+# listę zagnieżdżoną dla tego dopasowania
+bold &amp;lt;&amp;lt; Group(&amp;quot;*&amp;quot; + expression + &amp;quot;*&amp;quot;)
+italic &amp;lt;&amp;lt; Group(&amp;quot;/&amp;quot; + expression + &amp;quot;/&amp;quot;)
+
+pprint(expression.parseString(&amp;quot;&amp;quot;&amp;quot;
+czysty tekst
+/krzywo/ *grubo*
+/*krzywo grubo*/ */grubo krzywo/*
+*grubo /krzywo i jeszcze raz *grubo*/*
+&amp;quot;&amp;quot;&amp;quot;).asList())
+&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Tym razem wyjście wygląda tak:&lt;/p&gt;  &lt;pre&gt;&lt;code&gt;[&amp;apos;czysty&amp;apos;, &amp;apos;tekst&amp;apos;,        # czysty tekst
+ [&amp;apos;/&amp;apos;, &amp;apos;krzywo&amp;apos;, &amp;apos;/&amp;apos;],     # /krzywo/
+ [&amp;apos;*&amp;apos;, &amp;apos;grubo&amp;apos;, &amp;apos;*&amp;apos;],      # *grubo*
+ [&amp;apos;/&amp;apos;, [&amp;apos;*&amp;apos;, &amp;apos;krzywo&amp;apos;, &amp;apos;grubo&amp;apos;, &amp;apos;*&amp;apos;], &amp;apos;/&amp;apos;], # /*krzywo grubo*/
+ [&amp;apos;*&amp;apos;, [&amp;apos;/&amp;apos;, &amp;apos;grubo&amp;apos;, &amp;apos;krzywo&amp;apos;, &amp;apos;/&amp;apos;], &amp;apos;*&amp;apos;], # */grubo krzywo/*
+ [&amp;apos;*&amp;apos;, &amp;apos;grubo&amp;apos;,
+  [&amp;apos;/&amp;apos;, &amp;apos;krzywo&amp;apos;, &amp;apos;i&amp;apos;, &amp;apos;jeszcze&amp;apos;, &amp;apos;raz&amp;apos;,
+   [&amp;apos;*&amp;apos;, &amp;apos;grubo&amp;apos;, &amp;apos;*&amp;apos;],
+   &amp;apos;/&amp;apos;],
+  &amp;apos;*&amp;apos;]]
+&lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Ostatni kawałek jest szczególnie ciekawy. Zostawiam go
+do samodzielnego przeanalizowania :P. Dla mnie to była eureka,
+która pozwoliła mi dalej popchnąć projekt :)&lt;/p&gt;  &lt;p&gt;Oba przykłady umieszczone są w &lt;a href=&quot;olt/input/blad-mlodego-parsownika.py&quot;&gt;jednym pliku&lt;/a&gt;.
+Plik ten posiada jeszcze jeden cukierek dla osób wnikliwych ;).
+Przedstawiony przykład jest uproszczeniem analogicznego kodu
+z mojego &lt;a href=&quot;http://github.com/santamon/makeblog/blob/master/txt-to-html/txt-to-html.py&quot;&gt;parsera&lt;/a&gt;.&lt;/p&gt;  &lt;p&gt;Takie drzewko jak w ostatnim listingu możemy już dowolnie przetworzyć
+manipulując listami, albo użyć metody &lt;code&gt;setParseAction(fn)&lt;/code&gt; na każdym
+zdefiniowanym elemencie gramatyki, gdzie &lt;code&gt;fn&lt;/code&gt; to funkcja.
+Jeśli &lt;code&gt;fn&lt;/code&gt; zwróci jakąś wartość to element w drzewie zostanie
+zastąpiony tą wartością.&lt;/p&gt;  &lt;h2&gt;Podsumowanie&lt;/h2&gt; &lt;p&gt;Nowy parser pozbawiony jest wad poprzedniego, przede wszystkim:&lt;/p&gt;  &lt;ol&gt;&lt;li&gt;działa,&lt;/li&gt;&lt;li&gt;jest bardziej przewidywalny,&lt;/li&gt;&lt;li&gt;kod jest bardziej przejrzysty,&lt;/li&gt;&lt;li&gt;jest łatwiej rozszerzalny. &lt;/li&gt;&lt;/ol&gt; &lt;p&gt;Polecam przyjrzeć się &lt;a href=&quot;http://pyparsing.wikispaces.com/&quot;&gt;pyparsing&lt;/a&gt;
+jeśli mamy potrzebę/chęć przetworzenia jakiegoś tekstu i piszemy w
+Pythonie. Jeszcze raz podaję adres do
+&lt;a href=&quot;http://pyparsing.svn.sourceforge.net/viewvc/pyparsing/src/HowToUsePyparsing.html&quot;&gt;samouczka&lt;/a&gt;
+oraz do &lt;a href=&quot;http://packages.python.org/pyparsing/&quot;&gt;dokumentacji API&lt;/a&gt;.
+Pyparsing ma bardzo fajną licencję
+(&lt;a href=&quot;http://www.opensource.org/licenses/mit-license.php&quot;&gt;MIT&lt;/a&gt;), &amp;quot;róbta co
+chceta ale pochwalcie się od kogo ściągaliście&amp;quot; :P ) i jest dość
+popularne, co znaczy, że powinna być dostępna w Twojej Ulubionej
+Dystrybucji ;).&lt;/p&gt;
+    </content>
+  </entry>
+  
+  
+</feed>

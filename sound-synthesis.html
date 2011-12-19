@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sound Synthesis &amp; Playback in Clojure - Long-standing Bug</title>
+    <link rel="alternate" type="application/atom+xml" title="Long-standing Bug" href="atom.xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic|Neuton:400,700,400italic|Abril+Fatface|Anonymous+Pro:400,700&subset=latin,latin-ext"
+	        rel="stylesheet" type="text/css" media="(min-width: 640px)" />
+    <link href="media/main.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <header id="main_navigation">
+      <nav id="jumpers">
+        Jump to: <a href="#">Top</a>, <a href="#comments">Comments</a>
+      </nav>
+      <nav id="home">
+	      <img src="media/bug.png" style="vertical-align: top;" /> Long-standing Bug:
+	      <a href="index.html" id="articles_link">All Articles</a>, <a href="info.html">About</a>, <a href="atom.xml">RSS</a>
+      </nav>
+    </header>
+    <article>
+      <nav class="metainfo">
+        <time>2011-06-20</time>
+        
+        <a href="Clojure.index.html">Clojure</a>
+        
+        <a href="sound.index.html">sound</a>
+        
+      </nav>
+      
+      <h1>Sound Synthesis & Playback in Clojure</h1>
+
+      
+      <section class="introduction">
+	      <p>I&apos;ve been playing with sound in Clojure lately so I thought I&apos;d
+document what I&apos;ve learned.</p>  <p>This tutorial covers generating simple, clean sounds of desired
+frequency (sines) and accessing Java Sound API (it&apos;s not that scary,
+really). We&apos;ll start with nothing and at the end, we&apos;ll even play some
+melody with synthesized sounds :) (no instruments, pre-recorded
+samples or whatsoever).</p>  <p>Entry level: <em>know where your repl is</em>.</p>
+      </section>
+      
+
+      <section id="rest">
+        <h2>Fast Facts About Sound</h2> <p>Making some noise is in fact moving particles of air and a speaker
+does that. And we will move the speaker. From perspective of a
+programmer playing some sound is changing speaker&apos;s position over
+time. Because on computers nothing is continuous, we can manage it&apos;s
+position in concrete moments only. These <em>moments</em> come at constant
+rate. So we can imagine that playing a sound is actually feeding our
+speaker with it&apos;s position values regularly.</p>  <p>About those <strong>moments</strong>: Speaker can move back and forth. It&apos;s
+position is relative to some starting position to which we will refer
+as position <em>zero</em>. Moving speaker forward is increasing it&apos;s position
+and moving backward is decreasing it&apos;s position (actually, it can be
+the other way around but this time we shouldn&apos;t care). So, the
+speaker&apos;s position is a number and it&apos;s called a <em>sample</em>.</p>  <h2>Technicalia of Sound</h2> <p>Sample has fixed size and it&apos;s usually 16 bits. Sample size is
+limiting our minimum and maximum value. We don&apos;t have to bother about
+what these values are (it&apos;ll be handled automatically).</p>  <p>Pace at which samples come to a sound system is usually 48000 Hz (Hz
+[Hertz] means &quot;ticks/samples per second&quot;) or 44100 Hz (&quot;Audio CD&quot;
+quality) and it&apos;s called <em>sample rate</em>. Yes, we need to feed our
+speaker <strong>that</strong> fast ;).</p>  <h2>Know Your Math</h2> <p>Because this tut is about generating sines I have to say what a sine
+actually is. Sine is the cleanest type of sound possible. It&apos;s also
+the outcome of universally known <em>sin</em> function.</p>  <p><!-- (save (function-plot #(sin (* 2 % Math/PI)) 0 1 :step-size 0.005
+:y-label "" :x-label "" ) "sin-plain.png" :width 600 :height 160) -->
+<img src="images/sin-plain.png" alt="@"></p>  <p>Someone said that every sound can be torn to several sines. So once we
+can generate one sine we can synthesize any sound. In this tut we&apos;ll
+generate just one at a time ;) .</p>  <p>Every sine played over time has it&apos;s frequency <em>f</em>. It&apos;s measured just
+like sample rate, in Hz. Frequency is a weird number, because it&apos;s
+just inverted period (also called <em>term</em> and abbreviated <em>T</em>: time
+after it repeats itself):</p>  <p style="text-align: center; font-style: italic;">
+f = 1 / T<br />
+T = 1 / f
+</p>
+
+ <p>It means that sine of 1 Hz frequency have 1 s period and sine of 2 Hz
+frequency have 0.5 s period and so on.</p>  <p><!-- (save (doto (function-plot #(sin (* 2 % Math/PI)) 0 1 :step-size
+0.005 :y-label "" :x-label "Time [s]" :legend true :series-label "f =
+1 Hz") (add-function #(sin (* 4 % Math/PI)) 0 1 :series-label "f = 2
+Hz")) "sin-two.png" :width 600 :height 200) -->
+<img src="images/sin-two.png" alt="@"></p>  <p>Period is important because we will generate data only for one pass of
+a sine and play it in a loop (without any <code>loop</code> involved ;) ).</p>  <h2>Some Code At Last!</h2> <p>Now we&apos;ll jump right into code. As a basis of generating sine
+we&apos;ll use <code>Math/sin</code> function. It generates sine for period of 2<em>&pi;</em>
+so we have to scale it to desired period.</p>  <pre><code>(defn sine [sample-rate freq]
+  (let [term (/ 1 freq)
+        samples (* term sample-rate)      ;1
+        factor (/ (* 2 Math/PI) samples)] ;2
+    (map #(Math/sin (* % factor))         ;3
+         (range samples))))
+</code></pre> <p><code>sine</code> function creates a collection of numbers which are values of
+speaker position over time (successive samples). Explanation for
+numbered lines:</p>  <ol><li><p>Amount of samples depends directly on term and sample rate. Sample
+rate tells how many samples correspond to 1 sec. So if we take a
+product of term and sample rate we will get the amount of samples
+for this frequency.</p></li><li><p>To scale 2<em>&pi;</em> period to our sample count we will multiply every
+number from <code>(range samples)</code> by <code>factor</code>.</p></li><li><p>Actual collection generation using <code>Math/sin</code> function.</p> </li></ol> <p>Every number in returned collection will be in [-1..1] range. We can
+check that by just invoking <code>sine</code> (tip: test only with large values
+of frequencies because small frequencies results in very long
+sequences):</p>  <pre><code>user&gt; (sine 48000 5000)
+(0.0 0.6087614290087207 0.9659258262890683 0.9238795325112867
+ 0.49999999999999994 -0.13052619222005177 -0.7071067811865475
+ -0.9914448613738104 -0.8660254037844386 -0.38268343236508956)
+</code></pre> <p>Now we get the idea of generating a sine. The rest of this tutorial is
+actually just technical stuff, but they&apos;re essential to get things
+working.</p>  <h2>Audio Formats</h2> <p>To tell the sound system what we want to play we need to agree on some
+kind of contract on how our sound data will be formatted. This
+contract (or <em>protocol</em> if you will) is called an <em>audio
+format</em>. We&apos;ll just focus on most used format nowadays.</p>  <p>An audio format in Java is represented by object of <code>AudioFormat</code>
+class (which lives in
+<a href="http://download.oracle.com/javase/7/docs/api/index.html?javax/sound/sampled/package-summary.html">javax.sound.sampled</a>,
+we&apos;ll need some more classes from there, just keep that in mind).
+Objects of this class serve only as metadata so we&apos;ll create one,
+keep it somewhere and pass it around.</p>  <pre><code>(import &apos;(javax.sound.sampled AudioFormat AudioFormat$Encoding))
+
+(def popular-format
+  (AudioFormat. AudioFormat$Encoding/PCM_SIGNED ;1: format
+                48000 ;   sample rate
+                16    ;   bits per sample (2 bytes)
+                2     ;   channels: stereo!
+                4     ;2: frame size 2*16bits [bytes]
+                48000 ;3: frame rate
+                false ;4: little endian
+                ))
+</code></pre> <p>Again, I&apos;ll explain the numbered lines:</p>  <ol><li><p><code>PCM_SIGNED</code> is a linear signed and uncompressed format, which
+means that each sample will be a signed integer.</p>  <p>(<code>AudioFormat$Encoding/PCM_SIGNED</code> means <code>PCM_SIGNED</code> static
+variable in <code>Encoding</code> class which is inner class in
+<code>AudioFormat</code>.)</p></li><li><p>Frame is a complete unit of data for each moment in time (data for
+all channels). So it&apos;s size in our uncompressed format is just a
+number of bytes for every sample multiplied by number of channels.</p></li><li><p>Frame rate can be different from sample rate but it doesn&apos;t make
+sense this time.</p></li><li><p>When we have more bytes than one for a sample, order in which we
+read them matters. It&apos;s so-called
+<a href="http://en.wikipedia.org/wiki/Endianness"><em>endianness</em></a>. Big
+endian is reading bytes in forward direction, little endian is
+reading them backwards. My computer is little endian and I&apos;m
+sympathizing with him.</p> </li></ol> <h2>How To Actually Play Something?</h2> <p>To make our speakers move we need a <em>medium</em> (as in <em>mediation</em>) that
+will tell speakers what to do for us. This medium is called a <em>line</em>
+in other places by analogy with lines in mixers. It can be acquired
+from <a href="http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/AudioSystem.html">AudioSystem</a> class using <code>getLine</code> method. There&apos;s a <a href="http://download.oracle.com/javase/tutorial/sound/accessing.html">more
+elaborate explanation</a> on mixers and lines so I won&apos;t get into much detail.</p>  <pre><code>(import &apos;(javax.sound.sampled AudioSystem DataLine$Info
+                              SourceDataLine))
+(defn open-line [audio-format]
+  (doto (AudioSystem/getLine
+         (DataLine$Info. SourceDataLine audio-format))
+    (.open audio-format)
+    (.start)))</code></pre> <p>&quot;Getting a line&quot; is actually querying Java&apos;s audio system about line
+that complies to our needs. Query is an instance of
+<a href="http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/DataLine.Info.html">DataLine.Info</a>
+class. <code>SourceDataLine</code> says that we require a line that we can write
+to. Names of <code>SourceDataLine</code> and <code>TargetDataLine</code> correspond to how
+audio system sees it so they mean &quot;source&quot; and &quot;target&quot; not for our
+program but for audio system. Other parameter to <code>DataLine.Info</code>
+constructor is an audio format.</p>  <p>Next thing after getting a line is opening it and allowing data to
+flow through it. This is done by <code>open</code> and <code>start</code> methods
+respectively.</p>  <p>Then, playing a sound is done by invoking method <a href="http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/SourceDataLine.html#write(byte[],%20int,%20int%29">write(byte[] b, int off, int len)</a> which writes <code>len</code> bytes from <code>b</code> starting at index <code>off</code>. Writing will block until all bytes from <code>b</code> are flushed to sound system buffers.</p>  <p>Phew, now we know where we need to get: we&apos;ll generate that byte array for
+particular line.</p>  <h2>According To Contract...</h2> <p>Our sine is not quite ready to push it to speakers yet. We need to
+satisfy audio format that we defined earlier. To do that we will:</p>  <ol><li><p><strong>Scale values of sine</strong> to maximum and minimum values possible for
+our sample size. We have 16 bits at our disposal which means we
+have circa +/-&nbsp;2<sup>15</sup> range (one bit is stolen for sign).</p></li><li><p><strong>Tear each sample</strong> to bytes according to chosen <em>endianness</em>.</p></li><li><p><strong>Multiply each sample</strong> to conform number of channels.</p></li><li><p><strong>Pack whole sine</strong> to byte array.</p> </li></ol> <h3>Scaling</h3> <p>When coming out from <code>sine</code> function our samples have floating-point
+values from -1 to 1. We need to scale them to signed integers with
+values from -2<sup>samplesize-1</sup> to
+2<sup>samplesize-1</sup>-1. So just mulplying by amplitude of
+2<sup>samplesize-1</sup> will do the trick. Actual amplitude will be
+delivered by <code>amplitude</code> function:</p>  <pre><code>(defn amplitude [sample-size]
+  (Math/pow 2 (- sample-size 1.1)))</code></pre> <p>I subtract 1.1 (not 1) from sample size to avoid <em>dangerous</em>
+inaccuracy when multiplying two floating-point numbers.</p>  <p>Actual scaling will be done in <code>quantize</code> function:</p>  <pre><code>(defn quantize [amplitude value]
+  (int (* amplitude value)))</code></pre> <h3>Fragmentation To Bytes</h3> <p>I do reading integers backward and forward like this:</p>  <pre><code>(defn little-endian [size x]
+  (for [b (range size)]
+    (-&gt; (bit-shift-right x (* 8 b))
+        (bit-and 255)
+        unsigned-byte)))
+
+(defn big-endian [size x]
+  (reverse (little-endian size x)))</code></pre> <p>Where <code>unsigned-byte</code> is needed to cheat JVM because JVM supports only
+signed bytes with values from -128 to 127 and we need signed bytes
+with values in 0..255 range. Blah. So we cheat like this:</p>  <pre><code>(defn unsigned-byte [x]
+  (byte (if (&gt; x 127) (- x 256) x)))</code></pre> <p>This is one thing that I won&apos;t explain here :P. It&apos;d be just too
+big. It&apos;s based on how signed and unsigned numbers <a href="http://en.wikipedia.org/wiki/Two%27s_complement">look
+internally</a>.</p>  <h3>Repeating Data For Each Channel</h3> <p>OK. This will be very lame stereo. We&apos;ll just repeat data for each
+channel and I do it like this: <code>(take frame-size (cycle bytes))</code>. If
+you wanna you can modify that code (in fact, you should, wink wink,
+nudge nudge) and incorporate some fancy space-age surround effect.</p>  <h3>Gathering It All Together</h3> <p>Whole pipeline is mirrored in <code>sine-bytes</code> function with each of these
+steps represented by mapping a function on a collection returned by
+it&apos;s predecessor:</p>  <pre><code>(defn sine-bytes [format freq]
+  (let [{:keys [sampleSizeInBits frameSize
+                sampleRate bigEndian]} (bean format)
+        sample-size (/ sampleSizeInBits 8)
+        ampl (amplitude sample-size)
+        tear (if bigEndian big-endian little-endian)]
+    (-&gt;&gt; (sine sampleRate freq)
+         (map (partial quantize ampl))    ;1
+         (map (partial tear sample-size)) ;2
+         (map cycle)                      ;3
+         (map (partial take frameSize))   ;3
+         (apply concat)                   ;A
+         byte-array)))                    ;4
+</code></pre> <p>Numbers in comments corresponds to points mentioned before. Line &apos;A&apos;
+is responsible for flattening the list of lists to a single
+list. Output of <code>sine-bytes</code> is what a <em>line</em> needs.</p>  <h2>Agent</h2> <p>I&apos;ve promised that there will be no <code>loop</code> so here it is: whole playing
+thingy will be handled by an agent. State of our agent will look like
+this:</p>  <pre><code>{:line    line to write to
+ :playing are we are playing or not
+ :data    byte array with sound data}</code></pre> <p>Setting sine data of desired <code>freq</code> will be done by <code>recalc-data</code>:</p>  <pre><code>(defn recalc-data [{:keys [line] :as state} freq]
+  (assoc state :data (sine-bytes (.getFormat line) freq)))
+</code></pre> <p>For most of the time of agent&apos;s life, <code>play-data</code> will run (actually
+making the noise):</p>  <pre><code>(defn play-data [{:keys [line data playing] :as state} agent]
+  (when (and line data playing)
+    (.write line data 0 (count data)) ;1
+    (send-off agent play-data agent)) ;2
+  state)
+</code></pre> <p><code>play-data</code> will write whole <code>data</code> to the <code>line</code> [1], and send itself
+to agent to play it again [2] (here&apos;s how there&apos;s no <code>loop</code> but there&apos;s a
+loop). Turns out, agents are nice way to model such continuous I/O
+asynchronously. We&apos;ll start and pause playing by these fns:</p>  <pre><code>(defn pause [agent]
+  (send agent assoc :playing false)
+  (doto (:line @agent)
+    .stop .flush))
+
+(defn play [agent]
+  (.start (:line @agent))
+  (send agent assoc :playing true)
+  (send-off agent play-data agent))</code></pre> <p><code>pause</code> is <code>stop</code>ping the line to pause immediatly when
+called. Without this, pause would take effect after whole buffer is
+played. <code>flush</code> is invoked to flush anything that&apos;s left in sound
+system buffers.</p>  <p>I use <code>send-off</code> to <code>play-data</code> because it&apos;s a blocking operation.</p>  <p>Two final fns will automate creating fresh agent and changing
+frequency on the fly:</p>  <pre><code>(defn change-freq [agent freq]
+  (doto agent
+    pause
+    (send recalc-data freq)
+    play))
+
+(defn line-agent [line freq]
+  (let [agent (agent {:line line})]
+    (send agent recalc-data freq)
+    (play agent)))</code></pre> <h2>Testing Section Without Any Interesting Title</h2> <p>Now we can test it. Lets create a line agent playing some nice bass
+tone.</p>  <pre><code>user&gt; (def a (line-agent (open-line popular-format) 60))</code></pre> <p>If you don&apos;t have a subwoofer or good headphones you&apos;d like to
+increase the frequency to hear anything:</p>  <pre><code>user&gt; (change-freq a 200)</code></pre> <p>Also, we can test pausing and replaying the sound.</p>  <pre><code>user&gt; (pause a)
+user&gt; (play a)</code></pre> <p>If there&apos;s nothing coming out from speakers or some exception happened
+try changing audio format, my guesses would be toggling endianness and
+changing both rates to 44100.</p>  <h2>Appendix A: Melody</h2> <p>Maybe simple continuous sound is boring? Let&apos;s play a melody! :)</p>  <p>The simplest notation for music that I came up with is just a pair of
+tone and duration. So a melody is just a sequence of those.</p>  <pre><code>(def mountain-king
+  [[0 1] [2 1] [3 1] [5 1]
+   [7 1] [3 1] [7 2]
+   [6 1] [2 1] [6 2]
+   [5 1] [1 1] [5 2]
+   [0 1] [2 1] [3 1] [5 1]
+   [7 1] [3 1] [7 1] [12 1]
+   [10 1] [7 1] [3 1] [7 1]
+   [10 2] [-2 2]])</code></pre> <p>First number of every pair is a distance in semitones from some base
+tone. The second is a duration of note relative to some base duration.</p>  <p>Function <code>tone-freq</code> will translate tones to raw frequencies. For the
+value 99 it&apos;s 440 Hz which happens to be <a href="http://en.wikipedia.org/wiki/A440_%28pitch_standard%29">so-called <em>pitch
+standard</em></a>.
+To get a note an octave higher or lower just add/subtract 11.</p>  <pre><code>(defn tone-freq [x]
+  (-&gt; (Math/pow 2 (/ x 11)) (* 440) (/ 512)))</code></pre> <p>I won&apos;t get into details here... It&apos;s just scaling values so it&apos;s
+comfortable to use.</p>  <p>Using <code>Thread/sleep</code> is maybe the lamest timing
+technique you can get on JVM:</p>  <pre><code>(defn play-melody [agent base-tone base-duration melody]
+  (doseq [[tone duration] melody]
+    (change-freq agent (tone-freq (+ base-tone tone)))
+    (Thread/sleep (* base-duration duration)))
+  (pause agent))</code></pre> <p>Now, lets just play it (the awful clipping needs to be addressed in
+the nearest possible future):</p>  <pre><code>user&gt; (play-melody a 70 400 mountain-king)</code></pre> <p>If it&apos;s too low, try increasing <code>base-tone</code>. If it&apos;s to slow, try
+decreasing <code>base-duration</code>.</p>  <p>That&apos;s all. I&apos;ve put the code here:
+<a href="https://gist.github.com/1034374">https://gist.github.com/1034374</a>. Tell me what you think.</p>
+      </section>
+      
+    </article>
+    
+    
+    <section id="comments">
+      <div id="disqus_thread"></div>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+    
+    
+    <footer id="main_footer">
+      <nav id="return_to_top"><a href="#">↑ Top</a></nav>
+      <div id="copywrong">
+	      &copy; Copywrong 2011 Szymon Witamborski
+      </div>
+    </footer>
+    <script src="media/hyphenator.js"></script>
+    
+    <script type="text/javascript">
+      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var disqus_shortname = 'longstandingbug'; // required: replace example with your forum shortname
+
+      // The following are highly recommended additional parameters. Remove the slashes in front to use.
+      
+      var disqus_identifier = 'sound-synthesis.html';
+      var disqus_url = 'http://longstandingbug.com/sound-synthesis.html';
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+    
+    <!-- google analytics -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-23922729-1']);
+      _gaq.push(['_trackPageview']);
+      
+      (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>
+

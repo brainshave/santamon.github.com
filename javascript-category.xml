@@ -1,5 +1,0 @@
----
-layout: atom
----
-{% assign feed = site.categories.JavaScript %}
-{% include atom-listing.xml %}

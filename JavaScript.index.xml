@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>Long-standing Bug</title>
+  <link href="http://longstandingbug.com/atom.xml" rel="self" />
+  <link href="http://longstandingbug.com" />
+  <updated>2011-09-23T00:00:00+00:00</updated>
+  <id>http://longstandingbug.com/atom.xml</id>
+  <author>
+    <name>Szymon Witamborski</name>
+    <email>santamon@gmail.com</email>
+  </author>
+
+  
+  <entry>
+    <title>Another HTML/JavaScript Slideshow Library</title>
+    <link href="http://longstandingbug.com/sroo.html" />
+    <updated>2011-09-23T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/sroo.html</id>
+    <content type="html">
+      &lt;p&gt;There&amp;apos;s a bunch of them. Here&amp;apos;s another one: the
+&lt;a href=&quot;http://longstandingbug.com/sroo&quot;&gt;Sroo&lt;/a&gt;. My main excuse for creating
+it was to learn some JavaScript and DOM manipulation. It&amp;apos;s probably
+not very new and original but I&amp;apos;ve combined some features that sounded
+sane for me:&lt;/p&gt;
+      &lt;ul&gt;&lt;li&gt;&lt;p&gt;Slides are not marked by some CSS classes. Rather than that
+I prefer to use &amp;quot;semantic&amp;quot; tags, like &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; or &lt;code&gt;&amp;lt;section&amp;gt;&lt;/code&gt;.&lt;/p&gt;  &lt;p&gt;This actually makes it work well with content-generation programs,
+like &lt;a href=&quot;http://github.com/mojombo/jekyll&quot;&gt;Jekyll&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Prospectus view is used when your screen is to small, in portait
+orientation or when JavaScript is disabled.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Standard stuff like auto-scaling, navigation using mouse wheel and
+keyboard.&lt;/p&gt; &lt;/li&gt;&lt;/ul&gt; &lt;p&gt;There&amp;apos;s no support for legacy browsers but there&amp;apos;s wide support for
+current browsers (including IE 9). There&amp;apos;s actually only one problem
+with Opera Mobile (as of version 11.10) which just utterly destroys
+the layout. I believe it&amp;apos;s a bug :P. Serious mobile support is yet to
+come (with touch support).&lt;/p&gt;  &lt;p&gt;Like almost everything I do the project is &lt;a href=&quot;http://github.com/santamon/sroo&quot;&gt;on GitHub&lt;/a&gt;. I&amp;apos;m not providing any CSS
+themes because I&amp;apos;m a pretty awful designer and I don&amp;apos;t want to ruin
+your presentation :D.&lt;/p&gt;
+    </content>
+  </entry>
+  
+  <entry>
+    <title>WebGLOL</title>
+    <link href="http://longstandingbug.com/webglol.html" />
+    <updated>2011-05-22T00:00:00+00:00</updated>
+    <id>http://longstandingbug.com/webglol.html</id>
+    <content type="html">
+      &lt;p&gt;I deviated form my Clojure stuff for a while and made something
+completely different.&lt;/p&gt;
+      &lt;p&gt;I&amp;apos;m learning OpenGL recently. I&amp;apos;ve made this silly animation once in
+Java and wanted to see what it takes to port it to CoffeeScript and
+WebGL.&lt;/p&gt;  &lt;h2&gt;Don&amp;apos;t Even Wonder If That Means Anything ;-)&lt;/h2&gt; &lt;p class=&quot;sidenote&quot;&gt;Click for full window view&lt;/p&gt;
+
+ &lt;p&gt;&lt;canvas id=&quot;robot_canvas&quot; width=&quot;640&quot; height=&quot;300&quot; style=&quot;border: 1px solid black;&quot;&gt;&lt;/canvas&gt;&lt;/p&gt; &lt;script src=&quot;media/glMatrix-0.9.5.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;media/RequestAnimationFrame.js&quot;&gt;&lt;/script&gt;
+&lt;script id=&quot;shader-fs&quot; type=&quot;x-shader/x-fragment&quot;&gt;
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+
+    uniform vec4 vColor;
+
+    void main(void) {
+        gl_FragColor = vColor;
+    }
+&lt;/script&gt;
+&lt;script id=&quot;shader-vs&quot; type=&quot;x-shader/x-vertex&quot;&gt;
+    attribute vec3 aVertexPosition;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    }
+&lt;/script&gt;
+&lt;script src=&quot;media/robots.coffee&quot; type=&quot;text/coffeescript&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;media/coffee-script.js&quot;&gt;&lt;/script&gt;
+
+ &lt;p&gt;If you see a rectangle only it means you have to
+&lt;a href=&quot;http://get.webgl.org&quot;&gt;get WebGL-enabled browser&lt;/a&gt;. It probably won&amp;apos;t
+show up in feed readers because they usually block scripts. If you
+don&amp;apos;t have time to grab a browser, here you have a video of Java
+version (recording is crappy, I&amp;apos;m new to this also):&lt;/p&gt;  &lt;object width=&quot;425&quot; height=&quot;344&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/Epncu2iq0EU?hl=pl&amp;fs=1&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/Epncu2iq0EU?hl=pl&amp;fs=1&quot; type=&quot;application/x-shockwave-flash&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; width=&quot;425&quot; height=&quot;344&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+
+ &lt;p&gt;You can see the source code just by viewing source of this page or
+&lt;a href=&quot;https://github.com/santamon/OpenGLOL/tree/master/webgl&quot;&gt;on GitHub&lt;/a&gt;
+(files
+&lt;a href=&quot;https://github.com/santamon/OpenGLOL/blob/master/webgl/robots.html&quot;&gt;robots.html&lt;/a&gt;
+and
+&lt;a href=&quot;https://github.com/santamon/OpenGLOL/blob/master/webgl/robots.coffee&quot;&gt;robots.coffee&lt;/a&gt;).&lt;/p&gt;  &lt;h2&gt;Thoughts&lt;/h2&gt; &lt;p&gt;I have to say that WebGL is hard. There&amp;apos;s a lot you have to know
+before you draw anything. It&amp;apos;s bearable thanks to such great resources
+as &lt;a href=&quot;http://learningwebgl.com/blog/?page_id=1217&quot;&gt;Learning WebGL&lt;/a&gt;. I&amp;apos;ve
+done that animation only after 3 lessons so pace of this tutorial is
+really good. One more great thing about it is that examples are using
+very minimal set of external libraries so it&amp;apos;s kind of close to the
+metal. That animation was made with only addition of CoffeeScript. If
+you don&amp;apos;t want to write everything by hand there&amp;apos;s
+&lt;a href=&quot;https://github.com/mrdoob/three.js/&quot;&gt;Three.js&lt;/a&gt; library.&lt;/p&gt;  &lt;p&gt;I also gave CoffeeScript a try and it was worth it. I like that very
+succinct syntax -- my favorite is anonymous function: it&amp;apos;s just &lt;code&gt;-&amp;gt;&lt;/code&gt;
+(compared to JavaScript&amp;apos;s &lt;code&gt;function(){}&lt;/code&gt;). Some functional programming
+stuff like
+&lt;a href=&quot;http://jashkenas.github.com/coffee-script/#loops&quot;&gt;list comprehensions&lt;/a&gt;
+and
+&lt;a href=&quot;http://jashkenas.github.com/coffee-script/#destructuring&quot;&gt;destructuring lists&lt;/a&gt;
+are very welcome too. I don&amp;apos;t know much of JavaScript so I can&amp;apos;t tell
+how much writing in CoffeeScript was easier but at least it was more
+enjoyable :) .&lt;/p&gt;  &lt;p&gt;&lt;a href=&quot;http://jashkenas.github.com/coffee-script/&quot;&gt;CoffeeScript site&lt;/a&gt; make
+learning it easy. There&amp;apos;s even a real-time translator to JavaScript so
+you can play with language in the browser. What&amp;apos;s mentioned
+&lt;a href=&quot;http://jashkenas.github.com/coffee-script/#scripts&quot;&gt;almost at the very bottom of document&lt;/a&gt;
+is that you don&amp;apos;t have to compile &lt;code&gt;*.coffee&lt;/code&gt; to &lt;code&gt;*.js&lt;/code&gt; files
+offline. They can be compiled in the browser. Just include
+&lt;a href=&quot;http://jashkenas.github.com/coffee-script/extras/coffee-script.js&quot;&gt;&lt;code&gt;coffee-script.js&lt;/code&gt;&lt;/a&gt;
+and tag you scripts with &lt;code&gt;type=&amp;quot;text/coffeescript&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+    </content>
+  </entry>
+  
+  
+</feed>
